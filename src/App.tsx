@@ -12,7 +12,7 @@ export function App() {
       <h1 className="text-5xl font-bold font-doto my-4 leading-tight">
         Dos Tazas Coffee
       </h1>
-      <p className="font-doto">A coffee project</p>
+      <p className="font-roboto">A coffee project</p>
     </div>
   );
 }
