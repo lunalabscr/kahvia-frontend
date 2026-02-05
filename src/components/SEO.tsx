@@ -14,7 +14,7 @@ const SEO = ({
   title,
   description = "Café Dos Tazas - Exploring the world of coffee, one cup at a time.",
   canonical,
-  ogImage = "../public/logo.svg",
+  ogImage = "http://cafedostazas.com/coffeebean.jpg",
   ogType = "website",
   twitterHandle = "@cafedostazas",
   keywords,
