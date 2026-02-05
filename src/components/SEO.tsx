@@ -13,7 +13,7 @@ const SEO = ({
   title,
   description = "Café Dos Tazas - Exploring the world of coffee, one cup at a time.",
   canonical,
-  ogImage = "/logo.svg",
+  ogImage = "../logo.svg",
   ogType = "website",
   twitterHandle = "@cafedostazas",
 }: SEOProps) => {
