@@ -168,8 +168,6 @@ const outputTable = result.outputs.map((output) => ({
 console.table(outputTable);
 const buildTime = (end - start).toFixed(2);
 
-console.log(`\n✅ Build completed in ${buildTime}ms\n`);
-
 const publicDir = path.join(process.cwd(), "public");
 const publicOutDir = path.join(outdir, "public");
 
@@ -177,3 +175,5 @@ if (existsSync(publicDir)) {
   console.log(`📦 Copying public assets to ${publicOutDir}`);
   await cp(publicDir, publicOutDir, { recursive: true });
 }
+
+console.log(`\n✅ Build completed in ${buildTime}ms\n`);
