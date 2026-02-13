@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 const POSTS_QUERY = `*[
   _type == "post"
   && defined(slug.current)
-]|order(publishedAt desc)[0...3]{_id, title, slug, publishedAt, mainImage, body}`;
+]|order(publishedAt desc)[0...3]{_id, title, slug, publishedAt, image, body}`;
 
 const options = {};
 
@@ -30,7 +30,7 @@ export const SanityBlog = () => {
   return (
     <section className="py-12 bg-neutral-50" id="blog">
       <div className="container mx-auto px-4">
-        <h2 className="text-4xl font-bold mb-12 text-center text-primary-900">
+        <h2 className="text-4xl font-bold mb-12 text-center text-primary-900 font-doto">
           Latest Stories
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -40,10 +40,10 @@ export const SanityBlog = () => {
               key={post._id}
               className="group bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300 flex flex-col h-full"
             >
-              {post.mainImage && (
+              {post.image && (
                 <div className="h-48 overflow-hidden">
                   <img
-                    src={urlFor(post.mainImage).width(800).height(500).url()}
+                    src={urlFor(post.image).width(800).height(500).url()}
                     alt={post.title}
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                   />

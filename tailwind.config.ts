@@ -1,5 +1,6 @@
-import type { Config } from 'tailwindcss'
-import colors from 'tailwindcss/colors'
+import type { Config } from "tailwindcss";
+import colors from "tailwindcss/colors";
+import typography from "@tailwindcss/typography";
 
 const config: Config = {
   content: ["./src/**/*.{js,ts,jsx,tsx}"],
@@ -7,11 +8,11 @@ const config: Config = {
     extend: {
       colors: {
         // High-priority actions (Buttons, active links)
-        primary: colors.indigo, 
-        
+        primary: colors.indigo,
+
         // Secondary actions, accents, or subtle backgrounds
         secondary: colors.slate,
-        
+
         // Semantic colors for feedback
         success: colors.emerald,
         error: colors.rose,
@@ -23,7 +24,7 @@ const config: Config = {
       },
     },
   },
-  plugins: [],
-}
+  plugins: [typography],
+};
 
-export default config
+export default config;

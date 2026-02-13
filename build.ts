@@ -153,6 +153,15 @@ const result = await Bun.build({
   sourcemap: "linked",
   define: {
     "process.env.NODE_ENV": JSON.stringify("production"),
+    "process.env.BUN_PUBLIC_SANITY_PROJECT_ID": JSON.stringify(
+      process.env.BUN_PUBLIC_SANITY_PROJECT_ID,
+    ),
+    "process.env.BUN_PUBLIC_SANITY_DATASET": JSON.stringify(
+      process.env.BUN_PUBLIC_SANITY_DATASET,
+    ),
+    "process.env.BUN_PUBLIC_SANITY_API_VERSION": JSON.stringify(
+      process.env.BUN_PUBLIC_SANITY_API_VERSION,
+    ),
   },
   ...cliConfig,
 });
