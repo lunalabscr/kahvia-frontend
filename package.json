@@ -9,16 +9,21 @@
     "build": "bun run build.ts"
   },
   "dependencies": {
+    "@portabletext/react": "^6.0.2",
+    "@sanity/client": "^7.14.1",
+    "@sanity/image-url": "^2.0.3",
+    "@types/react-router-dom": "^5.3.3",
     "bun-plugin-tailwind": "^0.1.2",
     "lucide-react": "^0.563.0",
     "react": "^19",
     "react-dom": "^19",
     "react-helmet-async": "^2.0.5",
+    "react-router-dom": "^7.13.0",
     "tailwindcss": "^4.1.11"
   },
   "devDependencies": {
+    "@types/bun": "latest",
     "@types/react": "^19",
-    "@types/react-dom": "^19",
-    "@types/bun": "latest"
+    "@types/react-dom": "^19"
   }
 }

@@ -1,11 +1,14 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Menu, X, Home, Coffee, Phone, Instagram, Info } from "lucide-react";
 import { useClickOutside } from "../hooks/useClickOutside";
+import { useLocation, useNavigate } from "react-router-dom";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
+  const location = useLocation();
+  const navigate = useNavigate();
 
   useClickOutside(menuRef, () => setIsOpen(false), [buttonRef]);
 
@@ -16,6 +19,43 @@ export default function Navbar() {
     { name: "Contact", href: "#contact", icon: Phone },
   ];
 
+  const getHref = (linkHref: string) => {
+    if (location.pathname === "/") {
+      return linkHref;
+    }
+    return `/${linkHref}`;
+  };
+
+  const handleNavClick = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    linkHref: string,
+  ) => {
+    const targetId = linkHref.replace("#", "");
+
+    // If we are on home and purely scrolling, prevent default
+    if (location.pathname === "/") {
+      e.preventDefault();
+      setIsOpen(false);
+
+      if (targetId === "") {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      } else {
+        const element = document.getElementById(targetId);
+        if (element) {
+          element.scrollIntoView({ behavior: "smooth" });
+        }
+      }
+    } else {
+      e.preventDefault();
+      setIsOpen(false);
+      if (targetId === "") {
+        navigate("/");
+      } else {
+        navigate({ pathname: "/", hash: targetId });
+      }
+    }
+  };
+
   return (
     <>
       {/* Top Navbar */}
@@ -23,7 +63,17 @@ export default function Navbar() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             {/* Logo */}
-            <a href="#" className="flex-shrink-0 flex items-center group">
+            {/* Logic for Logo: If on Home, scroll top. If not, go Home. */}
+            <a
+              href="/"
+              onClick={(e) => {
+                if (location.pathname === "/") {
+                  e.preventDefault();
+                  window.scrollTo({ top: 0, behavior: "smooth" });
+                }
+              }}
+              className="flex-shrink-0 flex items-center group cursor-pointer"
+            >
               <span className="font-doto text-2xl font-bold text-primary-600 group-hover:text-primary-700 transition-colors">
                 Dos Tazas
               </span>
@@ -34,8 +84,9 @@ export default function Navbar() {
               {navLinks.map((link) => (
                 <a
                   key={link.name}
-                  href={link.href}
-                  className="text-neutral-600 hover:text-primary-600 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200"
+                  href={getHref(link.href)}
+                  onClick={(e) => handleNavClick(e, link.href)}
+                  className="text-neutral-600 hover:text-primary-600 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 cursor-pointer"
                 >
                   {link.name}
                 </a>
@@ -75,9 +126,9 @@ export default function Navbar() {
             {navLinks.map((link) => (
               <a
                 key={link.name}
-                href={link.href}
-                className="text-neutral-600 hover:text-primary-600 hover:bg-neutral-50 block px-3 py-2 rounded-md text-base font-medium flex items-center gap-2"
-                onClick={() => setIsOpen(false)}
+                href={getHref(link.href)}
+                onClick={(e) => handleNavClick(e, link.href)}
+                className="text-neutral-600 hover:text-primary-600 hover:bg-neutral-50 block px-3 py-2 rounded-md text-base font-medium flex items-center gap-2 cursor-pointer"
               >
                 <link.icon size={18} />
                 {link.name}
@@ -101,22 +152,25 @@ export default function Navbar() {
       <div className="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-neutral-200 z-50 pb-safe">
         <div className="flex justify-around items-center h-16">
           <a
-            href="#"
-            className="flex flex-col items-center justify-center w-full h-full text-neutral-600 hover:text-primary-600"
+            href={getHref("#")}
+            onClick={(e) => handleNavClick(e, "#")}
+            className="flex flex-col items-center justify-center w-full h-full text-neutral-600 hover:text-primary-600 cursor-pointer"
           >
             <Home size={24} />
             <span className="text-xs mt-1">Home</span>
           </a>
           <a
-            href="#products"
-             className="flex flex-col items-center justify-center w-full h-full text-neutral-600 hover:text-primary-600"
+            href={getHref("#products")}
+            onClick={(e) => handleNavClick(e, "#products")}
+            className="flex flex-col items-center justify-center w-full h-full text-neutral-600 hover:text-primary-600 cursor-pointer"
           >
             <Coffee size={24} />
             <span className="text-xs mt-1">Products</span>
           </a>
           <a
-            href="#contact"
-             className="flex flex-col items-center justify-center w-full h-full text-neutral-600 hover:text-primary-600"
+            href={getHref("#contact")}
+            onClick={(e) => handleNavClick(e, "#contact")}
+            className="flex flex-col items-center justify-center w-full h-full text-neutral-600 hover:text-primary-600 cursor-pointer"
           >
             <Phone size={24} />
             <span className="text-xs mt-1">Contact</span>
