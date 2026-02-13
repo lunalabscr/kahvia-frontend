@@ -8,6 +8,8 @@ const config: Config = {
     extend: {
       colors: {
         // High-priority actions (Buttons, active links)
+        // TIP: To change the primary color, replace 'colors.indigo' with another Tailwind color (e.g., colors.blue)
+        // or a custom hex code (e.g., '#4f46e5' or { 500: '#4f46e5', 600: '#4338ca' }).
         primary: colors.indigo,
 
         // Secondary actions, accents, or subtle backgrounds
