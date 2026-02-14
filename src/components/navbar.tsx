@@ -1,7 +1,17 @@
-import { useState, useRef, useEffect } from "react";
-import { Menu, X, Home, Coffee, Phone, Instagram, Info } from "lucide-react";
+import { useState, useRef } from "react";
+import {
+  Menu,
+  X,
+  Home,
+  Coffee,
+  Phone,
+  Instagram,
+  Info,
+  Globe,
+} from "lucide-react";
 import { useClickOutside } from "../hooks/useClickOutside";
 import { useLocation, useNavigate } from "react-router-dom";
+import { useLanguage } from "../context/LanguageContext";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -9,21 +19,31 @@ export default function Navbar() {
   const buttonRef = useRef<HTMLButtonElement>(null);
   const location = useLocation();
   const navigate = useNavigate();
+  const { language, setLanguage, t } = useLanguage();
 
   useClickOutside(menuRef, () => setIsOpen(false), [buttonRef]);
 
   const navLinks = [
-    { name: "Home", href: "#", icon: Home },
-    { name: "About", href: "#about", icon: Info },
-    { name: "Products", href: "#products", icon: Coffee },
-    { name: "Contact", href: "#contact", icon: Phone },
+    { name: t.nav.home, href: "#", icon: Home },
+    { name: t.nav.about, href: "#about", icon: Info },
+    { name: t.nav.products, href: "#products", icon: Coffee },
+    { name: t.nav.contact, href: "#contact", icon: Phone },
   ];
 
+  const toggleLanguage = () => {
+    setLanguage(language === "en" ? "es" : "en");
+    setIsOpen(false);
+  };
+
   const getHref = (linkHref: string) => {
-    if (location.pathname === "/") {
+    // Always prepend language
+    if (
+      location.pathname === `/${language}/` ||
+      location.pathname === `/${language}`
+    ) {
       return linkHref;
     }
-    return `/${linkHref}`;
+    return `/${language}/${linkHref}`;
   };
 
   const handleNavClick = (
@@ -33,7 +53,11 @@ export default function Navbar() {
     const targetId = linkHref.replace("#", "");
 
     // If we are on home and purely scrolling, prevent default
-    if (location.pathname === "/") {
+    const isHome =
+      location.pathname === `/${language}/` ||
+      location.pathname === `/${language}`;
+
+    if (isHome) {
       e.preventDefault();
       setIsOpen(false);
 
@@ -49,9 +73,9 @@ export default function Navbar() {
       e.preventDefault();
       setIsOpen(false);
       if (targetId === "") {
-        navigate("/");
+        navigate(`/${language}/`);
       } else {
-        navigate({ pathname: "/", hash: targetId });
+        navigate({ pathname: `/${language}/`, hash: targetId });
       }
     }
   };
@@ -65,11 +89,17 @@ export default function Navbar() {
             {/* Logo */}
             {/* Logic for Logo: If on Home, scroll top. If not, go Home. */}
             <a
-              href="/"
+              href={`/${language}/`}
               onClick={(e) => {
-                if (location.pathname === "/") {
+                if (
+                  location.pathname === `/${language}/` ||
+                  location.pathname === `/${language}`
+                ) {
                   e.preventDefault();
                   window.scrollTo({ top: 0, behavior: "smooth" });
+                } else {
+                  e.preventDefault();
+                  navigate(`/${language}/`);
                 }
               }}
               className="flex-shrink-0 flex items-center group cursor-pointer"
@@ -91,6 +121,14 @@ export default function Navbar() {
                   {link.name}
                 </a>
               ))}
+              <button
+                onClick={toggleLanguage}
+                className="text-neutral-600 hover:text-primary-600 transition-colors duration-200 flex items-center gap-1 font-medium"
+                aria-label="Toggle language"
+              >
+                <Globe size={20} />
+                <span>{language === "en" ? "ES" : "EN"}</span>
+              </button>
               <a
                 href="https://www.instagram.com/dostazascafe/"
                 target="_blank"
@@ -102,7 +140,15 @@ export default function Navbar() {
             </div>
 
             {/* Mobile Menu Button (Hamburger) */}
-            <div className="flex md:hidden">
+            <div className="flex md:hidden items-center gap-4">
+              <button
+                onClick={toggleLanguage}
+                className="text-neutral-600 hover:text-primary-600 p-2 focus:outline-none"
+              >
+                <span className="font-bold">
+                  {language === "en" ? "ES" : "EN"}
+                </span>
+              </button>
               <button
                 ref={buttonRef}
                 onClick={() => setIsOpen(!isOpen)}
@@ -157,7 +203,7 @@ export default function Navbar() {
             className="flex flex-col items-center justify-center w-full h-full text-neutral-600 hover:text-primary-600 cursor-pointer"
           >
             <Home size={24} />
-            <span className="text-xs mt-1">Home</span>
+            <span className="text-xs mt-1">{t.nav.home}</span>
           </a>
           <a
             href={getHref("#products")}
@@ -165,7 +211,7 @@ export default function Navbar() {
             className="flex flex-col items-center justify-center w-full h-full text-neutral-600 hover:text-primary-600 cursor-pointer"
           >
             <Coffee size={24} />
-            <span className="text-xs mt-1">Products</span>
+            <span className="text-xs mt-1">{t.nav.products}</span>
           </a>
           <a
             href={getHref("#contact")}
@@ -173,7 +219,7 @@ export default function Navbar() {
             className="flex flex-col items-center justify-center w-full h-full text-neutral-600 hover:text-primary-600 cursor-pointer"
           >
             <Phone size={24} />
-            <span className="text-xs mt-1">Contact</span>
+            <span className="text-xs mt-1">{t.nav.contact}</span>
           </a>
         </div>
       </div>

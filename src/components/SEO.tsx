@@ -1,4 +1,5 @@
 import { Helmet } from "react-helmet-async";
+import { useLanguage } from "@/context/LanguageContext";
 
 interface SEOProps {
   title: string;
@@ -19,8 +20,11 @@ const SEO = ({
   twitterHandle = "@cafedostazas",
   keywords = "coffee, café, dos tazas, specialty coffee, costa rica",
 }: SEOProps) => {
+  const { language } = useLanguage();
   const siteName = "Café Dos Tazas";
   const fullTitle = title.includes("|") ? title : `${title} | ${siteName}`;
+  const effectiveCanonical =
+    canonical || `https://cafedostazas.com/${language}/`;
 
   // JSON-LD Structured Data
   const structuredData = {
@@ -29,8 +33,8 @@ const SEO = ({
     name: siteName,
     image: ogImage,
     description: description,
-    url: canonical,
-    telephon: "+1-555-555-5555", // Placeholder
+    url: effectiveCanonical,
+    telephone: "+1-555-555-5555", // Placeholder
     address: {
       "@type": "PostalAddress",
       streetAddress: "123 Coffee Lane",
@@ -74,14 +78,14 @@ const SEO = ({
       <meta name="keywords" content={keywords} />
       <meta name="viewport" content="width=device-width, initial-scale=1" />
       <meta charSet="utf-8" />
-      <link rel="canonical" href={canonical} />
+      <link rel="canonical" href={effectiveCanonical} />
 
       {/* Open Graph / Facebook */}
       <meta property="og:type" content={ogType} />
       <meta property="og:title" content={fullTitle} />
       <meta property="og:description" content={description} />
       <meta property="og:image" content={ogImage} />
-      <meta property="og:url" content={canonical} />
+      <meta property="og:url" content={effectiveCanonical} />
       <meta property="og:site_name" content={siteName} />
 
       {/* Twitter */}
@@ -91,7 +95,7 @@ const SEO = ({
       <meta name="twitter:title" content={fullTitle} />
       <meta name="twitter:description" content={description} />
       <meta name="twitter:image" content={ogImage} />
-      
+
       {/* Structured Data */}
       <script type="application/ld+json">
         {JSON.stringify(structuredData)}

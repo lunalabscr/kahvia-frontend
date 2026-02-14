@@ -8,9 +8,12 @@ import ProductCard from "../components/ProductCard";
 import { ChevronLeft, ChevronRight, Loader2 } from "lucide-react";
 import type { Product } from "@/interfaces/product";
 import useEmblaCarousel from "embla-carousel-react";
+import SEO from "../components/SEO";
+import { useLanguage } from "@/context/LanguageContext";
 
 export const ProductPage = () => {
   const { slug } = useParams();
+  const { t, language } = useLanguage();
   const [product, setProduct] = useState<Product | null>(null);
   const [relatedProducts, setRelatedProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
@@ -100,7 +103,7 @@ export const ProductPage = () => {
     return (
       <div className="min-h-screen flex flex-col justify-center items-center font-roboto">
         Product not found{" "}
-        <Link to="/" className="text-primary-600 underline mt-4">
+        <Link to={`/${language}/`} className="text-primary-600 underline mt-4">
           Go Home
         </Link>
       </div>
@@ -114,6 +117,12 @@ export const ProductPage = () => {
 
   return (
     <div className="bg-white min-h-screen pt-20 pb-20 font-roboto">
+      <SEO
+        title={`${product.name} | Dos Tazas`}
+        description={`Buy ${product.name} - ${product.price}`}
+        canonical={`http://cafedostazas.com/${language}/product/${product.slug.current}`}
+        ogImage={urlFor(product.image).width(1200).height(630).url()}
+      />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-20">
           {/* Left: Image Carousel */}

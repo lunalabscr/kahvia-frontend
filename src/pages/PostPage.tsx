@@ -5,26 +5,28 @@ import type { SanityDocument } from "@sanity/client";
 import { urlFor } from "../sanity/image";
 import SEO from "../components/SEO";
 import { PortableText } from "@portabletext/react";
+import { useLanguage } from "@/context/LanguageContext";
 
-const POST_QUERY = `*[_type == "post" && slug.current == $slug][0]`;
+const POST_QUERY = `*[_type == "post" && slug.current == $slug && language == $lang][0]`;
 
 const PostPage = () => {
   const { slug } = useParams();
   const [post, setPost] = useState<SanityDocument | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const { language, t } = useLanguage();
 
   useEffect(() => {
     if (slug) {
       setIsLoading(true);
       client
-        .fetch<SanityDocument>(POST_QUERY, { slug })
+        .fetch<SanityDocument>(POST_QUERY, { slug, lang: language })
         .then((data) => {
           setPost(data);
           setIsLoading(false);
         })
         .catch(() => setIsLoading(false));
     }
-  }, [slug]);
+  }, [slug, language]);
 
   if (isLoading) {
     return (
@@ -36,30 +38,23 @@ const PostPage = () => {
 
   if (!post) {
     return (
-      <div className="min-h-[50vh] flex flex-col items-center justify-center text-center px-4">
-        <h1 className="text-4xl font-bold text-neutral-900 mb-4">
-          Post Not Found
-        </h1>
-        <p className="text-neutral-600 mb-8 max-w-md">
-          The blog post you are looking for doesn't exist or has been moved.
-        </p>
+      <div className="max-w-prose mx-auto px-4 sm:px-6 lg:px-8 text-center pt-20">
+        <h1 className="text-2xl font-bold mb-4">{t.product.notFound}</h1>
         <Link
-          to="/"
-          className="inline-block bg-primary-900 text-white px-6 py-3 rounded-lg hover:bg-primary-800 transition-colors"
+          to={`/${language}/`}
+          className="text-primary-600 hover:text-primary-700"
         >
-          Return Home
+          {t.product.backHome}
         </Link>
       </div>
     );
   }
 
-  console.log(post);
-
   return (
     <>
       <SEO
-        title={`${post.title} | Café Dos Tazas`}
-        description={post.excerpt || `Read ${post.title} on Café Dos Tazas.`}
+        title={`${post.title} | Dos Tazas`}
+        description={post.excerpt}
         canonical={`http://cafedostazas.com/post/${post.slug.current}`}
         ogImage={
           post.image
@@ -82,7 +77,7 @@ const PostPage = () => {
             {post.title}
           </h1>
           <p className="text-neutral-500 mb-6">
-            {new Date(post.publishedAt).toLocaleDateString(undefined, {
+            {new Date(post.publishedAt).toLocaleDateString(language, {
               year: "numeric",
               month: "long",
               day: "numeric",

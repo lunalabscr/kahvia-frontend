@@ -3,25 +3,27 @@ import type { SanityDocument } from "@sanity/client";
 import { urlFor } from "../../sanity/image";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { useLanguage } from "@/context/LanguageContext";
 
 const POSTS_QUERY = `*[
   _type == "post"
   && defined(slug.current)
+  && language == $lang
 ]|order(publishedAt desc)[0...3]{_id, title, slug, publishedAt, image, body}`;
-
-const options = {};
-
-const fetchPosts = async () => {
-  const posts = await client.fetch<SanityDocument[]>(POSTS_QUERY, {}, options);
-  return posts;
-};
 
 export const SanityBlog = () => {
   const [posts, setPosts] = useState<SanityDocument[]>([]);
+  const { language, t } = useLanguage();
 
   useEffect(() => {
-    fetchPosts().then((posts) => setPosts(posts));
-  }, []);
+    const fetchPosts = async () => {
+      const posts = await client.fetch<SanityDocument[]>(POSTS_QUERY, {
+        lang: language,
+      });
+      setPosts(posts);
+    };
+    fetchPosts();
+  }, [language]);
 
   if (posts.length === 0) {
     return null;
@@ -31,12 +33,12 @@ export const SanityBlog = () => {
     <section className="py-20 bg-neutral-50" id="blog">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <h2 className="text-4xl font-bold mb-12 text-center text-primary-900 font-doto">
-          Latest Stories
+          {t.home.blog.title}
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {posts.map((post) => (
             <Link
-              to={`/post/${post.slug.current}`}
+              to={`/${language}/post/${post.slug.current}`}
               key={post._id}
               className="group bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300 flex flex-col h-full"
             >
@@ -51,7 +53,7 @@ export const SanityBlog = () => {
               )}
               <div className="p-6 flex flex-col flex-grow">
                 <p className="text-sm text-primary-600 font-medium mb-2">
-                  {new Date(post.publishedAt).toLocaleDateString(undefined, {
+                  {new Date(post.publishedAt).toLocaleDateString(language, {
                     year: "numeric",
                     month: "long",
                     day: "numeric",
@@ -62,7 +64,7 @@ export const SanityBlog = () => {
                 </h3>
                 {/* Optional: Add excerpt here if available in the future */}
                 <span className="text-primary-700 font-medium mt-auto inline-flex items-center">
-                  Read more
+                  {t.home.blog.readMore}
                   <svg
                     className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1"
                     fill="none"

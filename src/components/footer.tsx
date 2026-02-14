@@ -1,45 +1,47 @@
 import { Instagram } from "lucide-react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, Link } from "react-router-dom";
+import { useLanguage } from "../context/LanguageContext";
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
   const location = useLocation();
   const navigate = useNavigate();
+  const { language, t } = useLanguage();
 
   const handleNavClick = (
     e: React.MouseEvent<HTMLAnchorElement>,
-    linkHref: string,
+    targetId: string,
   ) => {
-    const targetId = linkHref.replace("#", "");
     e.preventDefault();
-
-    if (location.pathname === "/") {
-      if (targetId === "") {
+    if (
+      location.pathname === `/${language}` ||
+      location.pathname === `/${language}/`
+    ) {
+      const id = targetId.replace("#", "");
+      if (id === "") {
         window.scrollTo({ top: 0, behavior: "smooth" });
-      } else {
-        const element = document.getElementById(targetId);
-        if (element) {
-          element.scrollIntoView({ behavior: "smooth" });
-        }
+        return;
+      }
+      const element = document.getElementById(id);
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth" });
       }
     } else {
-      if (targetId === "") {
-        navigate("/");
-      } else {
-        navigate({ pathname: "/", hash: targetId });
-      }
+      navigate(`/${language}/${targetId}`);
     }
   };
 
   return (
     <footer className="bg-neutral-900 text-neutral-400 py-12 pb-24 md:pb-12 border-t border-neutral-800">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-12 text-center md:text-left">
           {/* Brand */}
-          <div className="text-center md:text-left">
-            <h3 className="font-doto text-2xl font-bold text-white mb-4">
-              Dos Tazas
-            </h3>
+          <div className="col-span-1 md:col-span-1">
+            <Link to={`/${language}/`} className="inline-block group mb-6">
+              <span className="font-doto text-3xl font-bold text-white group-hover:text-primary-400 transition-colors">
+                Dos Tazas
+              </span>
+            </Link>
             <p className="font-roboto text-sm max-w-xs mx-auto md:mx-0">
               A project dedicated to exploring and sharing the world of
               specialty coffee.
@@ -52,38 +54,47 @@ export default function Footer() {
             <ul className="space-y-2 font-roboto">
               <li>
                 <a
-                  href="#"
+                  href={`/${language}/#`}
                   onClick={(e) => handleNavClick(e, "#")}
                   className="hover:text-primary-400 transition-colors cursor-pointer"
                 >
-                  Home
+                  {t.nav.home}
                 </a>
               </li>
               <li>
                 <a
-                  href="#about"
+                  href={`/${language}/#about`}
                   onClick={(e) => handleNavClick(e, "#about")}
                   className="hover:text-primary-400 transition-colors cursor-pointer"
                 >
-                  About
+                  {t.nav.about}
                 </a>
               </li>
               <li>
                 <a
-                  href="#products"
+                  href={`/${language}/#products`}
                   onClick={(e) => handleNavClick(e, "#products")}
                   className="hover:text-primary-400 transition-colors cursor-pointer"
                 >
-                  Products
+                  {t.nav.products}
                 </a>
               </li>
               <li>
                 <a
-                  href="#contact"
+                  href={`/${language}/#blog`}
+                  onClick={(e) => handleNavClick(e, "#blog")}
+                  className="hover:text-primary-400 transition-colors cursor-pointer"
+                >
+                  {t.nav.blog}
+                </a>
+              </li>
+              <li>
+                <a
+                  href={`/${language}/#contact`}
                   onClick={(e) => handleNavClick(e, "#contact")}
                   className="hover:text-primary-400 transition-colors cursor-pointer"
                 >
-                  Contact
+                  {t.nav.contact}
                 </a>
               </li>
             </ul>
@@ -107,9 +118,7 @@ export default function Footer() {
         </div>
 
         <div className="border-t border-neutral-800 pt-8 text-center text-sm font-roboto">
-          <p>
-            &copy; {currentYear} Dos Tazas Coffee Project. All rights reserved.
-          </p>
+          <p>{t.common.footerText.replace("{year}", currentYear.toString())}</p>
         </div>
       </div>
     </footer>

@@ -2,12 +2,14 @@ import { Link } from "react-router-dom";
 import { urlFor } from "@/sanity/image";
 import type { Product } from "@/interfaces/product";
 import { ArrowRight } from "lucide-react";
+import { useLanguage } from "@/context/LanguageContext";
 
 interface ProductCardProps {
   product: Product;
 }
 
 export default function ProductCard({ product }: ProductCardProps) {
+  const { language } = useLanguage();
   const formattedPrice = new Intl.NumberFormat("en-US", {
     style: "currency",
     currency: "USD",
@@ -15,7 +17,7 @@ export default function ProductCard({ product }: ProductCardProps) {
 
   return (
     <Link
-      to={`/product/${product.slug.current}`}
+      to={`/${language}/product/${product.slug.current}`}
       className="group bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300 flex flex-col h-full border border-transparent hover:border-neutral-100"
     >
       <div className="aspect-square bg-neutral-50 relative overflow-hidden">

@@ -1,16 +1,18 @@
 import ContactButton from "./ContactButton";
+import { useLanguage } from "@/context/LanguageContext";
 
 export default function Contact() {
+  const { t } = useLanguage();
+
   return (
     <section id="contact" className="py-20 bg-neutral-900 text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <h2 className="text-3xl font-doto font-bold mb-6">Get in Touch</h2>
+        <h2 className="text-3xl font-doto font-bold mb-6">{t.contact.title}</h2>
         <p className="text-neutral-400 mb-8 max-w-2xl mx-auto font-roboto">
-          Have questions about our beans, brewing methods, or just want to chat
-          coffee? We are here to help. Reach out to us directly on WhatsApp.
+          {t.contact.description}
         </p>
 
-        <ContactButton />
+        <ContactButton message={t.contact.buttonMessage} />
       </div>
     </section>
   );
