@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "bun --hot src/index.ts",
     "start": "NODE_ENV=production bun src/index.ts",
-    "build": "bun run build.ts --public-path /"
+    "build": "bun run build.ts --public-path /",
+    "sitemap": "bun run scripts/generate-sitemap.ts"
   },
   "dependencies": {
     "@portabletext/react": "^6.0.2",

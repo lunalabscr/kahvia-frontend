@@ -1,6 +1,7 @@
 import { Routes, Route, Navigate } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
 import ScrollToTop from "./components/ScrollToTop";
+import GoogleAnalytics from "./components/GoogleAnalytics";
 import Layout from "./components/Layout";
 import { HomePage } from "./pages/HomePage";
 import { ProductPage } from "./pages/ProductPage";
@@ -12,6 +13,7 @@ export function App() {
   return (
     <HelmetProvider>
       <ScrollToTop />
+      <GoogleAnalytics />
       <Routes>
         <Route path="/" element={<Navigate to="/en" replace />} />
         <Route

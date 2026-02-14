@@ -43,14 +43,13 @@ export default function Footer() {
               </span>
             </Link>
             <p className="font-roboto text-sm max-w-xs mx-auto md:mx-0">
-              A project dedicated to exploring and sharing the world of
-              specialty coffee.
+              {t.common.madeWithLove}
             </p>
           </div>
 
           {/* Links */}
           <div className="text-center">
-            <h4 className="font-bold text-white mb-4">Quick Links</h4>
+            <h4 className="font-bold text-white mb-4">{t.common.quickLinks}</h4>
             <ul className="space-y-2 font-roboto">
               <li>
                 <a
@@ -102,7 +101,7 @@ export default function Footer() {
 
           {/* Social */}
           <div className="text-center md:text-right">
-            <h4 className="font-bold text-white mb-4">Follow Us</h4>
+            <h4 className="font-bold text-white mb-4">{t.common.followUs}</h4>
             <div className="flex justify-center md:justify-end gap-4">
               <a
                 href="https://www.instagram.com/dostazascafe/"

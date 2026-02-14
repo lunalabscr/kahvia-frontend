@@ -1,15 +1,11 @@
 import { Link } from "react-router-dom";
 import { urlFor } from "@/sanity/image";
-import type { Product } from "@/interfaces/product";
+import type { ProductCardProps } from "@/interfaces/product";
 import { ArrowRight } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
 
-interface ProductCardProps {
-  product: Product;
-}
-
 export default function ProductCard({ product }: ProductCardProps) {
-  const { language } = useLanguage();
+  const { language, t } = useLanguage();
   const formattedPrice = new Intl.NumberFormat("en-US", {
     style: "currency",
     currency: "USD",
@@ -33,7 +29,7 @@ export default function ProductCard({ product }: ProductCardProps) {
       <div className="p-6 flex flex-col flex-grow">
         <div className="mb-2">
           <span className="text-xs font-bold tracking-wider text-primary-600 uppercase">
-            Single Origin
+            {t.product.singleOrigin}
           </span>
         </div>
         <h3 className="text-xl font-doto font-bold text-neutral-900 mb-2 leading-tight group-hover:text-primary-700 transition-colors">
@@ -45,7 +41,7 @@ export default function ProductCard({ product }: ProductCardProps) {
             {formattedPrice}
           </span>
           <div className="flex items-center gap-1 text-sm font-medium text-neutral-500 group-hover:text-primary-600 transition-colors">
-            Details
+            {t.product.details}
             <ArrowRight
               size={16}
               className="transition-transform duration-300 group-hover:translate-x-1"

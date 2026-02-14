@@ -1,4 +1,5 @@
 import { MessageCircle } from "lucide-react";
+import { useLanguage } from "@/context/LanguageContext";
 
 interface ContactButtonProps {
   text?: string;
@@ -8,11 +9,13 @@ interface ContactButtonProps {
 }
 
 export default function ContactButton({
-  text = "Chat on WhatsApp",
+  text,
   phoneNumber = "1234567890", // Placeholder, ideally this should be a prop or env variable if global
   message = "Hello, I would like to know more about Dos Tazas coffee.",
   className = "",
 }: ContactButtonProps) {
+  const { t } = useLanguage();
+  const buttonText = text || t.contactButton.defaultText;
   const encodedMessage = encodeURIComponent(message);
   const whatsappLink = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
 
@@ -24,7 +27,7 @@ export default function ContactButton({
       className={`inline-flex items-center gap-3 bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-8 rounded-full transition-colors duration-300 text-lg shadow-lg hover:shadow-xl ${className}`}
     >
       <MessageCircle size={24} />
-      {text}
+      {buttonText}
     </a>
   );
 }

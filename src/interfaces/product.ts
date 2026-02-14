@@ -17,3 +17,6 @@ export interface Product {
     altText: string;
   }>;
 }
+export interface ProductCardProps {
+  product: Product;
+}

@@ -1,7 +1,7 @@
 #!/usr/bin/env bun
 import plugin from "bun-plugin-tailwind";
 import { existsSync } from "fs";
-import { cp, rm } from "fs/promises";
+import { cp, rm, readdir } from "fs/promises";
 import path from "path";
 
 if (process.argv.includes("--help") || process.argv.includes("-h")) {
@@ -165,6 +165,9 @@ const result = await Bun.build({
     "process.env.BUN_PUBLIC_NUMBER": JSON.stringify(
       process.env.BUN_PUBLIC_NUMBER,
     ),
+    "process.env.BUN_PUBLIC_GA_MEASUREMENT_ID": JSON.stringify(
+      process.env.BUN_PUBLIC_GA_MEASUREMENT_ID,
+    ),
   },
   ...cliConfig,
 });
@@ -181,11 +184,15 @@ console.table(outputTable);
 const buildTime = (end - start).toFixed(2);
 
 const publicDir = path.join(process.cwd(), "public");
-const publicOutDir = path.join(outdir, "public");
 
 if (existsSync(publicDir)) {
-  console.log(`📦 Copying public assets to ${publicOutDir}`);
-  await cp(publicDir, publicOutDir, { recursive: true });
+  console.log(`📦 Copying public assets to ${outdir}`);
+  const files = await readdir(publicDir);
+  for (const file of files) {
+    const srcPath = path.join(publicDir, file);
+    const destPath = path.join(outdir, file);
+    await cp(srcPath, destPath, { recursive: true });
+  }
 }
 
 console.log(`\n✅ Build completed in ${buildTime}ms\n`);

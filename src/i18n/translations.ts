@@ -41,10 +41,16 @@ export const translations = {
       notFound: "Product not found",
       backHome: "Go Home",
       related: "You might also like",
+      singleOrigin: "Single Origin",
+      details: "Details",
     },
     common: {
       footerText: "© {year} Dos Tazas. All rights reserved.",
       loading: "Loading...",
+      followUs: "Follow Us",
+      quickLinks: "Quick Links",
+      madeWithLove:
+        "A project dedicated to exploring and sharing the world of specialty coffee.",
     },
     about: {
       title: "Our Story",
@@ -57,6 +63,9 @@ export const translations = {
       description:
         "Have questions about our beans, brewing methods, or just want to chat coffee? We are here to help. Reach out to us directly on WhatsApp.",
       buttonMessage: "Hi, I'm interested in Dos Tazas coffee!",
+    },
+    contactButton: {
+      defaultText: "Chat on WhatsApp",
     },
   },
   es: {
@@ -99,10 +108,16 @@ export const translations = {
       notFound: "Producto no encontrado",
       backHome: "Ir a Inicio",
       related: "También te podría gustar",
+      singleOrigin: "Origen Único",
+      details: "Detalles",
     },
     common: {
       footerText: "© {year} Dos Tazas. Todos los derechos reservados.",
       loading: "Cargando...",
+      followUs: "Síguenos",
+      quickLinks: "Enlaces Rápidos",
+      madeWithLove:
+        "Un proyecto dedicado a explorar y compartir el mundo del café de especialidad.",
     },
     about: {
       title: "Nuestra Historia",
@@ -115,6 +130,9 @@ export const translations = {
       description:
         "¿Tienes preguntas sobre nuestros granos, métodos de preparación o simplemente quieres hablar de café? Estamos aquí para ayudar. Contáctanos directamente por WhatsApp.",
       buttonMessage: "Hola, me interesa el café de Dos Tazas!",
+    },
+    contactButton: {
+      defaultText: "Chatea en WhatsApp",
     },
   },
 };

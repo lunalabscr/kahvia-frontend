@@ -15,3 +15,18 @@ declare module "*.module.css" {
   const classes: { readonly [key: string]: string };
   export = classes;
 }
+declare global {
+  interface Window {
+    gtag: (...args: any[]) => void;
+    dataLayer: any[];
+  }
+  namespace NodeJS {
+    interface ProcessEnv {
+      BUN_PUBLIC_GA_MEASUREMENT_ID: string;
+      BUN_PUBLIC_SANITY_PROJECT_ID: string;
+      BUN_PUBLIC_SANITY_DATASET: string;
+      BUN_PUBLIC_SANITY_API_VERSION: string;
+      BUN_PUBLIC_NUMBER: string;
+    }
+  }
+}
