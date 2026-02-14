@@ -162,6 +162,9 @@ const result = await Bun.build({
     "process.env.BUN_PUBLIC_SANITY_API_VERSION": JSON.stringify(
       process.env.BUN_PUBLIC_SANITY_API_VERSION,
     ),
+    "process.env.BUN_PUBLIC_NUMBER": JSON.stringify(
+      process.env.BUN_PUBLIC_NUMBER,
+    ),
   },
   ...cliConfig,
 });

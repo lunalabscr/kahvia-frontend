@@ -2,5 +2,11 @@
   "bunVersion": "1.x",
   "buildCommand": "bun run build",
   "outputDirectory": "dist",
-  "public": "public"
+  "public": "public",
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
 }

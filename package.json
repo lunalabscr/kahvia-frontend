@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "bun --hot src/index.ts",
     "start": "NODE_ENV=production bun src/index.ts",
-    "build": "bun run build.ts"
+    "build": "bun run build.ts --public-path /"
   },
   "dependencies": {
     "@portabletext/react": "^6.0.2",
@@ -14,6 +14,7 @@
     "@sanity/image-url": "^2.0.3",
     "@types/react-router-dom": "^5.3.3",
     "bun-plugin-tailwind": "^0.1.2",
+    "embla-carousel-react": "^8.6.0",
     "lucide-react": "^0.563.0",
     "react": "^19",
     "react-dom": "^19",

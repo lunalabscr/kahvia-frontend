@@ -28,8 +28,8 @@ export const SanityBlog = () => {
   }
 
   return (
-    <section className="py-12 bg-neutral-50" id="blog">
-      <div className="container mx-auto px-4">
+    <section className="py-20 bg-neutral-50" id="blog">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <h2 className="text-4xl font-bold mb-12 text-center text-primary-900 font-doto">
           Latest Stories
         </h2>

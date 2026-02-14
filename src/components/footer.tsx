@@ -1,7 +1,35 @@
 import { Instagram } from "lucide-react";
+import { useLocation, useNavigate } from "react-router-dom";
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const handleNavClick = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    linkHref: string,
+  ) => {
+    const targetId = linkHref.replace("#", "");
+    e.preventDefault();
+
+    if (location.pathname === "/") {
+      if (targetId === "") {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      } else {
+        const element = document.getElementById(targetId);
+        if (element) {
+          element.scrollIntoView({ behavior: "smooth" });
+        }
+      }
+    } else {
+      if (targetId === "") {
+        navigate("/");
+      } else {
+        navigate({ pathname: "/", hash: targetId });
+      }
+    }
+  };
 
   return (
     <footer className="bg-neutral-900 text-neutral-400 py-12 pb-24 md:pb-12 border-t border-neutral-800">
@@ -13,8 +41,8 @@ export default function Footer() {
               Dos Tazas
             </h3>
             <p className="font-roboto text-sm max-w-xs mx-auto md:mx-0">
-              A project dedicated to exploring and sharing the world of specialty
-              coffee.
+              A project dedicated to exploring and sharing the world of
+              specialty coffee.
             </p>
           </div>
 
@@ -25,7 +53,8 @@ export default function Footer() {
               <li>
                 <a
                   href="#"
-                  className="hover:text-primary-400 transition-colors"
+                  onClick={(e) => handleNavClick(e, "#")}
+                  className="hover:text-primary-400 transition-colors cursor-pointer"
                 >
                   Home
                 </a>
@@ -33,7 +62,8 @@ export default function Footer() {
               <li>
                 <a
                   href="#about"
-                  className="hover:text-primary-400 transition-colors"
+                  onClick={(e) => handleNavClick(e, "#about")}
+                  className="hover:text-primary-400 transition-colors cursor-pointer"
                 >
                   About
                 </a>
@@ -41,7 +71,8 @@ export default function Footer() {
               <li>
                 <a
                   href="#products"
-                  className="hover:text-primary-400 transition-colors"
+                  onClick={(e) => handleNavClick(e, "#products")}
+                  className="hover:text-primary-400 transition-colors cursor-pointer"
                 >
                   Products
                 </a>
@@ -49,7 +80,8 @@ export default function Footer() {
               <li>
                 <a
                   href="#contact"
-                  className="hover:text-primary-400 transition-colors"
+                  onClick={(e) => handleNavClick(e, "#contact")}
+                  className="hover:text-primary-400 transition-colors cursor-pointer"
                 >
                   Contact
                 </a>
