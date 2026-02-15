@@ -1,12 +1,5 @@
 {
-  "bunVersion": "1.x",
-  "buildCommand": "bun run build",
-  "outputDirectory": "dist",
-  "public": "public",
-  "rewrites": [
-    {
-      "source": "/(.*)",
-      "destination": "/index.html"
-    }
-  ]
+  "framework": "nextjs",
+  "buildCommand": "next build",
+  "installCommand": "bun install"
 }

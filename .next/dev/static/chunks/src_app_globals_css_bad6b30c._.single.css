@@ -54,7 +54,6 @@
     --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
     --color-green-600: #00a544;
     --color-green-700: #008138;
-    --color-pink-500: #f6339a;
     --color-pink-600: #e30076;
     --color-gray-100: #f3f4f6;
     --color-gray-200: #e5e7eb;
@@ -123,7 +122,6 @@
     :root, :host {
       --color-green-600: lab(59.0978% -58.6621 41.2579);
       --color-green-700: lab(47.0329% -47.0239 31.4788);
-      --color-pink-500: lab(56.9303% 76.8162 -8.07021);
       --color-pink-600: lab(49.5493% 79.8381 2.31768);
       --color-gray-100: lab(96.1596% -.0823438 -1.13575);
       --color-gray-200: lab(91.6229% -.159115 -2.26791);
@@ -2068,12 +2066,6 @@
   @media (hover: hover) {
     .hover\:bg-white:hover {
       background-color: var(--color-white);
-    }
-  }
-
-  @media (hover: hover) {
-    .hover\:text-pink-500:hover {
-      color: var(--color-pink-500);
     }
   }
 

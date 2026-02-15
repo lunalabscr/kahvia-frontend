@@ -40,7 +40,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     title: `${product.name} | Dos Tazas`,
     description: `Buy ${product.name} - ${product.price}`,
     alternates: {
-      canonical: `http://cafedostazas.com/${lang}/product/${slug}`,
+      canonical: `/${lang}/product/${slug}`,
     },
     openGraph: {
       images: product.image

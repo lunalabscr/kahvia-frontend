@@ -19,7 +19,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: t.home.seo.description,
     keywords: t.home.seo.keywords,
     alternates: {
-      canonical: `http://cafedostazas.com/${lang}/`,
+      canonical: `/${lang}/`,
     },
     openGraph: {
       title: t.home.seo.title,

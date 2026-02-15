@@ -36,6 +36,9 @@ export const metadata: Metadata = {
       es: "/es",
     },
   },
+  openGraph: {
+    images: ["/coffeebean.jpg"],
+  },
 };
 
 export async function generateStaticParams() {
