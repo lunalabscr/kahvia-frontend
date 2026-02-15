@@ -18,21 +18,11 @@ export function middleware(request: NextRequest) {
       !pathname.startsWith(`/${locale}/`) && pathname !== `/${locale}`,
   );
 
-  // If missing locale, rewrite it to /en/... so that [lang] picks it up
+  // If missing locale, redirect to /en/... (or avoid redirect if already there, logic below handles redirects)
   if (pathnameIsMissingLocale) {
-    return NextResponse.rewrite(
+    return NextResponse.redirect(
       new URL(`/${defaultLocale}${pathname}`, request.url),
     );
-  }
-
-  // If the path starts with /en, redirect to / (canonical) to avoid duplicate content
-  if (
-    pathname.startsWith(`/${defaultLocale}/`) ||
-    pathname === `/${defaultLocale}`
-  ) {
-    const pathWithoutLocale = pathname.replace(`/${defaultLocale}`, "");
-    const newPath = pathWithoutLocale === "" ? "/" : pathWithoutLocale;
-    return NextResponse.redirect(new URL(newPath, request.url));
   }
 
   return NextResponse.next();

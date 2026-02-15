@@ -31,26 +31,27 @@ const defaultLocale = "en";
 function middleware(request) {
     const { pathname } = request.nextUrl;
     // Skip static files and internal paths
-    if (pathname.startsWith("/_next") || pathname.startsWith("/api") || pathname.includes(".")) {
+    if (pathname.startsWith("/_next") || pathname.startsWith("/api")) {
         return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$esm$2f$server$2f$web$2f$exports$2f$index$2e$js__$5b$middleware$2d$edge$5d$__$28$ecmascript$29$__["NextResponse"].next();
     }
     // Check if pathname is missing a locale
     const pathnameIsMissingLocale = locales.every((locale)=>!pathname.startsWith(`/${locale}/`) && pathname !== `/${locale}`);
-    // If missing locale, rewrite it to /en/... so that [lang] picks it up
+    // If missing locale, redirect to /en/... (or avoid redirect if already there, logic below handles redirects)
     if (pathnameIsMissingLocale) {
-        return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$esm$2f$server$2f$web$2f$exports$2f$index$2e$js__$5b$middleware$2d$edge$5d$__$28$ecmascript$29$__["NextResponse"].rewrite(new URL(`/${defaultLocale}${pathname}`, request.url));
-    }
-    // If the path starts with /en, redirect to / (canonical) to avoid duplicate content
-    if (pathname.startsWith(`/${defaultLocale}/`) || pathname === `/${defaultLocale}`) {
-        const pathWithoutLocale = pathname.replace(`/${defaultLocale}`, "");
-        const newPath = pathWithoutLocale === "" ? "/" : pathWithoutLocale;
-        return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$esm$2f$server$2f$web$2f$exports$2f$index$2e$js__$5b$middleware$2d$edge$5d$__$28$ecmascript$29$__["NextResponse"].redirect(new URL(newPath, request.url));
+        return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$esm$2f$server$2f$web$2f$exports$2f$index$2e$js__$5b$middleware$2d$edge$5d$__$28$ecmascript$29$__["NextResponse"].redirect(new URL(`/${defaultLocale}${pathname}`, request.url));
     }
     return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$esm$2f$server$2f$web$2f$exports$2f$index$2e$js__$5b$middleware$2d$edge$5d$__$28$ecmascript$29$__["NextResponse"].next();
 }
 const config = {
     matcher: [
-        "/((?!api|_next/static|_next/image|favicon.ico).*)"
+        /*
+     * Match all request paths except for the ones starting with:
+     * - api (API routes)
+     * - _next/static (static files)
+     * - _next/image (image optimization files)
+     * - favicon.ico (favicon file)
+     * - Any file with an extension (e.g. .svg, .png, .jpg, .jpeg, .gif, .webp)
+     */ "/((?!api|_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)"
     ]
 };
 }),
