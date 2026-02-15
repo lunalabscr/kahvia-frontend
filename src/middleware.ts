@@ -6,28 +6,29 @@ const defaultLocale = "en";
 
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
-  console.log("Middleware executing for path:", pathname);
 
-  if (pathname === "/sitemap.xml" || pathname === "/robots.txt") {
-    return;
+  // Skip static files and internal paths
+  if (
+    pathname.startsWith("/_next") ||
+    pathname.startsWith("/api") ||
+    pathname.includes(".")
+  ) {
+    return NextResponse.next();
   }
 
-  // Check if there is any supported locale in the pathname
   const pathnameHasLocale = locales.some(
     (locale) => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`,
   );
 
-  if (pathnameHasLocale) return;
+  if (pathnameHasLocale) {
+    return NextResponse.next();
+  }
 
-  // Redirect if there is no locale
-  const locale = defaultLocale;
-  const newUrl = new URL(`/${locale}${pathname}`, request.url);
-  console.log("Redirecting to:", newUrl.toString());
-  return NextResponse.redirect(newUrl);
+  return NextResponse.redirect(
+    new URL(`/${defaultLocale}${pathname}`, request.url),
+  );
 }
 
 export const config = {
-  matcher: [
-    "/((?!api|_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt|.*\\.svg|.*\\.jpg|.*\\.jpeg|.*\\.png|.*\\.gif|.*\\.webp).*)",
-  ],
+  matcher: ["/((?!api|_next/static|_next/image|favicon.ico).*)"],
 };

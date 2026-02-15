@@ -31,7 +31,7 @@ const defaultLocale = "en";
 function middleware(request) {
     const { pathname } = request.nextUrl;
     console.log("Middleware executing for path:", pathname);
-    if (pathname === "/sitemap.xml" || pathname === "/robots.txt") {
+    if (pathname === "/sitemap.xml" || pathname === "/robots.txt" || pathname.endsWith(".svg") || pathname.endsWith(".jpg") || pathname.endsWith(".jpeg") || pathname.endsWith(".png") || pathname.endsWith(".gif") || pathname.endsWith(".webp")) {
         return;
     }
     // Check if there is any supported locale in the pathname
