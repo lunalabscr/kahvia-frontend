@@ -39,11 +39,21 @@ export default function Navbar() {
   };
 
   const getHref = (linkHref: string) => {
-    // Always prepend language
-    if (pathname === `/${language}/` || pathname === `/${language}`) {
-      return linkHref;
+    const prefix = language === "en" ? "" : `/${language}`;
+
+    if (linkHref.startsWith("#")) {
+      const isHome =
+        language === "en"
+          ? pathname === "/"
+          : pathname === `/${language}` || pathname === `/${language}/`;
+
+      if (isHome) {
+        return linkHref;
+      }
+      return `${prefix}/${linkHref}`;
     }
-    return `/${language}/${linkHref}`;
+
+    return `${prefix}/${linkHref.replace(/^\//, "")}`;
   };
 
   const handleNavClick = (
@@ -53,7 +63,10 @@ export default function Navbar() {
     const targetId = linkHref.replace("#", "");
 
     // If we are on home and purely scrolling, prevent default
-    const isHome = pathname === `/${language}/` || pathname === `/${language}`;
+    const isHome =
+      language === "en"
+        ? pathname === "/"
+        : pathname === `/${language}` || pathname === `/${language}/`;
 
     if (isHome) {
       e.preventDefault();
@@ -72,10 +85,11 @@ export default function Navbar() {
     } else {
       e.preventDefault();
       setIsOpen(false);
+      const prefix = language === "en" ? "" : `/${language}`;
       if (targetId === "") {
-        router.push(`/${language}/`);
+        router.push(`${prefix}/`);
       } else {
-        router.push(`/${language}/#${targetId}`);
+        router.push(`${prefix}/#${targetId}`);
       }
     }
   };
@@ -89,18 +103,20 @@ export default function Navbar() {
             {/* Logo */}
             {/* Logic for Logo: If on Home, scroll top. If not, go Home. */}
             <a
-              href={`/${language}/`}
+              href={language === "en" ? "/" : `/${language}/`}
               aria-label={t.nav.home}
               onClick={(e) => {
-                if (
-                  pathname === `/${language}/` ||
-                  pathname === `/${language}`
-                ) {
+                const isHome =
+                  language === "en"
+                    ? pathname === "/"
+                    : pathname === `/${language}` ||
+                      pathname === `/${language}/`;
+                if (isHome) {
                   e.preventDefault();
                   window.scrollTo({ top: 0, behavior: "smooth" });
                 } else {
                   e.preventDefault();
-                  router.push(`/${language}/`);
+                  router.push(language === "en" ? "/" : `/${language}/`);
                 }
               }}
               className="flex-shrink-0 flex items-center group cursor-pointer"

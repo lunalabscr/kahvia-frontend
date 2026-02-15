@@ -49,7 +49,11 @@ export const LanguageProvider = ({ children }: { children: ReactNode }) => {
 
   const setLanguage = (newLang: Language) => {
     // Always redirect to home page with new language to avoid 404s on localized slugs
-    router.push(`/${newLang}`);
+    if (newLang === "en") {
+      router.push("/");
+    } else {
+      router.push(`/${newLang}`);
+    }
   };
 
   const value = {

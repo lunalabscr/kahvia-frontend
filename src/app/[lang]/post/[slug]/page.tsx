@@ -43,12 +43,26 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     title: `${post.title} | Dos Tazas`,
     description: post.excerpt,
     alternates: {
-      canonical: `/${lang}/post/${slug}`,
+      canonical: lang === "en" ? `/post/${slug}` : `/${lang}/post/${slug}`,
     },
     openGraph: {
       images: post.image
-        ? [urlFor(post.image).width(1200).height(630).url()]
-        : [],
+        ? [
+            {
+              url: urlFor(post.image).width(1200).height(630).url(),
+              width: 1200,
+              height: 630,
+              alt: post.title,
+            },
+          ]
+        : [
+            {
+              url: "/coffeebean.jpg",
+              width: 1200,
+              height: 630,
+              alt: "Café Dos Tazas",
+            },
+          ],
     },
   };
 }
@@ -63,7 +77,7 @@ export default async function PostPage({ params }: Props) {
       <div className="max-w-prose mx-auto px-4 sm:px-6 lg:px-8 text-center pt-20">
         <h1 className="text-2xl font-bold mb-4">{t.product.notFound}</h1>
         <Link
-          href={`/${lang}/`}
+          href={lang === "en" ? "/" : `/${lang}/`}
           className="text-primary-600 hover:text-primary-700"
         >
           {t.product.backHome}

@@ -19,13 +19,21 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: t.home.seo.description,
     keywords: t.home.seo.keywords,
     alternates: {
-      canonical: `/${lang}/`,
+      canonical: lang === "en" ? "/" : `/${lang}`,
     },
     openGraph: {
       title: t.home.seo.title,
       description: t.home.seo.description,
       locale: lang,
       type: "website",
+      images: [
+        {
+          url: "/coffeebean.jpg",
+          width: 1200,
+          height: 630,
+          alt: "Café Dos Tazas",
+        },
+      ],
     },
   };
 }

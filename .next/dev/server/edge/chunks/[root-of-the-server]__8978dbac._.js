@@ -30,18 +30,23 @@ const locales = [
 const defaultLocale = "en";
 function middleware(request) {
     const { pathname } = request.nextUrl;
-    console.log("Middleware executing for path:", pathname);
-    if (pathname === "/sitemap.xml" || pathname === "/robots.txt" || pathname.endsWith(".svg") || pathname.endsWith(".jpg") || pathname.endsWith(".jpeg") || pathname.endsWith(".png") || pathname.endsWith(".gif") || pathname.endsWith(".webp")) {
-        return;
+    // Skip static files and internal paths
+    if (pathname.startsWith("/_next") || pathname.startsWith("/api") || pathname.includes(".")) {
+        return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$esm$2f$server$2f$web$2f$exports$2f$index$2e$js__$5b$middleware$2d$edge$5d$__$28$ecmascript$29$__["NextResponse"].next();
     }
-    // Check if there is any supported locale in the pathname
-    const pathnameHasLocale = locales.some((locale)=>pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`);
-    if (pathnameHasLocale) return;
-    // Redirect if there is no locale
-    const locale = defaultLocale;
-    const newUrl = new URL(`/${locale}${pathname}`, request.url);
-    console.log("Redirecting to:", newUrl.toString());
-    return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$esm$2f$server$2f$web$2f$exports$2f$index$2e$js__$5b$middleware$2d$edge$5d$__$28$ecmascript$29$__["NextResponse"].redirect(newUrl);
+    // Check if pathname is missing a locale
+    const pathnameIsMissingLocale = locales.every((locale)=>!pathname.startsWith(`/${locale}/`) && pathname !== `/${locale}`);
+    // If missing locale, rewrite it to /en/... so that [lang] picks it up
+    if (pathnameIsMissingLocale) {
+        return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$esm$2f$server$2f$web$2f$exports$2f$index$2e$js__$5b$middleware$2d$edge$5d$__$28$ecmascript$29$__["NextResponse"].rewrite(new URL(`/${defaultLocale}${pathname}`, request.url));
+    }
+    // If the path starts with /en, redirect to / (canonical) to avoid duplicate content
+    if (pathname.startsWith(`/${defaultLocale}/`) || pathname === `/${defaultLocale}`) {
+        const pathWithoutLocale = pathname.replace(`/${defaultLocale}`, "");
+        const newPath = pathWithoutLocale === "" ? "/" : pathWithoutLocale;
+        return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$esm$2f$server$2f$web$2f$exports$2f$index$2e$js__$5b$middleware$2d$edge$5d$__$28$ecmascript$29$__["NextResponse"].redirect(new URL(newPath, request.url));
+    }
+    return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$esm$2f$server$2f$web$2f$exports$2f$index$2e$js__$5b$middleware$2d$edge$5d$__$28$ecmascript$29$__["NextResponse"].next();
 }
 const config = {
     matcher: [

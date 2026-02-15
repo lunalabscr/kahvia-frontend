@@ -29,15 +29,25 @@ export const metadata: Metadata = {
   title: "Café Dos Tazas",
   description: "Dos Tazas Coffee Shop",
   metadataBase: new URL("https://cafedostazas.com"),
+  icons: "https://cafedostazas.com/logo.svg",
   alternates: {
     canonical: "/",
     languages: {
-      en: "/en",
+      en: "/",
       es: "/es",
     },
   },
   openGraph: {
-    images: ["/coffeebean.jpg"],
+    type: "website",
+    siteName: "Café Dos Tazas",
+    images: [
+      {
+        url: "https://cafedostazas.com/coffeebean.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Café Dos Tazas",
+      },
+    ],
   },
 };
 

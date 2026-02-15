@@ -10,7 +10,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // Static routes for each language
   const staticRoutes = [
     {
-      url: `${baseUrl}/en`,
+      url: `${baseUrl}`,
       lastModified: new Date(),
       changeFrequency: "daily" as const,
       priority: 1,
@@ -29,7 +29,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       { slug: { current: string }; language: string; publishedAt: string }[]
     >(POSTS_QUERY);
   const postRoutes = posts.map((post) => ({
-    url: `${baseUrl}/${post.language}/post/${post.slug.current}`,
+    url: `${baseUrl}${post.language === "en" ? "" : `/${post.language}`}/post/${
+      post.slug.current
+    }`,
     lastModified: new Date(post.publishedAt),
     changeFrequency: "weekly" as const,
     priority: 0.8,
@@ -41,7 +43,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       PRODUCTS_QUERY,
     );
   const productRoutes = products.map((product) => ({
-    url: `${baseUrl}/${product.language}/product/${product.slug.current}`,
+    url: `${baseUrl}${
+      product.language === "en" ? "" : `/${product.language}`
+    }/product/${product.slug.current}`,
     lastModified: new Date(),
     changeFrequency: "weekly" as const,
     priority: 0.8,
