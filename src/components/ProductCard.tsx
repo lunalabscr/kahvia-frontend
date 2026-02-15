@@ -1,4 +1,5 @@
-import { Link } from "react-router-dom";
+import Link from "next/link";
+import Image from "next/image";
 import { urlFor } from "@/sanity/image";
 import type { ProductCardProps } from "@/interfaces/product";
 import { ArrowRight } from "lucide-react";
@@ -13,15 +14,16 @@ export default function ProductCard({ product }: ProductCardProps) {
 
   return (
     <Link
-      to={`/${language}/product/${product.slug.current}`}
+      href={`/${language}/product/${product.slug.current}`}
       className="group bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300 flex flex-col h-full border border-transparent hover:border-neutral-100"
     >
       <div className="aspect-square bg-neutral-50 relative overflow-hidden">
         {product.image && (
-          <img
+          <Image
             src={urlFor(product.image).width(400).height(400).url()}
             alt={product.name}
-            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+            fill
+            className="object-cover transition-transform duration-500 group-hover:scale-105"
           />
         )}
       </div>

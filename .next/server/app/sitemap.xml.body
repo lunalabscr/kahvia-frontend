@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<url>
+<loc>https://cafedostazas.com/en</loc>
+<lastmod>2026-02-15T02:35:36.992Z</lastmod>
+<changefreq>daily</changefreq>
+<priority>1</priority>
+</url>
+<url>
+<loc>https://cafedostazas.com/es</loc>
+<lastmod>2026-02-15T02:35:36.992Z</lastmod>
+<changefreq>daily</changefreq>
+<priority>1</priority>
+</url>
+<url>
+<loc>https://cafedostazas.com/en/post/story-dos-tazas-ritual-cafe</loc>
+<lastmod>2026-02-13T19:01:50.010Z</lastmod>
+<changefreq>weekly</changefreq>
+<priority>0.8</priority>
+</url>
+<url>
+<loc>https://cafedostazas.com/es/post/historia-dos-tazas-ritual-cafe</loc>
+<lastmod>2026-02-13T19:01:50.010Z</lastmod>
+<changefreq>weekly</changefreq>
+<priority>0.8</priority>
+</url>
+</urlset>

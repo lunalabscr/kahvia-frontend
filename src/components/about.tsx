@@ -1,4 +1,7 @@
+"use client";
+
 import { useLanguage } from "@/context/LanguageContext";
+import Image from "next/image";
 
 export default function About() {
   const { t } = useLanguage();
@@ -22,10 +25,12 @@ export default function About() {
           {/* Image Content */}
           <div className="order-1 md:order-2">
             <div className="relative rounded-2xl overflow-hidden shadow-xl aspect-video md:aspect-square">
-              <img
+              <Image
                 src="https://placehold.co/800x800?text=Coffee+Process"
                 alt="Coffee Brewing Process"
-                className="w-full h-full object-cover transform hover:scale-105 transition-transform duration-500"
+                fill
+                className="object-cover transform hover:scale-105 transition-transform duration-500"
+                unoptimized
               />
             </div>
           </div>

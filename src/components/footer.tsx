@@ -1,11 +1,14 @@
+"use client";
+
 import { Instagram } from "lucide-react";
-import { useLocation, useNavigate, Link } from "react-router-dom";
+import { usePathname, useRouter } from "next/navigation";
+import Link from "next/link";
 import { useLanguage } from "../context/LanguageContext";
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
-  const location = useLocation();
-  const navigate = useNavigate();
+  const pathname = usePathname();
+  const router = useRouter();
   const { language, t } = useLanguage();
 
   const handleNavClick = (
@@ -13,10 +16,7 @@ export default function Footer() {
     targetId: string,
   ) => {
     e.preventDefault();
-    if (
-      location.pathname === `/${language}` ||
-      location.pathname === `/${language}/`
-    ) {
+    if (pathname === `/${language}` || pathname === `/${language}/`) {
       const id = targetId.replace("#", "");
       if (id === "") {
         window.scrollTo({ top: 0, behavior: "smooth" });
@@ -27,7 +27,7 @@ export default function Footer() {
         element.scrollIntoView({ behavior: "smooth" });
       }
     } else {
-      navigate(`/${language}/${targetId}`);
+      router.push(`/${language}/${targetId}`);
     }
   };
 
@@ -37,7 +37,7 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12 text-center md:text-left">
           {/* Brand */}
           <div className="col-span-1 md:col-span-1">
-            <Link to={`/${language}/`} className="inline-block group mb-6">
+            <Link href={`/${language}/`} className="inline-block group mb-6">
               <span className="font-doto text-3xl font-bold text-white group-hover:text-primary-400 transition-colors">
                 Dos Tazas
               </span>
@@ -116,7 +116,7 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="border-t border-neutral-800 pt-8 text-center text-sm font-roboto">
+        <div className="border-t border-neutral-800 mt-8 pt-8 text-center text-sm font-roboto">
           <p>{t.common.footerText.replace("{year}", currentYear.toString())}</p>
         </div>
       </div>

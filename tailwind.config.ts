@@ -24,6 +24,11 @@ const config: Config = {
         // Neutral grays for text and borders
         neutral: colors.gray,
       },
+      fontFamily: {
+        sans: ["var(--font-inter)", "sans-serif"],
+        roboto: ["var(--font-roboto)", "sans-serif"],
+        doto: ["var(--font-doto)", "sans-serif"],
+      },
     },
   },
   plugins: [typography],

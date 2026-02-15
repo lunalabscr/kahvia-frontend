@@ -1,0 +1,9 @@
+{
+  "/[lang]/page": "/[lang]",
+  "/[lang]/post/[slug]/page": "/[lang]/post/[slug]",
+  "/[lang]/product/[slug]/page": "/[lang]/product/[slug]",
+  "/_global-error/page": "/_global-error",
+  "/_not-found/page": "/_not-found",
+  "/page": "/",
+  "/sitemap.xml/route": "/sitemap.xml"
+}

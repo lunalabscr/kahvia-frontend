@@ -1,3 +1,5 @@
+"use client";
+
 import ContactButton from "./ContactButton";
 import { useLanguage } from "@/context/LanguageContext";
 

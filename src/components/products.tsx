@@ -1,3 +1,5 @@
+"use client";
+
 import { useEffect, useState, useCallback } from "react";
 import { client } from "@/sanity/client";
 import ProductCard from "./ProductCard";

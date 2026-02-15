@@ -1,8 +1,11 @@
+"use client";
+
 import { client } from "../../sanity/client";
 import type { SanityDocument } from "@sanity/client";
 import { urlFor } from "../../sanity/image";
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import Link from "next/link";
+import Image from "next/image";
 import { useLanguage } from "@/context/LanguageContext";
 
 const POSTS_QUERY = `*[
@@ -38,16 +41,17 @@ export const SanityBlog = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {posts.map((post) => (
             <Link
-              to={`/${language}/post/${post.slug.current}`}
+              href={`/${language}/post/${post.slug.current}`}
               key={post._id}
               className="group bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300 flex flex-col h-full"
             >
               {post.image && (
-                <div className="h-48 overflow-hidden">
-                  <img
+                <div className="h-48 overflow-hidden relative">
+                  <Image
                     src={urlFor(post.image).width(800).height(500).url()}
                     alt={post.title}
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    fill
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
                   />
                 </div>
               )}

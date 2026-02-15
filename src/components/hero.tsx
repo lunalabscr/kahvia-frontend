@@ -1,4 +1,7 @@
-import { ArrowRight } from "lucide-react";
+"use client";
+
+import { ArrowRight, ChevronDown } from "lucide-react";
+import Image from "next/image";
 import { useLanguage } from "../context/LanguageContext";
 
 export default function Hero() {
@@ -11,10 +14,13 @@ export default function Hero() {
     >
       {/* Background Image with Overlay */}
       <div className="absolute inset-0 z-0">
-        <img
+        <Image
           src="https://placehold.co/1920x1080?text=Coffee+Shop+Background"
           alt="Coffee Shop Background"
-          className="w-full h-full object-cover"
+          fill
+          className="object-cover"
+          priority
+          unoptimized
         />
         <div className="absolute inset-0 bg-black/60"></div>
       </div>

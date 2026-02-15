@@ -4,10 +4,10 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "bun --hot src/index.ts",
-    "start": "NODE_ENV=production bun src/index.ts",
-    "build": "bun run build.ts --public-path /",
-    "sitemap": "bun run scripts/generate-sitemap.ts"
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
   },
   "dependencies": {
     "@portabletext/react": "^6.0.2",
@@ -17,16 +17,20 @@
     "bun-plugin-tailwind": "^0.1.2",
     "embla-carousel-react": "^8.6.0",
     "lucide-react": "^0.563.0",
+    "next": "^16.1.6",
     "react": "^19",
     "react-dom": "^19",
-    "react-helmet-async": "^2.0.5",
-    "react-router-dom": "^7.13.0",
+    "sharp": "^0.34.5",
     "tailwindcss": "^4.1.11"
   },
   "devDependencies": {
+    "@tailwindcss/postcss": "^4.1.18",
     "@tailwindcss/typography": "^0.5.19",
     "@types/bun": "latest",
+    "@types/node": "^25.2.3",
     "@types/react": "^19",
-    "@types/react-dom": "^19"
+    "@types/react-dom": "^19",
+    "postcss": "^8.5.6",
+    "typescript": "^5.9.3"
   }
 }

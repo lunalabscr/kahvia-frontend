@@ -1,13 +1,20 @@
+"use client";
+
 import { useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { usePathname, useSearchParams } from "next/navigation";
 
 export const useScrollToAnchor = () => {
-  const { pathname, hash } = useLocation();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
 
   useEffect(() => {
+    // We check for the hash in the window location because searchParams doesn't include hash
+    const hash = window.location.hash;
+
     // Only scroll if we are on the home page (or the page where the sections are)
-    // Adjust this condition if sections exist on other pages too
-    if (pathname === "/") {
+    // Adjust this condition to check if strict equality or startsWith based on requirements.
+    // Assuming home page is /en or /es or just /
+    if (pathname === "/" || pathname?.endsWith("/")) {
       if (hash) {
         // We want to scroll to a specific section
         const targetId = hash.replace("#", "");
@@ -40,9 +47,8 @@ export const useScrollToAnchor = () => {
           return () => clearInterval(intervalId);
         }
       } else {
-        // No hash, standard scroll to top
         window.scrollTo({ top: 0, behavior: "smooth" });
       }
     }
-  }, [pathname, hash]);
+  }, [pathname, searchParams]);
 };

@@ -1,3 +1,5 @@
+"use client";
+
 import { useState, useRef } from "react";
 import {
   Menu,
@@ -10,15 +12,16 @@ import {
   Globe,
 } from "lucide-react";
 import { useClickOutside } from "../hooks/useClickOutside";
-import { useLocation, useNavigate } from "react-router-dom";
+import { usePathname, useRouter } from "next/navigation";
 import { useLanguage } from "../context/LanguageContext";
+import Link from "next/link";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
-  const location = useLocation();
-  const navigate = useNavigate();
+  const pathname = usePathname();
+  const router = useRouter();
   const { language, setLanguage, t } = useLanguage();
 
   useClickOutside(menuRef, () => setIsOpen(false), [buttonRef]);
@@ -37,10 +40,7 @@ export default function Navbar() {
 
   const getHref = (linkHref: string) => {
     // Always prepend language
-    if (
-      location.pathname === `/${language}/` ||
-      location.pathname === `/${language}`
-    ) {
+    if (pathname === `/${language}/` || pathname === `/${language}`) {
       return linkHref;
     }
     return `/${language}/${linkHref}`;
@@ -53,9 +53,7 @@ export default function Navbar() {
     const targetId = linkHref.replace("#", "");
 
     // If we are on home and purely scrolling, prevent default
-    const isHome =
-      location.pathname === `/${language}/` ||
-      location.pathname === `/${language}`;
+    const isHome = pathname === `/${language}/` || pathname === `/${language}`;
 
     if (isHome) {
       e.preventDefault();
@@ -66,16 +64,18 @@ export default function Navbar() {
       } else {
         const element = document.getElementById(targetId);
         if (element) {
-          element.scrollIntoView({ behavior: "smooth" });
+          setTimeout(() => {
+            element.scrollIntoView({ behavior: "smooth" });
+          }, 0);
         }
       }
     } else {
       e.preventDefault();
       setIsOpen(false);
       if (targetId === "") {
-        navigate(`/${language}/`);
+        router.push(`/${language}/`);
       } else {
-        navigate({ pathname: `/${language}/`, hash: targetId });
+        router.push(`/${language}/#${targetId}`);
       }
     }
   };
@@ -92,14 +92,14 @@ export default function Navbar() {
               href={`/${language}/`}
               onClick={(e) => {
                 if (
-                  location.pathname === `/${language}/` ||
-                  location.pathname === `/${language}`
+                  pathname === `/${language}/` ||
+                  pathname === `/${language}`
                 ) {
                   e.preventDefault();
                   window.scrollTo({ top: 0, behavior: "smooth" });
                 } else {
                   e.preventDefault();
-                  navigate(`/${language}/`);
+                  router.push(`/${language}/`);
                 }
               }}
               className="flex-shrink-0 flex items-center group cursor-pointer"
