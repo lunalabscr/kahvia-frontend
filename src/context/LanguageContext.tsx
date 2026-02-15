@@ -48,23 +48,8 @@ export const LanguageProvider = ({ children }: { children: ReactNode }) => {
   }, [language]);
 
   const setLanguage = (newLang: Language) => {
-    // Logic to switch URL
-    // If we are at /en/about and switch to es, go to /es/about
-    // We need to strip the current lang prefix and replace it
-    if (!pathname) return;
-
-    const segments = pathname.split("/"); // ["", "en", "about"]
-
-    // Replace the second segment (index 1) which is the language
-    if (segments[1] === "en" || segments[1] === "es") {
-      segments[1] = newLang;
-    } else {
-      // Should not happen given routing, but handle safe insertion
-      segments.splice(1, 0, newLang);
-    }
-
-    const newPath = segments.join("/");
-    router.push(newPath);
+    // Always redirect to home page with new language to avoid 404s on localized slugs
+    router.push(`/${newLang}`);
   };
 
   const value = {

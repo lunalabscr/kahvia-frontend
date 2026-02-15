@@ -22,6 +22,7 @@ const doto = Doto({
 export const metadata: Metadata = {
   title: "Café Dos Tazas",
   description: "Dos Tazas Coffee Shop",
+  metadataBase: new URL("https://cafedostazas.com"),
 };
 
 export async function generateStaticParams() {

@@ -13,11 +13,24 @@ type Props = {
 
 async function getPost(slug: string, lang: string) {
   const POST_QUERY = `*[_type == "post" && slug.current == $slug && language == $lang][0]`;
-  return client.fetch(POST_QUERY, { slug, lang });
+  console.log(`[getPost] Fetching post: slug="${slug}", lang="${lang}"`);
+  try {
+    const post = await client.fetch(POST_QUERY, { slug, lang });
+    console.log(
+      `[getPost] Fetch result for slug="${slug}":`,
+      post ? "Found" : "Not Found (null)",
+    );
+    return post;
+  } catch (error) {
+    console.error(`[getPost] Error fetching post with slug="${slug}":`, error);
+    // Don't throw, return null so 404 can be handled gracefully if it's just a fetch error
+    return null;
+  }
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { lang, slug } = await params;
+  console.log(`[generateMetadata] Params resolved: lang=${lang}, slug=${slug}`);
   const post = await getPost(slug, lang);
 
   if (!post) {

@@ -31,6 +31,9 @@ const defaultLocale = "en";
 function middleware(request) {
     const { pathname } = request.nextUrl;
     console.log("Middleware executing for path:", pathname);
+    if (pathname === "/sitemap.xml" || pathname === "/robots.txt") {
+        return;
+    }
     // Check if there is any supported locale in the pathname
     const pathnameHasLocale = locales.some((locale)=>pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`);
     if (pathnameHasLocale) return;

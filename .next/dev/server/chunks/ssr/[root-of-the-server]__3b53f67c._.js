@@ -208,13 +208,23 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist
 ;
 async function getPost(slug, lang) {
     const POST_QUERY = `*[_type == "post" && slug.current == $slug && language == $lang][0]`;
-    return __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$sanity$2f$client$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["client"].fetch(POST_QUERY, {
-        slug,
-        lang
-    });
+    console.log(`[getPost] Fetching post: slug="${slug}", lang="${lang}"`);
+    try {
+        const post = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$sanity$2f$client$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["client"].fetch(POST_QUERY, {
+            slug,
+            lang
+        });
+        console.log(`[getPost] Fetch result for slug="${slug}":`, post ? "Found" : "Not Found (null)");
+        return post;
+    } catch (error) {
+        console.error(`[getPost] Error fetching post with slug="${slug}":`, error);
+        // Don't throw, return null so 404 can be handled gracefully if it's just a fetch error
+        return null;
+    }
 }
 async function generateMetadata({ params }) {
     const { lang, slug } = await params;
+    console.log(`[generateMetadata] Params resolved: lang=${lang}, slug=${slug}`);
     const post = await getPost(slug, lang);
     if (!post) {
         return {
@@ -247,7 +257,7 @@ async function PostPage({ params }) {
                     children: t.product.notFound
                 }, void 0, false, {
                     fileName: "[project]/src/app/[lang]/post/[slug]/page.tsx",
-                    lineNumber: 51,
+                    lineNumber: 64,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$react$2d$server$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["default"], {
@@ -256,13 +266,13 @@ async function PostPage({ params }) {
                     children: t.product.backHome
                 }, void 0, false, {
                     fileName: "[project]/src/app/[lang]/post/[slug]/page.tsx",
-                    lineNumber: 52,
+                    lineNumber: 65,
                     columnNumber: 9
                 }, this)
             ]
         }, void 0, true, {
             fileName: "[project]/src/app/[lang]/post/[slug]/page.tsx",
-            lineNumber: 50,
+            lineNumber: 63,
             columnNumber: 7
         }, this);
     }
@@ -282,12 +292,12 @@ async function PostPage({ params }) {
                             priority: true
                         }, void 0, false, {
                             fileName: "[project]/src/app/[lang]/post/[slug]/page.tsx",
-                            lineNumber: 67,
+                            lineNumber: 80,
                             columnNumber: 13
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/app/[lang]/post/[slug]/page.tsx",
-                        lineNumber: 66,
+                        lineNumber: 79,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("h1", {
@@ -295,7 +305,7 @@ async function PostPage({ params }) {
                         children: post.title
                     }, void 0, false, {
                         fileName: "[project]/src/app/[lang]/post/[slug]/page.tsx",
-                        lineNumber: 76,
+                        lineNumber: 89,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -307,13 +317,13 @@ async function PostPage({ params }) {
                         })
                     }, void 0, false, {
                         fileName: "[project]/src/app/[lang]/post/[slug]/page.tsx",
-                        lineNumber: 79,
+                        lineNumber: 92,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/app/[lang]/post/[slug]/page.tsx",
-                lineNumber: 64,
+                lineNumber: 77,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -322,18 +332,18 @@ async function PostPage({ params }) {
                     value: post.body
                 }, void 0, false, {
                     fileName: "[project]/src/app/[lang]/post/[slug]/page.tsx",
-                    lineNumber: 89,
+                    lineNumber: 102,
                     columnNumber: 22
                 }, this) : null
             }, void 0, false, {
                 fileName: "[project]/src/app/[lang]/post/[slug]/page.tsx",
-                lineNumber: 88,
+                lineNumber: 101,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/app/[lang]/post/[slug]/page.tsx",
-        lineNumber: 63,
+        lineNumber: 76,
         columnNumber: 5
     }, this);
 }
