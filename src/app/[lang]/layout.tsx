@@ -7,22 +7,35 @@ import "../globals.css";
 import type { Metadata } from "next";
 import { Suspense } from "react";
 
-const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-inter",
+  display: "swap",
+});
 const roboto = Roboto({
   weight: ["400", "500", "700"],
   subsets: ["latin"],
   variable: "--font-roboto",
+  display: "swap",
 });
 const doto = Doto({
   weight: ["400", "700"],
   subsets: ["latin"],
   variable: "--font-doto",
+  display: "swap",
 });
 
 export const metadata: Metadata = {
   title: "Café Dos Tazas",
   description: "Dos Tazas Coffee Shop",
   metadataBase: new URL("https://cafedostazas.com"),
+  alternates: {
+    canonical: "/",
+    languages: {
+      en: "/en",
+      es: "/es",
+    },
+  },
 };
 
 export async function generateStaticParams() {

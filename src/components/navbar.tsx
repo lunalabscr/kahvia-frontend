@@ -90,6 +90,7 @@ export default function Navbar() {
             {/* Logic for Logo: If on Home, scroll top. If not, go Home. */}
             <a
               href={`/${language}/`}
+              aria-label={t.nav.home}
               onClick={(e) => {
                 if (
                   pathname === `/${language}/` ||
@@ -134,6 +135,7 @@ export default function Navbar() {
                 target="_blank"
                 rel="noreferrer"
                 className="text-neutral-600 hover:text-pink-600 transition-colors duration-200"
+                aria-label="Instagram"
               >
                 <Instagram size={20} />
               </a>
@@ -144,6 +146,7 @@ export default function Navbar() {
               <button
                 onClick={toggleLanguage}
                 className="text-neutral-600 hover:text-primary-600 p-2 focus:outline-none"
+                aria-label="Toggle language"
               >
                 <span className="font-bold">
                   {language === "en" ? "ES" : "EN"}
@@ -186,6 +189,7 @@ export default function Navbar() {
               rel="noreferrer"
               className="text-neutral-600 hover:text-pink-600 hover:bg-neutral-50 block px-3 py-2 rounded-md text-base font-medium flex items-center gap-2"
               onClick={() => setIsOpen(false)}
+              aria-label="Instagram"
             >
               <Instagram size={18} />
               Instagram

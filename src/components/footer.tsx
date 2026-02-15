@@ -107,7 +107,7 @@ export default function Footer() {
                 href="https://www.instagram.com/dostazascafe/"
                 target="_blank"
                 rel="noreferrer"
-                className="hover:text-pink-500 transition-colors"
+                className="text-neutral-400 hover:text-white transition-colors"
                 aria-label="Instagram"
               >
                 <Instagram size={24} />
