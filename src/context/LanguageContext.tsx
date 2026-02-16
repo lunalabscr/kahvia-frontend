@@ -35,6 +35,7 @@ export const LanguageProvider = ({ children }: { children: ReactNode }) => {
   // Sync state if URL changes directly (e.g. user types in URL)
   useEffect(() => {
     const currentLang = lang === "es" || lang === "en" ? lang : "en";
+
     if (currentLang !== language) {
       setLanguageState(currentLang);
     }

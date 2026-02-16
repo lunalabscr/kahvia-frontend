@@ -19,13 +19,15 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: t.home.seo.description,
     keywords: t.home.seo.keywords,
     alternates: {
-      canonical: lang === "en" ? "/" : `/${lang}`,
+      canonical: `/${lang}`,
     },
+    icons: "/logo.ico",
     openGraph: {
       title: t.home.seo.title,
       description: t.home.seo.description,
       locale: lang,
       type: "website",
+      url: `/${lang}`,
       images: [
         {
           url: "/coffeebean.jpg",

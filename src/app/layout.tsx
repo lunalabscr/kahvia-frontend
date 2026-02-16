@@ -6,6 +6,8 @@ import { Inter, Roboto, Doto } from "next/font/google";
 import "./globals.css";
 import type { Metadata } from "next";
 import { Suspense } from "react";
+import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -29,7 +31,7 @@ export const metadata: Metadata = {
   title: "Café Dos Tazas",
   description: "Dos Tazas Coffee Shop",
   metadataBase: new URL("https://cafedostazas.com"),
-  icons: "https://cafedostazas.com/logo.svg",
+  icons: "/logo.ico",
   alternates: {
     canonical: "/",
     languages: {
@@ -61,6 +63,8 @@ export default function RootLayout({
       <body
         className={`${inter.variable} ${roboto.variable} ${doto.variable} font-sans antialiased`}
       >
+        <Analytics />
+        <SpeedInsights />
         <LanguageProvider>
           <div className="bg-white min-h-screen text-neutral-900 font-sans selection:bg-primary-100 selection:text-primary-900 flex flex-col">
             <Suspense fallback={null}>

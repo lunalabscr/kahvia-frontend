@@ -13,13 +13,9 @@ type Props = {
 
 async function getPost(slug: string, lang: string) {
   const POST_QUERY = `*[_type == "post" && slug.current == $slug && language == $lang][0]`;
-  console.log(`[getPost] Fetching post: slug="${slug}", lang="${lang}"`);
+
   try {
     const post = await client.fetch(POST_QUERY, { slug, lang });
-    console.log(
-      `[getPost] Fetch result for slug="${slug}":`,
-      post ? "Found" : "Not Found (null)",
-    );
     return post;
   } catch (error) {
     console.error(`[getPost] Error fetching post with slug="${slug}":`, error);
@@ -28,9 +24,42 @@ async function getPost(slug: string, lang: string) {
   }
 }
 
+const ptComponents = {
+  types: {
+    image: ({ value }: any) => {
+      // 'value' is the data for this specific block (the image object)
+
+      // If no image is uploaded, don't render anything
+      if (!value?.asset?._ref) {
+        return null;
+      }
+
+      return (
+        <figure className="my-8">
+          <img
+            // Use urlFor to generate the actual URL
+            src={urlFor(value)
+              .width(800) // You can resize on the fly!
+              .fit("max")
+              .auto("format")
+              .url()}
+            alt={value.alt || "Blog Post Image"}
+            className="w-full h-auto rounded-lg"
+          />
+          {/* Render caption if it exists */}
+          {value.caption && (
+            <figcaption className="text-center text-gray-500 mt-2 text-sm">
+              {value.caption}
+            </figcaption>
+          )}
+        </figure>
+      );
+    },
+  },
+};
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { lang, slug } = await params;
-  console.log(`[generateMetadata] Params resolved: lang=${lang}, slug=${slug}`);
+
   const post = await getPost(slug, lang);
 
   if (!post) {
@@ -43,7 +72,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     title: `${post.title} | Dos Tazas`,
     description: post.excerpt,
     alternates: {
-      canonical: lang === "en" ? `/post/${slug}` : `/${lang}/post/${slug}`,
+      canonical: `/${lang}/post/${slug}`,
     },
     openGraph: {
       images: post.image
@@ -77,7 +106,7 @@ export default async function PostPage({ params }: Props) {
       <div className="max-w-prose mx-auto px-4 sm:px-6 lg:px-8 text-center pt-20">
         <h1 className="text-2xl font-bold mb-4">{t.product.notFound}</h1>
         <Link
-          href={lang === "en" ? "/" : `/${lang}/`}
+          href={`/${lang}/`}
           className="text-primary-600 hover:text-primary-700"
         >
           {t.product.backHome}
@@ -113,7 +142,9 @@ export default async function PostPage({ params }: Props) {
       </header>
 
       <div className="prose prose-lg prose-neutral mx-auto prose-a:text-primary-700 prose-headings:font-bold prose-headings:text-neutral-900">
-        {post.body ? <PortableText value={post.body} /> : null}
+        {post.body ? (
+          <PortableText value={post.body} components={ptComponents} />
+        ) : null}
       </div>
     </article>
   );
