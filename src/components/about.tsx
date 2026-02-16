@@ -2,6 +2,7 @@
 
 import { useLanguage } from "@/context/LanguageContext";
 import Image from "next/image";
+import bedBg from "@/assets/images/coffeebed.jpeg";
 
 export default function About() {
   const { t } = useLanguage();
@@ -26,11 +27,11 @@ export default function About() {
           <div className="order-1 md:order-2">
             <div className="relative rounded-2xl overflow-hidden shadow-xl aspect-video md:aspect-square">
               <Image
-                src="https://placehold.co/800x800?text=Coffee+Process"
+                src={bedBg}
                 alt="Coffee Brewing Process"
                 fill
                 className="object-cover transform hover:scale-105 transition-transform duration-500"
-                unoptimized
+                loading="lazy"
               />
             </div>
           </div>

@@ -117,6 +117,7 @@ export default function Products() {
                 onClick={scrollPrev}
                 disabled={!canScrollPrev}
                 className="w-10 h-10 flex items-center justify-center rounded-full bg-white border border-gray-200 shadow-sm text-gray-600 hover:text-primary-600 hover:border-primary-600 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                aria-label="Previous slide"
               >
                 <ChevronLeft size={20} />
               </button>
@@ -124,6 +125,7 @@ export default function Products() {
                 onClick={scrollNext}
                 disabled={!canScrollNext}
                 className="w-10 h-10 flex items-center justify-center rounded-full bg-white border border-gray-200 shadow-sm text-gray-600 hover:text-primary-600 hover:border-primary-600 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                aria-label="Next slide"
               >
                 <ChevronRight size={20} />
               </button>

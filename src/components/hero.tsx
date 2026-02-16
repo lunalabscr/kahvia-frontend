@@ -1,7 +1,8 @@
 "use client";
 
-import { ArrowRight, ChevronDown } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import Image from "next/image";
+import heroBg from "@/assets/images/raised_drying_beds_rivense.jpg";
 import { useLanguage } from "../context/LanguageContext";
 
 export default function Hero() {
@@ -15,12 +16,14 @@ export default function Hero() {
       {/* Background Image with Overlay */}
       <div className="absolute inset-0 z-0">
         <Image
-          src="https://placehold.co/1920x1080?text=Coffee+Shop+Background"
+          src={heroBg}
           alt="Coffee Shop Background"
           fill
           className="object-cover"
           priority
-          unoptimized
+          placeholder="blur"
+          sizes="100vw"
+          quality={90}
         />
         <div className="absolute inset-0 bg-black/60"></div>
       </div>
