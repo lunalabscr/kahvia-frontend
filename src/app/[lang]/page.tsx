@@ -1,10 +1,12 @@
 import { translations } from "@/i18n/translations";
-import Hero from "@/components/Hero";
-import About from "@/components/About";
-import Products from "@/components/Products";
+
 import { SanityBlog } from "@/components/sanity/SanityBlogs";
-import Contact from "@/components/Contact";
+
 import type { Metadata } from "next";
+import Hero from "@/components/hero";
+import About from "@/components/about";
+import Products from "@/components/products";
+import Contact from "@/components/contact";
 
 type Props = {
   params: Promise<{ lang: "en" | "es" }>;
