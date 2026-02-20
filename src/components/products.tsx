@@ -7,9 +7,11 @@ import type { Product } from "@/interfaces/product";
 import useEmblaCarousel from "embla-carousel-react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
+import { motion } from "framer-motion";
 
 export default function Products() {
   const [products, setProducts] = useState<Product[]>([]);
+  const [loading, setLoading] = useState(true);
   const { language, t } = useLanguage();
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true, align: "start" });
   const [canScrollPrev, setCanScrollPrev] = useState(false);
@@ -38,7 +40,9 @@ export default function Products() {
   }, [emblaApi]);
 
   useEffect(() => {
+    let isMounted = true;
     const fetchProducts = async () => {
+      setLoading(true);
       // Filter by language. Assuming the field in Sanity is named 'language'
       const query = `*[_type == "product" && language == $lang]{
         _id,
@@ -49,21 +53,39 @@ export default function Products() {
       }`;
       try {
         const data = await client.fetch(query, { lang: language });
-        setProducts(data);
+        if (isMounted) setProducts(data);
       } catch (error) {
         console.error("Failed to fetch products:", error);
+      } finally {
+        if (isMounted) setLoading(false);
       }
     };
 
     fetchProducts();
+    return () => {
+      isMounted = false;
+    };
   }, [language]);
+
+  if (loading) {
+    return (
+      <section className="py-20 bg-white min-h-[400px]" id="products"></section>
+    );
+  }
 
   if (products.length === 0) {
     return null;
   }
 
   return (
-    <section id="products" className="py-20 bg-white overflow-hidden">
+    <motion.section
+      id="products"
+      initial={{ opacity: 0, y: 50 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-100px" }}
+      transition={{ duration: 0.6, ease: "easeOut" }}
+      className="py-20 bg-white overflow-hidden"
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
           <h2 className="text-3xl font-doto font-bold text-neutral-900 mb-4">
@@ -133,6 +155,6 @@ export default function Products() {
           )}
         </div>
       </div>
-    </section>
+    </motion.section>
   );
 }

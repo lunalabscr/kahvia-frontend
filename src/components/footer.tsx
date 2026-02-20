@@ -4,6 +4,7 @@ import { Instagram } from "lucide-react";
 import { usePathname, useRouter } from "next/navigation";
 import Link from "next/link";
 import { useLanguage } from "../context/LanguageContext";
+import { motion } from "framer-motion";
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -32,7 +33,13 @@ export default function Footer() {
   };
 
   return (
-    <footer className="bg-neutral-900 text-neutral-400 py-12 pb-24 md:pb-12 border-t border-neutral-800">
+    <motion.footer
+      initial={{ opacity: 0, y: 50 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-100px" }}
+      transition={{ duration: 0.6, ease: "easeOut" }}
+      className="bg-neutral-900 text-neutral-400 py-12 pb-24 md:pb-12 border-t border-neutral-800"
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12 text-center md:text-left">
           {/* Brand */}
@@ -49,7 +56,7 @@ export default function Footer() {
 
           {/* Links */}
           <div className="text-center">
-            <h4 className="font-bold text-white mb-4">{t.common.quickLinks}</h4>
+            <h3 className="font-bold text-white mb-4">{t.common.quickLinks}</h3>
             <ul className="space-y-2 font-roboto">
               <li>
                 <a
@@ -101,7 +108,7 @@ export default function Footer() {
 
           {/* Social */}
           <div className="text-center md:text-right">
-            <h4 className="font-bold text-white mb-4">{t.common.followUs}</h4>
+            <h3 className="font-bold text-white mb-4">{t.common.followUs}</h3>
             <div className="flex justify-center md:justify-end gap-4">
               <a
                 href="https://www.instagram.com/dostazascafe/"
@@ -120,6 +127,6 @@ export default function Footer() {
           <p>{t.common.footerText.replace("{year}", currentYear.toString())}</p>
         </div>
       </div>
-    </footer>
+    </motion.footer>
   );
 }
