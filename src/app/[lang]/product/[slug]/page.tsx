@@ -44,7 +44,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     },
     openGraph: {
       title: `${product.name} | Dos Tazas`,
-      description: `Buy ${product.name} - ${product.price}`,
+      description: `Buy ${product.name} - ${product.price} $`,
       type: "website",
       url: `/${lang}/product/${slug}`,
       locale: lang,
