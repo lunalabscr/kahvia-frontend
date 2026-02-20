@@ -22,6 +22,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     keywords: t.home.seo.keywords,
     alternates: {
       canonical: `/${lang}`,
+      languages: {
+        en: "/en",
+        es: "/es",
+      },
     },
     icons: "/logo.ico",
     openGraph: {

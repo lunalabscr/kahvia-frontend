@@ -34,11 +34,8 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://cafedostazas.com"),
   icons: "/logo.ico",
   alternates: {
-    canonical: "/",
-    languages: {
-      en: "/en",
-      es: "/es",
-    },
+    // We remove the global canonical and languages so that
+    // dynamic pages don't all say they are '/' in other languages.
   },
   openGraph: {
     type: "website",
