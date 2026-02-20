@@ -43,6 +43,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       canonical: `/${lang}/product/${slug}`,
     },
     openGraph: {
+      title: `${product.name} | Dos Tazas`,
+      description: `Buy ${product.name} - ${product.price}`,
+      type: "website",
+      url: `/${lang}/product/${slug}`,
+      locale: lang,
+      siteName: "Café Dos Tazas",
       images: product.image
         ? [urlFor(product.image).width(1200).height(630).url()]
         : [],
