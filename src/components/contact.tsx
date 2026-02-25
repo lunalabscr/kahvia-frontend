@@ -14,15 +14,20 @@ export default function Contact() {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-100px" }}
       transition={{ duration: 0.6, ease: "easeOut" }}
-      className="py-20 bg-neutral-900 text-white"
+      className="py-20 bg-[#b82324] text-[#f6e7d2]"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <h2 className="text-3xl font-doto font-bold mb-6">{t.contact.title}</h2>
-        <p className="text-neutral-400 mb-8 max-w-2xl mx-auto font-roboto">
+        <h2 className="text-3xl font-titan font-bold mb-6 text-[#f6e7d2]">
+          {t.contact.title}
+        </h2>
+        <p className="text-[#f6e7d2]/80 mb-8 max-w-2xl mx-auto font-montserrat">
           {t.contact.description}
         </p>
 
-        <ContactButton message={t.contact.buttonMessage} />
+        <ContactButton
+          message={t.contact.buttonMessage}
+          phoneNumber={process.env.NEXT_PUBLIC_PHONE_NUMBER}
+        />
       </div>
     </motion.section>
   );

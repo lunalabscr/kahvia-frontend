@@ -15,7 +15,7 @@ export default function ProductCard({ product }: ProductCardProps) {
   return (
     <Link
       href={`/${language}/product/${product.slug.current}`}
-      className="group bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300 flex flex-col h-full border border-transparent hover:border-neutral-100"
+      className="group bg-[#f6e7d2] rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300 flex flex-col h-full border border-transparent hover:border-neutral-100"
     >
       <div className="aspect-square bg-neutral-50 relative overflow-hidden">
         {product.image && (
@@ -28,21 +28,21 @@ export default function ProductCard({ product }: ProductCardProps) {
         )}
       </div>
 
-      <div className="p-6 flex flex-col flex-grow">
+      <div className="p-6 flex flex-col flex-grow bg-[#b82324]">
         <div className="mb-2">
-          <span className="text-xs font-bold tracking-wider text-primary-600 uppercase">
+          <span className="text-xs font-bold tracking-wider text-[#f6e7d2] uppercase">
             {t.product.singleOrigin}
           </span>
         </div>
-        <h3 className="text-xl font-doto font-bold text-neutral-900 mb-2 leading-tight group-hover:text-primary-700 transition-colors">
+        <h3 className="text-xl font-titan font-bold text-[#f6e7d2] mb-2 leading-tight group-hover:text-primary-700 transition-colors">
           {product.name}
         </h3>
 
-        <div className="mt-auto pt-4 flex justify-between items-end border-t border-neutral-100/50">
-          <span className="text-neutral-900 font-bold text-lg">
+        <div className="mt-auto pt-4 flex justify-between items-end border-t border-[#f6e7d2]/50">
+          <span className="text-[#f6e7d2] font-bold text-lg">
             {formattedPrice}
           </span>
-          <div className="flex items-center gap-1 text-sm font-medium text-neutral-500 group-hover:text-primary-600 transition-colors">
+          <div className="flex items-center gap-1 text-sm font-medium text-[#f6e7d2] group-hover:text-primary-600 transition-colors">
             {t.product.details}
             <ArrowRight
               size={16}

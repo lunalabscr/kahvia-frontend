@@ -63,9 +63,12 @@ export default async function ProductPage({ params }: Props) {
 
   if (!product) {
     return (
-      <div className="min-h-screen flex flex-col justify-center items-center font-roboto">
+      <div className="min-h-screen flex flex-col justify-center items-center font-montserrat bg-[#f6e7d2] text-[#791216]">
         {t.product.notFound}{" "}
-        <Link href={`/${lang}/`} className="text-primary-600 underline mt-4">
+        <Link
+          href={`/${lang}/`}
+          className="text-[#b82324] hover:text-primary-700 underline mt-4 font-bold"
+        >
           {t.product.backHome}
         </Link>
       </div>

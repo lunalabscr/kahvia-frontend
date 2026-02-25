@@ -8,12 +8,17 @@ const config: Config = {
     extend: {
       colors: {
         // High-priority actions (Buttons, active links)
-        // TIP: To change the primary color, replace 'colors.indigo' with another Tailwind color (e.g., colors.blue)
-        // or a custom hex code (e.g., '#4f46e5' or { 500: '#4f46e5', 600: '#4338ca' }).
-        primary: colors.indigo,
+        primary: {
+          DEFAULT: "#b82324",
+          dark: "#791216",
+        },
 
         // Secondary actions, accents, or subtle backgrounds
-        secondary: colors.slate,
+        secondary: {
+          DEFAULT: "#791216",
+        },
+
+        background: "#f6e7d2",
 
         // Semantic colors for feedback
         success: colors.emerald,
@@ -25,9 +30,8 @@ const config: Config = {
         neutral: colors.gray,
       },
       fontFamily: {
-        sans: ["var(--font-inter)", "sans-serif"],
-        roboto: ["var(--font-roboto)", "sans-serif"],
-        doto: ["var(--font-doto)", "sans-serif"],
+        sans: ["var(--font-montserrat)", "sans-serif"],
+        heading: ["var(--font-titan)", "sans-serif"],
       },
     },
   },

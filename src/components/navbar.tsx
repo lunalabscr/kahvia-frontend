@@ -8,6 +8,7 @@ import {
   Coffee,
   Phone,
   Instagram,
+  Facebook,
   Info,
   Globe,
 } from "lucide-react";
@@ -125,7 +126,7 @@ export default function Navbar() {
         }}
         animate={navHidden ? "hidden" : "visible"}
         transition={{ duration: 0.35, ease: "easeInOut" }}
-        className="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-md border-b border-neutral-200"
+        className="fixed top-0 w-full z-50 bg-[#b82324]/90 backdrop-blur-md border-b border-[#791216]/80"
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
@@ -147,7 +148,7 @@ export default function Navbar() {
               }}
               className="flex-shrink-0 flex items-center group cursor-pointer"
             >
-              <span className="font-doto text-2xl font-bold text-primary-600 group-hover:text-primary-700 transition-colors">
+              <span className="font-titan text-2xl font-bold text-[#f6e7d2] group-hover:text-primary-700 transition-colors">
                 Dos Tazas
               </span>
             </a>
@@ -159,14 +160,14 @@ export default function Navbar() {
                   key={link.name}
                   href={getHref(link.href)}
                   onClick={(e) => handleNavClick(e, link.href)}
-                  className="text-neutral-600 hover:text-primary-600 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 cursor-pointer"
+                  className="text-[#f6e7d2] hover:text-primary-600 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 cursor-pointer"
                 >
                   {link.name}
                 </a>
               ))}
               <button
                 onClick={toggleLanguage}
-                className="text-neutral-600 hover:text-primary-600 transition-colors duration-200 flex items-center gap-1 font-medium"
+                className="text-[#f6e7d2] hover:text-primary-600 transition-colors duration-200 flex items-center gap-1 font-medium"
                 aria-label="Toggle language"
               >
                 <Globe size={20} />
@@ -176,10 +177,19 @@ export default function Navbar() {
                 href="https://www.instagram.com/dostazascafe/"
                 target="_blank"
                 rel="noreferrer"
-                className="text-neutral-600 hover:text-pink-600 transition-colors duration-200"
+                className="text-[#f6e7d2] hover:text-pink-600 transition-colors duration-200"
                 aria-label="Instagram"
               >
                 <Instagram size={20} />
+              </a>
+              <a
+                href="https://www.facebook.com/profile.php?id=61588219114974"
+                target="_blank"
+                rel="noreferrer"
+                className="text-[#f6e7d2] hover:text-blue-500 transition-colors duration-200"
+                aria-label="Facebook"
+              >
+                <Facebook size={20} />
               </a>
             </div>
 
@@ -187,7 +197,7 @@ export default function Navbar() {
             <div className="flex md:hidden items-center gap-4">
               <button
                 onClick={toggleLanguage}
-                className="text-neutral-600 hover:text-primary-600 p-2 focus:outline-none"
+                className="text-[#f6e7d2] hover:text-primary-600 p-2 focus:outline-none"
                 aria-label="Toggle language"
               >
                 <span className="font-bold">
@@ -196,7 +206,7 @@ export default function Navbar() {
               </button>
               <button
                 onClick={() => setIsOpen(!isOpen)}
-                className="text-neutral-600 hover:text-primary-600 p-2 focus:outline-none transition-transform duration-200 active:scale-95"
+                className="text-[#f6e7d2] hover:text-primary-600 p-2 focus:outline-none transition-transform duration-200 active:scale-95"
                 aria-label="Toggle menu"
               >
                 <Menu size={24} />
@@ -225,15 +235,15 @@ export default function Navbar() {
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
               transition={{ type: "spring", damping: 25, stiffness: 200 }}
-              className="fixed top-0 right-0 h-full w-4/5 max-w-sm bg-white shadow-2xl z-50 md:hidden flex flex-col"
+              className="fixed top-0 right-0 h-full w-4/5 max-w-sm bg-[#f6e7d2] shadow-2xl z-50 md:hidden flex flex-col"
             >
-              <div className="p-4 flex justify-between items-center border-b border-neutral-100">
-                <span className="font-doto text-xl font-bold text-primary-600">
+              <div className="p-4 flex justify-between items-center border-b border-[#b82324]">
+                <span className="font-titan text-xl font-bold text-[#b82324]">
                   Menu
                 </span>
                 <button
                   onClick={() => setIsOpen(false)}
-                  className="text-neutral-600 hover:text-primary-600 p-2 focus:outline-none transition-transform duration-200 active:scale-95"
+                  className="text-[#b82324] hover:text-primary-600 p-2 focus:outline-none transition-transform duration-200 active:scale-95"
                   aria-label="Close menu"
                 >
                   <X size={24} />
@@ -246,7 +256,7 @@ export default function Navbar() {
                     key={link.name}
                     href={getHref(link.href)}
                     onClick={(e) => handleNavClick(e, link.href)}
-                    className="text-neutral-800 hover:text-primary-600 hover:bg-primary-50 px-4 py-3 rounded-xl text-lg font-medium flex items-center gap-4 cursor-pointer transition-colors"
+                    className="text-[#b82324] hover:text-primary-600 hover:bg-primary-50 px-4 py-3 rounded-xl text-lg font-medium flex items-center gap-4 cursor-pointer transition-colors"
                   >
                     <div className="bg-primary-100 p-2 rounded-lg text-primary-600">
                       <link.icon size={20} />
@@ -255,20 +265,33 @@ export default function Navbar() {
                   </a>
                 ))}
 
-                <div className="my-6 border-t border-neutral-100"></div>
+                <div className="my-6 border-t border-[#b82324]"></div>
 
                 <a
                   href="https://www.instagram.com/dostazascafe/"
                   target="_blank"
                   rel="noreferrer"
-                  className="text-neutral-800 hover:text-pink-600 hover:bg-pink-50 px-4 py-3 rounded-xl text-lg font-medium flex items-center gap-4 transition-colors"
+                  className="text-[#b82324] hover:text-pink-600 hover:bg-pink-50 px-4 py-3 rounded-xl text-lg font-medium flex items-center gap-4 transition-colors"
                   onClick={() => setIsOpen(false)}
                   aria-label="Instagram"
                 >
-                  <div className="bg-pink-100 p-2 rounded-lg text-pink-600">
+                  <div className="p-2 rounded-lg text-[#b82324]">
                     <Instagram size={20} />
                   </div>
                   Instagram
+                </a>
+                <a
+                  href="https://www.facebook.com/profile.php?id=61588219114974"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="text-[#b82324] hover:text-blue-600 hover:bg-blue-50 px-4 py-3 rounded-xl text-lg font-medium flex items-center gap-4 transition-colors"
+                  onClick={() => setIsOpen(false)}
+                  aria-label="Facebook"
+                >
+                  <div className="p-2 rounded-lg text-[#b82324]">
+                    <Facebook size={20} />
+                  </div>
+                  Facebook
                 </a>
               </div>
             </motion.div>
@@ -277,12 +300,12 @@ export default function Navbar() {
       </AnimatePresence>
 
       {/* Mobile Bottom Navigation */}
-      <div className="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-neutral-200 z-40 pb-safe">
+      <div className="md:hidden fixed bottom-0 left-0 right-0 bg-[#b82324] border-t border-[#b82324] z-40 pb-safe">
         <div className="flex justify-around items-center h-16">
           <a
             href={getHref("#")}
             onClick={(e) => handleNavClick(e, "#")}
-            className="flex flex-col items-center justify-center w-full h-full text-neutral-600 hover:text-primary-600 cursor-pointer"
+            className="flex flex-col items-center justify-center w-full h-full text-[#f6e7d2] hover:text-primary-600 cursor-pointer"
           >
             <Home size={24} />
             <span className="text-xs mt-1">{t.nav.home}</span>
@@ -290,7 +313,7 @@ export default function Navbar() {
           <a
             href={getHref("#products")}
             onClick={(e) => handleNavClick(e, "#products")}
-            className="flex flex-col items-center justify-center w-full h-full text-neutral-600 hover:text-primary-600 cursor-pointer"
+            className="flex flex-col items-center justify-center w-full h-full text-[#f6e7d2] hover:text-primary-600 cursor-pointer"
           >
             <Coffee size={24} />
             <span className="text-xs mt-1">{t.nav.products}</span>
@@ -298,7 +321,7 @@ export default function Navbar() {
           <a
             href={getHref("#contact")}
             onClick={(e) => handleNavClick(e, "#contact")}
-            className="flex flex-col items-center justify-center w-full h-full text-neutral-600 hover:text-primary-600 cursor-pointer"
+            className="flex flex-col items-center justify-center w-full h-full text-[#f6e7d2] hover:text-primary-600 cursor-pointer"
           >
             <Phone size={24} />
             <span className="text-xs mt-1">{t.nav.contact}</span>

@@ -65,7 +65,7 @@ export default function ProductView({
   }).format(product.price);
 
   return (
-    <div className="bg-white min-h-screen pt-20 pb-20 font-roboto">
+    <div className="bg-[#f6e7d2] min-h-screen pt-20 pb-20 font-montserrat">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-20">
           {/* Left: Image Carousel */}
@@ -99,14 +99,14 @@ export default function ProductView({
                 <>
                   <button
                     onClick={scrollPrev}
-                    className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/80 p-2 rounded-full shadow hover:bg-white transition-colors z-10"
+                    className="absolute left-4 top-1/2 -translate-y-1/2 bg-[#791216]/80 p-2 rounded-full shadow hover:bg-[#791216] transition-colors z-10"
                     aria-label="Previous image"
                   >
                     <ChevronLeft size={24} />
                   </button>
                   <button
                     onClick={scrollNext}
-                    className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/80 p-2 rounded-full shadow hover:bg-white transition-colors z-10"
+                    className="absolute right-4 top-1/2 -translate-y-1/2 bg-[#791216]/80 p-2 rounded-full shadow hover:bg-[#791216] transition-colors z-10"
                     aria-label="Next image"
                   >
                     <ChevronRight size={24} />
@@ -141,14 +141,14 @@ export default function ProductView({
 
           {/* Right: Product Info */}
           <div>
-            <h1 className="text-4xl font-doto font-bold text-gray-900 mb-2">
+            <h1 className="text-4xl font-titan font-bold text-[#b82324] mb-2">
               {product.name}
             </h1>
-            <p className="text-2xl font-bold text-primary-600 mb-6">
+            <p className="text-2xl font-bold text-[#791216] mb-6">
               {formattedPrice}
             </p>
 
-            <div className="prose prose-neutral max-w-none mb-8 font-roboto text-gray-600">
+            <div className="prose prose-neutral max-w-none mb-8 font-montserrat text-[#791216] prose-p:text-[#791216] prose-headings:text-[#b82324] prose-li:text-[#791216] prose-li:marker:text-[#b82324] prose-ul:text-[#791216] prose-ol:text-[#791216] prose-blockquote:text-[#791216] prose-blockquote:border-[#b82324] prose-strong:text-[#791216]">
               {product.body && <PortableText value={product.body} />}
             </div>
 
@@ -156,40 +156,40 @@ export default function ProductView({
             <div className="grid grid-cols-2 gap-x-4 gap-y-6 mb-8 text-sm">
               {product.process && (
                 <div>
-                  <span className="block text-gray-500 font-medium mb-1">
+                  <span className="block text-[#b82324] font-medium mb-1">
                     {t.product.process}
                   </span>
-                  <span className="font-semibold text-gray-900">
+                  <span className="font-semibold text-[#791216]">
                     {product.process}
                   </span>
                 </div>
               )}
               {product.roastLevel && (
                 <div>
-                  <span className="block text-gray-500 font-medium mb-1">
+                  <span className="block text-[#b82324] font-medium mb-1">
                     {t.product.roastLevel}
                   </span>
-                  <span className="font-semibold text-gray-900">
+                  <span className="font-semibold text-[#791216]">
                     {product.roastLevel}
                   </span>
                 </div>
               )}
               {product.producer && (
                 <div>
-                  <span className="block text-gray-500 font-medium mb-1">
+                  <span className="block text-[#b82324] font-medium mb-1">
                     {t.product.producer}
                   </span>
-                  <span className="font-semibold text-gray-900">
+                  <span className="font-semibold text-[#791216]">
                     {product.producer}
                   </span>
                 </div>
               )}
               {product.altitude && (
                 <div>
-                  <span className="block text-gray-500 font-medium mb-1">
+                  <span className="block text-[#b82324] font-medium mb-1">
                     {t.product.altitude}
                   </span>
-                  <span className="font-semibold text-gray-900">
+                  <span className="font-semibold text-[#791216]">
                     {product.altitude}
                   </span>
                 </div>
@@ -199,6 +199,7 @@ export default function ProductView({
             <ContactButton
               className="w-full justify-center"
               message={`Hi, I'm interested in buying ${product.name}`}
+              phoneNumber={process.env.NEXT_PUBLIC_PHONE_NUMBER}
             />
           </div>
         </div>
@@ -206,7 +207,7 @@ export default function ProductView({
         {/* Related Products */}
         {relatedProducts.length > 0 && (
           <div>
-            <h2 className="text-2xl font-doto font-bold mb-8">
+            <h2 className="text-2xl font-titan font-bold text-[#b82324] mb-8">
               {t.product.related}
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">

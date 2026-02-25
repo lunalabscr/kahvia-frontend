@@ -2,23 +2,32 @@
 @plugin "@tailwindcss/typography";
 
 @theme {
-  --font-doto: "Doto", sans-serif;
-  --font-roboto: "Roboto", sans-serif;
+  --font-titan: "Titan One", sans-serif;
+  --font-montserrat: "Montserrat", sans-serif;
 }
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #f6e7d2;
+  --foreground: #791216;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #791216;
+    --foreground: #f6e7d2;
   }
 }
 
 body {
   color: var(--foreground);
   background: var(--background);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-titan);
 }

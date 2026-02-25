@@ -122,36 +122,38 @@ export default async function PostPage({ params }: Props) {
   }
 
   return (
-    <article className="container mx-auto px-4 py-12 max-w-3xl">
-      <header className="mb-8 text-center">
-        {post.image && (
-          <div className="rounded-xl overflow-hidden mb-8 shadow-lg relative aspect-video">
-            <Image
-              src={urlFor(post.image).width(1200).height(600).url()}
-              alt={post.title}
-              fill
-              className="w-full h-auto object-cover"
-              priority
-            />
-          </div>
-        )}
-        <h1 className="text-4xl md:text-5xl font-bold mb-4 text-neutral-900">
-          {post.title}
-        </h1>
-        <p className="text-neutral-500 mb-6">
-          {new Date(post.publishedAt).toLocaleDateString(lang, {
-            year: "numeric",
-            month: "long",
-            day: "numeric",
-          })}
-        </p>
-      </header>
+    <div className="bg-[#f6e7d2] min-h-screen py-12">
+      <article className="container mx-auto px-4 max-w-3xl">
+        <header className="mb-8 text-center">
+          {post.image && (
+            <div className="rounded-xl overflow-hidden mb-8 shadow-lg relative aspect-video">
+              <Image
+                src={urlFor(post.image).width(1200).height(600).url()}
+                alt={post.title}
+                fill
+                className="w-full h-auto object-cover"
+                priority
+              />
+            </div>
+          )}
+          <h1 className="text-4xl md:text-5xl font-titan font-bold mb-4 text-[#b82324]">
+            {post.title}
+          </h1>
+          <p className="text-[#791216] font-montserrat mb-6">
+            {new Date(post.publishedAt).toLocaleDateString(lang, {
+              year: "numeric",
+              month: "long",
+              day: "numeric",
+            })}
+          </p>
+        </header>
 
-      <div className="prose prose-lg prose-neutral mx-auto prose-a:text-primary-700 prose-headings:font-bold prose-headings:text-neutral-900">
-        {post.body ? (
-          <PortableText value={post.body} components={ptComponents} />
-        ) : null}
-      </div>
-    </article>
+        <div className="prose prose-lg prose-neutral mx-auto prose-a:text-[#b82324] prose-headings:font-bold prose-headings:text-[#b82324] prose-p:text-[#791216] text-[#791216] prose-strong:text-[#791216] prose-li:text-[#791216] prose-li:marker:text-[#b82324] prose-ul:text-[#791216] prose-ol:text-[#791216] prose-blockquote:text-[#791216] prose-blockquote:border-[#b82324] font-montserrat">
+          {post.body ? (
+            <PortableText value={post.body} components={ptComponents} />
+          ) : null}
+        </div>
+      </article>
+    </div>
   );
 }

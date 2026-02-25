@@ -1,7 +1,7 @@
 import { LanguageProvider } from "@/context/LanguageContext";
 
 import ScrollHandler from "@/components/ScrollHandler";
-import { Inter, Roboto, Doto } from "next/font/google";
+import { Titan_One, Montserrat } from "next/font/google";
 import "./globals.css";
 import type { Metadata } from "next";
 import { Suspense } from "react";
@@ -10,21 +10,15 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import Navbar from "@/components/navbar";
 import Footer from "@/components/footer";
 
-const inter = Inter({
+const titan = Titan_One({
+  weight: ["400"],
   subsets: ["latin"],
-  variable: "--font-inter",
+  variable: "--font-titan",
   display: "swap",
 });
-const roboto = Roboto({
-  weight: ["400", "500", "700"],
+const montserrat = Montserrat({
   subsets: ["latin"],
-  variable: "--font-roboto",
-  display: "swap",
-});
-const doto = Doto({
-  weight: ["400", "700"],
-  subsets: ["latin"],
-  variable: "--font-doto",
+  variable: "--font-montserrat",
   display: "swap",
 });
 
@@ -59,12 +53,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${inter.variable} ${roboto.variable} ${doto.variable} font-sans antialiased`}
+        className={`${titan.variable} ${montserrat.variable} font-sans antialiased`}
       >
         <Analytics />
         <SpeedInsights />
         <LanguageProvider>
-          <div className="bg-white min-h-screen text-neutral-900 font-sans selection:bg-primary-100 selection:text-primary-900 flex flex-col">
+          <div className="bg-[#791216] min-h-screen text-neutral-900 font-sans selection:bg-primary-100 selection:text-primary-900 flex flex-col">
             <Suspense fallback={null}>
               <ScrollHandler />
             </Suspense>

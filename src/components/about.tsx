@@ -9,7 +9,7 @@ export default function About() {
   const { t } = useLanguage();
 
   return (
-    <section id="about" className="py-20 bg-neutral-50 overflow-hidden">
+    <section id="about" className="py-20 bg-[#f6e7d2] overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
           {/* Text Content */}
@@ -20,10 +20,10 @@ export default function About() {
             transition={{ duration: 0.6, ease: "easeOut" }}
             className="order-2 md:order-1"
           >
-            <h2 className="text-3xl font-doto font-bold text-neutral-900 mb-6">
+            <h2 className="text-3xl font-titan font-bold text-[#b82324] mb-6">
               {t.about.title}
             </h2>
-            <div className="space-y-4 text-lg text-neutral-600 font-roboto">
+            <div className="space-y-4 text-lg text-[#791216] font-montserrat">
               <p>{t.about.p1}</p>
               <p>{t.about.p2}</p>
               <p>{t.about.p3}</p>

@@ -67,21 +67,14 @@
     --color-green-600: #00a544;
     --color-green-700: #008138;
     --color-pink-50: #fdf2f8;
-    --color-pink-100: #fce7f3;
     --color-pink-600: #e30076;
     --color-gray-100: #f3f4f6;
     --color-gray-200: #e5e7eb;
     --color-gray-300: #d1d5dc;
     --color-gray-500: #6a7282;
     --color-gray-600: #4a5565;
-    --color-gray-900: #101828;
     --color-neutral-50: #fafafa;
     --color-neutral-100: #f5f5f5;
-    --color-neutral-200: #e5e5e5;
-    --color-neutral-400: #a1a1a1;
-    --color-neutral-500: #737373;
-    --color-neutral-600: #525252;
-    --color-neutral-800: #262626;
     --color-neutral-900: #171717;
     --color-black: #000;
     --color-white: #fff;
@@ -126,8 +119,8 @@
     --default-transition-timing-function: cubic-bezier(.4, 0, .2, 1);
     --default-font-family: var(--font-sans);
     --default-mono-font-family: var(--font-mono);
-    --font-doto: "Doto", sans-serif;
-    --font-roboto: "Roboto", sans-serif;
+    --font-titan: "Titan One", sans-serif;
+    --font-montserrat: "Montserrat", sans-serif;
   }
 
   @supports (color: lab(0% 0 0)) {
@@ -135,21 +128,14 @@
       --color-green-600: lab(59.0978% -58.6621 41.2579);
       --color-green-700: lab(47.0329% -47.0239 31.4788);
       --color-pink-50: lab(96.4459% 4.53997 -1.49434);
-      --color-pink-100: lab(93.5864% 9.01193 -3.15079);
       --color-pink-600: lab(49.5493% 79.8381 2.31768);
       --color-gray-100: lab(96.1596% -.0823438 -1.13575);
       --color-gray-200: lab(91.6229% -.159115 -2.26791);
       --color-gray-300: lab(85.1236% -.612259 -3.7138);
       --color-gray-500: lab(47.7841% -.393182 -10.0268);
       --color-gray-600: lab(35.6337% -1.58697 -10.8425);
-      --color-gray-900: lab(8.11897% .811279 -12.254);
       --color-neutral-50: lab(98.26% 0 0);
       --color-neutral-100: lab(96.52% -.0000298023 .0000119209);
-      --color-neutral-200: lab(90.952% 0 -.0000119209);
-      --color-neutral-400: lab(66.128% -.0000298023 .0000119209);
-      --color-neutral-500: lab(48.496% 0 0);
-      --color-neutral-600: lab(34.924% 0 0);
-      --color-neutral-800: lab(15.204% 0 -.00000596046);
       --color-neutral-900: lab(7.78201% -.0000149012 0);
     }
   }
@@ -1608,34 +1594,62 @@
     border-bottom-width: 1px;
   }
 
+  .border-\[\#791216\]\/80 {
+    border-color: #791216cc;
+    border-color: lab(25.9701% 43.2227 28.0422 / .8);
+  }
+
+  .border-\[\#b82324\] {
+    border-color: #b82324;
+  }
+
+  .border-\[\#f6e7d2\]\/50 {
+    border-color: #f6e7d280;
+    border-color: lab(92.4414% 2.76163 12.1923 / .5);
+  }
+
+  .border-black\/20 {
+    border-color: #0003;
+  }
+
+  @supports (color: color-mix(in lab, red, red)) {
+    .border-black\/20 {
+      border-color: color-mix(in oklab, var(--color-black) 20%, transparent);
+    }
+  }
+
   .border-gray-200 {
     border-color: var(--color-gray-200);
   }
 
-  .border-neutral-100 {
-    border-color: var(--color-neutral-100);
-  }
-
-  .border-neutral-100\/50 {
-    border-color: #f5f5f580;
-  }
-
-  @supports (color: color-mix(in lab, red, red)) {
-    .border-neutral-100\/50 {
-      border-color: color-mix(in oklab, var(--color-neutral-100) 50%, transparent);
-    }
-  }
-
-  .border-neutral-200 {
-    border-color: var(--color-neutral-200);
-  }
-
-  .border-neutral-800 {
-    border-color: var(--color-neutral-800);
-  }
-
   .border-transparent {
     border-color: #0000;
+  }
+
+  .bg-\[\#791216\] {
+    background-color: #791216;
+  }
+
+  .bg-\[\#791216\]\/80 {
+    background-color: #791216cc;
+    background-color: lab(25.9701% 43.2227 28.0422 / .8);
+  }
+
+  .bg-\[\#b82324\] {
+    background-color: #b82324;
+  }
+
+  .bg-\[\#b82324\]\/90 {
+    background-color: #b82324e6;
+    background-color: lab(41.1786% 58.1388 39.8436 / .9);
+  }
+
+  .bg-\[\#ebdcc7\] {
+    background-color: #ebdcc7;
+  }
+
+  .bg-\[\#f6e7d2\] {
+    background-color: #f6e7d2;
   }
 
   .bg-black\/50 {
@@ -1668,28 +1682,6 @@
 
   .bg-neutral-50 {
     background-color: var(--color-neutral-50);
-  }
-
-  .bg-neutral-900 {
-    background-color: var(--color-neutral-900);
-  }
-
-  .bg-pink-100 {
-    background-color: var(--color-pink-100);
-  }
-
-  .bg-white {
-    background-color: var(--color-white);
-  }
-
-  .bg-white\/80 {
-    background-color: #fffc;
-  }
-
-  @supports (color: color-mix(in lab, red, red)) {
-    .bg-white\/80 {
-      background-color: color-mix(in oklab, var(--color-white) 80%, transparent);
-    }
   }
 
   .object-cover {
@@ -1772,16 +1764,16 @@
     text-align: center;
   }
 
-  .font-doto {
-    font-family: var(--font-doto);
-  }
-
-  .font-roboto {
-    font-family: var(--font-roboto);
+  .font-montserrat {
+    font-family: var(--font-montserrat);
   }
 
   .font-sans {
     font-family: var(--font-sans);
+  }
+
+  .font-titan {
+    font-family: var(--font-titan);
   }
 
   .text-2xl {
@@ -1854,6 +1846,28 @@
     letter-spacing: var(--tracking-wider);
   }
 
+  .text-\[\#791216\] {
+    color: #791216;
+  }
+
+  .text-\[\#b82324\] {
+    color: #b82324;
+  }
+
+  .text-\[\#f6e7d2\] {
+    color: #f6e7d2;
+  }
+
+  .text-\[\#f6e7d2\]\/60 {
+    color: #f6e7d299;
+    color: lab(92.4414% 2.76163 12.1923 / .6);
+  }
+
+  .text-\[\#f6e7d2\]\/80 {
+    color: #f6e7d2cc;
+    color: lab(92.4414% 2.76163 12.1923 / .8);
+  }
+
   .text-gray-500 {
     color: var(--color-gray-500);
   }
@@ -1862,36 +1876,8 @@
     color: var(--color-gray-600);
   }
 
-  .text-gray-900 {
-    color: var(--color-gray-900);
-  }
-
-  .text-neutral-200 {
-    color: var(--color-neutral-200);
-  }
-
-  .text-neutral-400 {
-    color: var(--color-neutral-400);
-  }
-
-  .text-neutral-500 {
-    color: var(--color-neutral-500);
-  }
-
-  .text-neutral-600 {
-    color: var(--color-neutral-600);
-  }
-
-  .text-neutral-800 {
-    color: var(--color-neutral-800);
-  }
-
   .text-neutral-900 {
     color: var(--color-neutral-900);
-  }
-
-  .text-pink-600 {
-    color: var(--color-pink-600);
   }
 
   .text-white {
@@ -2087,6 +2073,12 @@
   }
 
   @media (hover: hover) {
+    .group-hover\:text-white:is(:where(.group):hover *) {
+      color: var(--color-white);
+    }
+  }
+
+  @media (hover: hover) {
     .hover\:scale-105:hover {
       --tw-scale-x: 105%;
       --tw-scale-y: 105%;
@@ -2108,6 +2100,12 @@
   }
 
   @media (hover: hover) {
+    .hover\:bg-\[\#791216\]:hover {
+      background-color: #791216;
+    }
+  }
+
+  @media (hover: hover) {
     .hover\:bg-green-700:hover {
       background-color: var(--color-green-700);
     }
@@ -2116,12 +2114,6 @@
   @media (hover: hover) {
     .hover\:bg-pink-50:hover {
       background-color: var(--color-pink-50);
-    }
-  }
-
-  @media (hover: hover) {
-    .hover\:bg-white:hover {
-      background-color: var(--color-white);
     }
   }
 
@@ -2335,26 +2327,78 @@
     font-weight: var(--font-weight-bold);
   }
 
-  .prose-headings\:text-neutral-900 :where(h1, h2, h3, h4, h5, h6, th):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
-    color: var(--color-neutral-900);
+  .prose-headings\:text-\[\#b82324\] :where(h1, h2, h3, h4, h5, h6, th):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+    color: #b82324;
+  }
+
+  .prose-p\:text-\[\#791216\] :where(p):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+    color: #791216;
+  }
+
+  .prose-a\:text-\[\#b82324\] :where(a):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+    color: #b82324;
+  }
+
+  .prose-blockquote\:border-\[\#b82324\] :where(blockquote):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+    border-color: #b82324;
+  }
+
+  .prose-blockquote\:text-\[\#791216\] :where(blockquote):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+    color: #791216;
+  }
+
+  .prose-strong\:text-\[\#791216\] :where(strong):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+    color: #791216;
+  }
+
+  .prose-ol\:text-\[\#791216\] :where(ol):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+    color: #791216;
+  }
+
+  .prose-ul\:text-\[\#791216\] :where(ul):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+    color: #791216;
+  }
+
+  .prose-li\:text-\[\#791216\] :where(li):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+    color: #791216;
+  }
+
+  .prose-li\:marker\:text-\[\#b82324\] :where(li):not(:where([class~="not-prose"], [class~="not-prose"] *)) ::marker {
+    color: #b82324;
+  }
+
+  .prose-li\:marker\:text-\[\#b82324\] :where(li):not(:where([class~="not-prose"], [class~="not-prose"] *))::marker {
+    color: #b82324;
+  }
+
+  .prose-li\:marker\:text-\[\#b82324\] :where(li):not(:where([class~="not-prose"], [class~="not-prose"] *)) ::-webkit-details-marker {
+    color: #b82324;
+  }
+
+  .prose-li\:marker\:text-\[\#b82324\] :where(li):not(:where([class~="not-prose"], [class~="not-prose"] *))::-webkit-details-marker {
+    color: #b82324;
   }
 }
 
 :root {
-  --background: #fff;
-  --foreground: #171717;
+  --background: #f6e7d2;
+  --foreground: #791216;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #791216;
+    --foreground: #f6e7d2;
   }
 }
 
 body {
   color: var(--foreground);
   background: var(--background);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-titan);
 }
 
 @property --tw-translate-x {

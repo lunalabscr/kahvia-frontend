@@ -35,7 +35,7 @@ export const SanityBlog = () => {
 
   return (
     <motion.section
-      className="py-20 bg-neutral-50"
+      className="py-20 bg-[#f6e7d2]"
       id="blog"
       initial={{ opacity: 0, y: 50 }}
       whileInView={{ opacity: 1, y: 0 }}
@@ -43,7 +43,7 @@ export const SanityBlog = () => {
       transition={{ duration: 0.6, ease: "easeOut" }}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 className="text-4xl font-bold mb-12 text-center text-primary-900 font-doto">
+        <h2 className="text-4xl font-bold mb-12 text-center text-[#b82324] font-titan">
           {t.home.blog.title}
         </h2>
         <motion.div
@@ -74,7 +74,7 @@ export const SanityBlog = () => {
             >
               <Link
                 href={`/${language}/post/${post.slug.current}`}
-                className="group bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300 flex flex-col h-full"
+                className="group bg-[#791216] rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300 flex flex-col h-full"
               >
                 {post.image && (
                   <div className="h-48 overflow-hidden relative">
@@ -86,19 +86,19 @@ export const SanityBlog = () => {
                     />
                   </div>
                 )}
-                <div className="p-6 flex flex-col flex-grow">
-                  <p className="text-sm text-primary-600 font-medium mb-2">
+                <div className="p-6 flex flex-col flex-grow bg-[#b82324]">
+                  <p className="text-sm text-[#f6e7d2] font-medium mb-2">
                     {new Date(post.publishedAt).toLocaleDateString(language, {
                       year: "numeric",
                       month: "long",
                       day: "numeric",
                     })}
                   </p>
-                  <h3 className="text-xl font-bold mb-3 text-neutral-900 group-hover:text-primary-700 transition-colors">
+                  <h3 className="text-xl font-bold mb-3 text-[#f6e7d2] group-hover:text-primary-700 transition-colors">
                     {post.title}
                   </h3>
                   {/* Optional: Add excerpt here if available in the future */}
-                  <span className="text-primary-700 font-medium mt-auto inline-flex items-center">
+                  <span className="text-[#f6e7d2] font-medium mt-auto inline-flex items-center">
                     {t.home.blog.readMore}
                     <svg
                       className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1"
