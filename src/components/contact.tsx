@@ -20,7 +20,7 @@ export default function Contact() {
         <h2 className="text-3xl font-titan font-bold mb-6 text-[#f6e7d2]">
           {t.contact.title}
         </h2>
-        <p className="text-[#f6e7d2]/80 mb-8 max-w-2xl mx-auto font-montserrat">
+        <p className="text-[#f6e7d2]/80 mb-8 max-w-2xl mx-auto font-gotham">
           {t.contact.description}
         </p>
 

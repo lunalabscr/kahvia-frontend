@@ -3,7 +3,7 @@
 
 @theme {
   --font-titan: "Titan One", sans-serif;
-  --font-montserrat: "Montserrat", sans-serif;
+  --font-gotham: "Gotham", sans-serif;
 }
 
 :root {
@@ -21,13 +21,4 @@
 body {
   color: var(--foreground);
   background: var(--background);
-}
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-family: var(--font-titan);
 }

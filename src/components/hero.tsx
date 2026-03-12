@@ -2,7 +2,7 @@
 
 import { ArrowRight } from "lucide-react";
 import Image from "next/image";
-import heroBg from "@/assets/images/raised_drying_beds_rivense.webp";
+import heroBg from "@/assets/images/brand/cafe_desde_ariba.jpg";
 import { useLanguage } from "../context/LanguageContext";
 import { motion } from "framer-motion";
 import type { Variants } from "framer-motion";
@@ -60,13 +60,13 @@ export default function Hero() {
       >
         <motion.h1
           variants={itemVariants}
-          className="font-titan text-5xl md:text-7xl font-bold mb-6 tracking-tight"
+          className="font-titan text-5xl md:text-7xl font-extralight mb-6 tracking-tight"
         >
           {t.home.hero.title}
         </motion.h1>
         <motion.p
           variants={itemVariants}
-          className="font-montserrat text-xl md:text-2xl mb-8 text-[#f6e7d2] max-w-2xl mx-auto"
+          className="font-gotham text-xl md:text-2xl mb-8 text-[#f6e7d2] max-w-2xl mx-auto"
         >
           {t.home.hero.subtitle}
         </motion.p>

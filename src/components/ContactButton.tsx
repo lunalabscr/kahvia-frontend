@@ -11,12 +11,13 @@ interface ContactButtonProps {
 export default function ContactButton({
   text,
   phoneNumber = "1234567890", // Placeholder, ideally this should be a prop or env variable if global
-  message = "Hello, I would like to know more about Dos Tazas coffee.",
+  message,
   className = "",
 }: ContactButtonProps) {
   const { t } = useLanguage();
   const buttonText = text || t.contactButton.defaultText;
-  const encodedMessage = encodeURIComponent(message);
+  const whatsappMessage = message || t.contact.whatsappBaseMessage;
+  const encodedMessage = encodeURIComponent(whatsappMessage);
   const whatsappLink = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
 
   return (

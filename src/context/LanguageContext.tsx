@@ -27,14 +27,14 @@ export const LanguageProvider = ({ children }: { children: ReactNode }) => {
 
   const lang = params?.lang as string;
 
-  // Validate language from URL, default to 'en' if invalid
-  const initialLang: Language = lang === "es" || lang === "en" ? lang : "en";
+  // Validate language from URL, default to 'es' if invalid
+  const initialLang: Language = lang === "es" || lang === "en" ? lang : "es";
 
   const [language, setLanguageState] = useState<Language>(initialLang);
 
   // Sync state if URL changes directly (e.g. user types in URL)
   useEffect(() => {
-    const currentLang = lang === "es" || lang === "en" ? lang : "en";
+    const currentLang = lang === "es" || lang === "en" ? lang : "es";
 
     if (currentLang !== language) {
       setLanguageState(currentLang);
@@ -50,7 +50,7 @@ export const LanguageProvider = ({ children }: { children: ReactNode }) => {
 
   const setLanguage = (newLang: Language) => {
     // Always redirect to home page with new language to avoid 404s on localized slugs
-    if (newLang === "en") {
+    if (newLang === "es") {
       router.push("/");
     } else {
       router.push(`/${newLang}`);

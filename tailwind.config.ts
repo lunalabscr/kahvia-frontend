@@ -1,6 +1,6 @@
 import type { Config } from "tailwindcss";
 import colors from "tailwindcss/colors";
-import typography from "@tailwindcss/typography";
+// import typography from "@tailwindcss/typography";
 
 const config: Config = {
   content: ["./src/**/*.{js,ts,jsx,tsx}"],
@@ -30,12 +30,12 @@ const config: Config = {
         neutral: colors.gray,
       },
       fontFamily: {
-        sans: ["var(--font-montserrat)", "sans-serif"],
+        sans: ["var(--font-gotham)", "sans-serif"],
         heading: ["var(--font-titan)", "sans-serif"],
       },
     },
   },
-  plugins: [typography],
+  // plugins: [typography],
 };
 
 export default config;

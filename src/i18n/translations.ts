@@ -18,14 +18,17 @@ export const translations = {
           "coffee, café, dos tazas, coffee project, specialty coffee, coffee culture, brewing methods, coffee recipes, costa rica coffee, coffee reviews, coffee blog",
       },
       hero: {
-        title: "Coffee from the heart of the world",
-        subtitle: "Ethically sourced, expertly roasted.",
+        title: "A Coffee Project",
+        subtitle: "The best coffee is the one that is shared",
         cta: "Shop Now",
       },
       products: {
         title: "Our Selections",
         subtitle: "Curated beans from the best coffee growing regions.",
         viewDetails: "View Details",
+        noProductsTitle: "We are roasting your next favorite coffee",
+        noProductsSubtitle:
+          "Check back soon for our new selection of freshly roasted products.",
       },
       blog: {
         title: "Latest Stories",
@@ -43,6 +46,8 @@ export const translations = {
       related: "You might also like",
       singleOrigin: "Single Origin",
       details: "Details",
+      whatsappProductMessage: "Hi! I was checking out a product on your site and I'm really interested. Could you give me more details? ☕",
+      interestMessage: "Hi! I was checking out the {productName} coffee and I'm really interested. Could you give me more details? ☕",
     },
     common: {
       footerText: "© {year} Dos Tazas. All rights reserved.",
@@ -62,7 +67,8 @@ export const translations = {
       title: "Get in Touch",
       description:
         "Have questions about our beans, brewing methods, or just want to chat coffee? We are here to help. Reach out to us directly on WhatsApp.",
-      buttonMessage: "Hi, I'm interested in Dos Tazas coffee!",
+      buttonMessage: "Hi! I'd love to learn more about the Dos Tazas coffee project!",
+      whatsappBaseMessage: "Hi! I'm exploring the Dos Tazas coffee project and would love to learn more about your selections ☕",
     },
     contactButton: {
       defaultText: "Chat on WhatsApp",
@@ -85,14 +91,17 @@ export const translations = {
           "café, dos tazas, proyecto de café, café de especialidad, cultura del café, métodos de preparación, recetas de café, café de costa rica, reseñas de café, blog de café",
       },
       hero: {
-        title: "Café Dos Tazas",
-        subtitle: "Café de Especialidad",
+        title: "Un proyecto de Café",
+        subtitle: "El mejor café es el que se comparte",
         cta: "Comprar Ahora",
       },
       products: {
         title: "Nuestras Selecciones",
         subtitle: "Granos seleccionados de las mejores regiones cafetaleras.",
         viewDetails: "Ver Detalles",
+        noProductsTitle: "Estamos tostando tu próximo café favorito",
+        noProductsSubtitle:
+          "Vuelve pronto para ver nuestra nueva selección de productos recién tostados.",
       },
       blog: {
         title: "Últimas Historias",
@@ -110,6 +119,8 @@ export const translations = {
       related: "También te podría gustar",
       singleOrigin: "Origen Único",
       details: "Detalles",
+      whatsappProductMessage: "¡Hola! Estaba viendo un producto en su página y me interesa mucho. ¿Podrían darme más información? ☕",
+      interestMessage: "¡Hola! Estaba viendo el café {productName} y me interesa mucho. ¿Podrían darme más información? ☕",
     },
     common: {
       footerText: "© {year} Dos Tazas. Todos los derechos reservados.",
@@ -129,7 +140,8 @@ export const translations = {
       title: "Contáctanos",
       description:
         "¿Tienes preguntas sobre nuestros granos, métodos de preparación o simplemente quieres hablar de café? Estamos aquí para ayudar. Contáctanos directamente por WhatsApp.",
-      buttonMessage: "Hola, me interesa el café de Dos Tazas!",
+      buttonMessage: "¡Hola! Me encantaría saber más sobre el proyecto de café Dos Tazas.",
+      whatsappBaseMessage: "¡Hola! Estoy explorando el proyecto de café Dos Tazas y me encantaría saber más sobre su selección ☕",
     },
     contactButton: {
       defaultText: "Chatea en WhatsApp",

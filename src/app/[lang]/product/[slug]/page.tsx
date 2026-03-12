@@ -3,7 +3,7 @@ import { urlFor } from "@/sanity/image";
 import { translations } from "@/i18n/translations";
 import ProductView from "@/components/ProductView";
 import Link from "next/link";
-import { notFound } from "next/navigation";
+
 import type { Metadata } from "next";
 
 type Props = {
@@ -41,6 +41,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: `Buy ${product.name} - ${product.price}`,
     alternates: {
       canonical: `/${lang}/product/${slug}`,
+      languages: {
+        en: `/en/product/${slug}`,
+        es: `/es/product/${slug}`,
+      },
     },
     openGraph: {
       title: `${product.name} | Dos Tazas`,
@@ -51,7 +55,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       siteName: "Café Dos Tazas",
       images: product.image
         ? [urlFor(product.image).width(1200).height(630).url()]
-        : [],
+        : ["/logo-seo.svg"],
     },
   };
 }
@@ -63,7 +67,7 @@ export default async function ProductPage({ params }: Props) {
 
   if (!product) {
     return (
-      <div className="min-h-screen flex flex-col justify-center items-center font-montserrat bg-[#f6e7d2] text-[#791216]">
+      <div className="min-h-screen flex flex-col justify-center items-center font-gotham bg-[#f6e7d2] text-[#791216]">
         {t.product.notFound}{" "}
         <Link
           href={`/${lang}/`}

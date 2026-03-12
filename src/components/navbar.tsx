@@ -1,5 +1,7 @@
 "use client";
 
+import Image from "next/image";
+import logoNavbar from "@/assets/images/brand/LOGO-NAVBAR.svg";
 import { useState, useRef, useEffect } from "react";
 import {
   Menu,
@@ -129,7 +131,7 @@ export default function Navbar() {
         className="fixed top-0 w-full z-50 bg-[#b82324]/90 backdrop-blur-md border-b border-[#791216]/80"
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
+          <div className="flex justify-between items-center h-24">
             {/* Logo */}
             {/* Logic for Logo: If on Home, scroll top. If not, go Home. */}
             <a
@@ -148,9 +150,13 @@ export default function Navbar() {
               }}
               className="flex-shrink-0 flex items-center group cursor-pointer"
             >
-              <span className="font-titan text-2xl font-bold text-[#f6e7d2] group-hover:text-primary-700 transition-colors">
-                Dos Tazas
-              </span>
+              <Image
+                src={logoNavbar}
+                alt="Dos Tazas Logo"
+                width={320}
+                height={120}
+                className="h-30 w-auto p-2 group-hover:opacity-80 transition-opacity"
+              />
             </a>
 
             {/* Desktop Menu */}
@@ -167,7 +173,7 @@ export default function Navbar() {
               ))}
               <button
                 onClick={toggleLanguage}
-                className="text-[#f6e7d2] hover:text-primary-600 transition-colors duration-200 flex items-center gap-1 font-medium"
+                className="text-[#f6e7d2] hover:text-primary-600 transition-colors duration-200 flex items-center gap-1 font-bold text-lg"
                 aria-label="Toggle language"
               >
                 <Globe size={20} />
@@ -200,7 +206,7 @@ export default function Navbar() {
                 className="text-[#f6e7d2] hover:text-primary-600 p-2 focus:outline-none"
                 aria-label="Toggle language"
               >
-                <span className="font-bold">
+                <span className="font-extrabold text-xl">
                   {language === "en" ? "ES" : "EN"}
                 </span>
               </button>

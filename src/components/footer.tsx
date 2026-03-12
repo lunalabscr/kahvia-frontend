@@ -1,5 +1,7 @@
 "use client";
 
+import Image from "next/image";
+import logoFooter from "@/assets/images/brand/LOGO-FOOTER.svg";
 import { Instagram, Facebook } from "lucide-react";
 import { usePathname, useRouter } from "next/navigation";
 import Link from "next/link";
@@ -41,15 +43,22 @@ export default function Footer() {
       className="bg-[#791216] text-[#f6e7d2]/80 py-12 pb-24 md:pb-12 border-t border-black/20"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-12 text-center md:text-left">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 text-center md:text-left">
           {/* Brand */}
           <div className="col-span-1 md:col-span-1">
-            <Link href={`/${language}/`} className="inline-block group mb-6">
-              <span className="font-titan text-3xl font-bold text-[#f6e7d2] group-hover:text-white transition-colors">
-                Dos Tazas
-              </span>
+            <Link
+              href={`/${language}/`}
+              className="flex justify-center group mb-6"
+            >
+              <Image
+                src={logoFooter}
+                alt="Dos Tazas Logo"
+                width={420}
+                height={160}
+                className="h-44 w-auto group-hover:opacity-80 transition-opacity bg-transparent"
+              />
             </Link>
-            <p className="font-montserrat text-sm max-w-xs mx-auto md:mx-0">
+            <p className="font-gotham text-sm max-w-xs mx-auto md:mx-0">
               {t.common.madeWithLove}
             </p>
           </div>
@@ -59,7 +68,7 @@ export default function Footer() {
             <h3 className="font-bold text-[#f6e7d2] mb-4">
               {t.common.quickLinks}
             </h3>
-            <ul className="space-y-2 font-montserrat">
+            <ul className="space-y-2 font-gotham">
               <li>
                 <a
                   href={`/${language}/#`}
@@ -136,7 +145,7 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="border-t border-black/20 mt-8 pt-8 text-center text-sm font-montserrat text-[#f6e7d2]/60">
+        <div className="border-t border-black/20 mt-8 pt-8 text-center text-sm font-gotham text-[#f6e7d2]/60">
           <p>{t.common.footerText.replace("{year}", currentYear.toString())}</p>
         </div>
       </div>

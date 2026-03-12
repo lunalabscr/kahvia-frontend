@@ -27,7 +27,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         es: "/es",
       },
     },
-    icons: "/logo.ico",
+    icons: "/logo.svg",
     openGraph: {
       title: t.home.seo.title,
       description: t.home.seo.description,
@@ -36,7 +36,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       url: `/${lang}`,
       images: [
         {
-          url: "/coffeebean.jpg",
+          url: "/logo-seo.svg",
           width: 1200,
           height: 630,
           alt: "Café Dos Tazas",
@@ -48,9 +48,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function Page({ params }: Props) {
   const { lang } = await params;
-  // We can also pass lang to client components if needed, or they can use useLanguage context/hook
-  // But for initial server render, this is good.
-
   return (
     <>
       <Hero />

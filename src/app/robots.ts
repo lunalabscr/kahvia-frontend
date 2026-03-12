@@ -7,7 +7,7 @@ export default function robots(): MetadataRoute.Robots {
       allow: "/",
       disallow: "/private/",
     },
-    sitemap: "https://cafedostazas.com/sitemap.xml",
-    host: "https://cafedostazas.com",
+    sitemap: "https://www.cafedostazas.com/sitemap.xml",
+    host: "https://www.cafedostazas.com",
   };
 }

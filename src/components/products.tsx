@@ -8,6 +8,10 @@ import useEmblaCarousel from "embla-carousel-react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
 import { motion } from "framer-motion";
+import Image from "next/image";
+import pictoProducts from "@/assets/images/brand/decoration-color/PINTOGRAMA-20.svg";
+import pictoNoProducts1 from "@/assets/images/brand/decoration-color/PINTOGRAMA-03.svg";
+import pictoNoProducts2 from "@/assets/images/brand/decoration-color/PINTOGRAMA-05.svg";
 
 export default function Products() {
   const [products, setProducts] = useState<Product[]>([]);
@@ -77,7 +81,60 @@ export default function Products() {
   }
 
   if (products.length === 0) {
-    return null;
+    return (
+      <motion.section
+        id="products"
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-100px" }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
+        className="py-20 bg-[#ebdcc7] overflow-hidden relative"
+      >
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 flex flex-col items-center justify-center min-h-[300px]">
+          <div className="flex justify-center items-center gap-8 mb-8">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.8 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+            >
+              <Image
+                src={pictoNoProducts1}
+                alt="Coffee Decoration"
+                width={120}
+                height={120}
+                className="object-contain drop-shadow-md"
+              />
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, scale: 0.8 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.5, delay: 0.4 }}
+            >
+              <Image
+                src={pictoNoProducts2}
+                alt="Coffee Decoration"
+                width={120}
+                height={120}
+                className="object-contain drop-shadow-md"
+              />
+            </motion.div>
+          </div>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.6 }}
+            className="text-center"
+          >
+            <h2 className="text-3xl md:text-3xl lg:text-4xl font-titan font-bold text-[#b82324] mb-4">
+              {t.home.products.noProductsTitle}
+            </h2>
+            <p className="text-[#791216] max-w-2xl mx-auto font-gotham text-lg">
+              {t.home.products.noProductsSubtitle}
+            </p>
+          </motion.div>
+        </div>
+      </motion.section>
+    );
   }
 
   return (
@@ -87,14 +144,30 @@ export default function Products() {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-100px" }}
       transition={{ duration: 0.6, ease: "easeOut" }}
-      className="py-20 bg-[#ebdcc7] overflow-hidden"
+      className="py-20 bg-[#ebdcc7] overflow-hidden relative"
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* Decorative colored art */}
+      <motion.div
+        initial={{ opacity: 0, x: 50 }}
+        whileInView={{ opacity: 0.6, x: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 1 }}
+        className="absolute top-10 right-0 md:-right-20 z-0 w-48 h-48 md:w-80 md:h-80 pointer-events-none"
+      >
+        <Image
+          src={pictoProducts}
+          alt="Decoration"
+          fill
+          className="object-contain"
+        />
+      </motion.div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="text-center mb-12">
           <h2 className="text-3xl font-titan font-bold text-[#b82324] mb-4">
             {t.home.products.title}
           </h2>
-          <p className="text-[#791216] max-w-2xl mx-auto font-montserrat">
+          <p className="text-[#791216] max-w-2xl mx-auto font-gotham">
             {t.home.products.subtitle}
           </p>
         </div>

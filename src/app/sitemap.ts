@@ -5,7 +5,7 @@ const POSTS_QUERY = `*[_type == "post" && defined(slug.current)]{slug, language,
 const PRODUCTS_QUERY = `*[_type == "product" && defined(slug.current)]{slug, language}`;
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = "https://cafedostazas.com";
+  const baseUrl = "https://www.cafedostazas.com";
 
   // Static routes for each language
   const staticRoutes = [

@@ -10,6 +10,9 @@ import type { Product } from "@/interfaces/product";
 import useEmblaCarousel from "embla-carousel-react";
 import { useLanguage } from "@/context/LanguageContext";
 import Image from "next/image";
+import { motion } from "framer-motion";
+import pictoProduct from "@/assets/images/brand/decoration-color/PINTOGRAMA-20.svg";
+import RelatedProducts from "@/components/RelatedProducts";
 
 interface ProductViewProps {
   product: Product;
@@ -65,8 +68,23 @@ export default function ProductView({
   }).format(product.price);
 
   return (
-    <div className="bg-[#f6e7d2] min-h-screen pt-20 pb-20 font-montserrat">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="bg-[#f6e7d2] min-h-screen pt-20 pb-20 font-gotham relative overflow-hidden">
+      {/* Decorative element */}
+      <motion.div
+        initial={{ opacity: 0, rotate: 15 }}
+        animate={{ opacity: 0.15, rotate: 0 }}
+        transition={{ duration: 1, delay: 0.3 }}
+        className="absolute -bottom-10 right-0 md:right-10 z-0 w-64 h-64 md:w-96 md:h-96 pointer-events-none"
+      >
+        <Image
+          src={pictoProduct}
+          alt="Decoration"
+          fill
+          className="object-contain"
+        />
+      </motion.div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-20">
           {/* Left: Image Carousel */}
           <div className="space-y-4">
@@ -148,7 +166,7 @@ export default function ProductView({
               {formattedPrice}
             </p>
 
-            <div className="prose prose-neutral max-w-none mb-8 font-montserrat text-[#791216] prose-p:text-[#791216] prose-headings:text-[#b82324] prose-li:text-[#791216] prose-li:marker:text-[#b82324] prose-ul:text-[#791216] prose-ol:text-[#791216] prose-blockquote:text-[#791216] prose-blockquote:border-[#b82324] prose-strong:text-[#791216]">
+            <div className="prose prose-neutral max-w-none mb-8 font-gotham text-[#791216] prose-p:text-[#791216] prose-headings:text-[#b82324] prose-li:text-[#791216] prose-li:marker:text-[#b82324] prose-ul:text-[#791216] prose-ol:text-[#791216] prose-blockquote:text-[#791216] prose-blockquote:border-[#b82324] prose-strong:text-[#791216]">
               {product.body && <PortableText value={product.body} />}
             </div>
 
@@ -198,7 +216,7 @@ export default function ProductView({
 
             <ContactButton
               className="w-full justify-center"
-              message={`Hi, I'm interested in buying ${product.name}`}
+              message={t.product.interestMessage.replace("{productName}", product.name)}
               phoneNumber={process.env.NEXT_PUBLIC_PHONE_NUMBER}
             />
           </div>
@@ -206,16 +224,10 @@ export default function ProductView({
 
         {/* Related Products */}
         {relatedProducts.length > 0 && (
-          <div>
-            <h2 className="text-2xl font-titan font-bold text-[#b82324] mb-8">
-              {t.product.related}
-            </h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-              {relatedProducts.map((rp) => (
-                <ProductCard key={rp._id} product={rp} />
-              ))}
-            </div>
-          </div>
+          <RelatedProducts
+            products={relatedProducts}
+            title={t.product.related}
+          />
         )}
       </div>
     </div>

@@ -8,6 +8,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useLanguage } from "@/context/LanguageContext";
 import { motion } from "framer-motion";
+import pictoBlog2 from "@/assets/images/brand/PICTO.svg";
 
 const POSTS_QUERY = `*[
   _type == "post"
@@ -35,14 +36,43 @@ export const SanityBlog = () => {
 
   return (
     <motion.section
-      className="py-20 bg-[#f6e7d2]"
+      className="py-20 bg-[#f6e7d2] relative overflow-hidden"
       id="blog"
       initial={{ opacity: 0, y: 50 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-100px" }}
       transition={{ duration: 0.6, ease: "easeOut" }}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* <motion.div
+        initial={{ opacity: 0, rotate: 15 }}
+        whileInView={{ opacity: 1, rotate: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 1 }}
+        className="absolute -top-10 -left-10 md:-left-20 z-0 w-64 h-64 md:w-96 md:h-96 pointer-events-none"
+      >
+        <Image
+          src={pictoBlog}
+          alt="Decoration"
+          fill
+          className="object-contain"
+        />
+      </motion.div> */}
+      <motion.div
+        initial={{ opacity: 0, rotate: -15 }}
+        whileInView={{ opacity: 0.2, rotate: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 1, delay: 0.2 }}
+        className="absolute -bottom-10 right-0 md:right-4 z-0 w-64 h-64 md:w-96 md:h-96 pointer-events-none"
+      >
+        <Image
+          src={pictoBlog2}
+          alt="Decoration"
+          fill
+          className="object-contain"
+        />
+      </motion.div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <h2 className="text-4xl font-bold mb-12 text-center text-[#b82324] font-titan">
           {t.home.blog.title}
         </h2>
@@ -94,7 +124,7 @@ export const SanityBlog = () => {
                       day: "numeric",
                     })}
                   </p>
-                  <h3 className="text-xl font-bold mb-3 text-[#f6e7d2] group-hover:text-primary-700 transition-colors">
+                  <h3 className="text-xl font-bold mb-3 font-gotham text-[#f6e7d2] group-hover:text-primary-700 transition-colors">
                     {post.title}
                   </h3>
                   {/* Optional: Add excerpt here if available in the future */}
