@@ -11,6 +11,7 @@ import Navbar from "@/components/navbar";
 import Footer from "@/components/footer";
 // import backgroundImg from "@/assets/images/brand/BACKGROUND.png";
 import FloatingWhatsApp from "@/components/FloatingWhatsApp";
+import Script from "next/script";
 
 const titan = localFont({
   src: [
@@ -66,6 +67,9 @@ export const metadata: Metadata = {
       },
     ],
   },
+  facebook: {
+    appId: "1306645701665827",
+  },
 };
 
 export default function RootLayout({
@@ -78,6 +82,22 @@ export default function RootLayout({
       <body
         className={`${titan.variable} ${gotham.variable} font-sans antialiased`}
       >
+        {process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID && (
+          <>
+            <Script
+              src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID}`}
+              strategy="afterInteractive"
+            />
+            <Script id="google-analytics" strategy="afterInteractive">
+              {`
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+                gtag('config', '${process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID}');
+              `}
+            </Script>
+          </>
+        )}
         <Analytics />
         <SpeedInsights />
         <LanguageProvider>

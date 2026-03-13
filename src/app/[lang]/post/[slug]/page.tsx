@@ -14,7 +14,10 @@ type Props = {
 };
 
 async function getPost(slug: string, lang: string) {
-  const POST_QUERY = `*[_type == "post" && slug.current == $slug && language == $lang][0]`;
+  const POST_QUERY = `*[_type == "post" && slug.current == $slug && language == $lang][0]{
+    ...,
+    "keywords": keywords
+  }`;
 
   try {
     const post = await client.fetch(POST_QUERY, { slug, lang });
@@ -89,9 +92,20 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     };
   }
 
+  const t = translations[lang as "en" | "es"] || translations.en;
+  const regularKeywords = t.home.seo.keywords;
+  const postKeywords = Array.isArray(post.keywords)
+    ? post.keywords.join(", ")
+    : post.keywords || "";
+
+  const combinedKeywords = [postKeywords, regularKeywords]
+    .filter(Boolean)
+    .join(", ");
+
   return {
     title: `${post.title} | Dos Tazas`,
     description: post.excerpt,
+    keywords: combinedKeywords,
     alternates: {
       canonical: `/${lang}/post/${slug}`,
       languages: {
