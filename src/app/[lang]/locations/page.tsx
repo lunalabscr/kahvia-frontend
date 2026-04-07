@@ -2,7 +2,7 @@ import { client } from "@/sanity/client";
 import { translations } from "@/i18n/translations";
 import type { Metadata } from "next";
 import LocationsList from "@/components/sanity/LocationsList";
-import { PointOfSale } from "@/interfaces/pos";
+import type { PointOfSale } from "@/interfaces/pos";
 
 type Props = {
   params: Promise<{ lang: string }>;

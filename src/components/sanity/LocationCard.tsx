@@ -1,8 +1,9 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useLanguage } from "@/context/LanguageContext";
-import { PointOfSale } from "@/interfaces/pos";
+
 import { MapPin, Phone, Globe } from "lucide-react";
+import type { PointOfSale } from "@/interfaces/pos";
 
 interface LocationCardProps {
   location: PointOfSale;
@@ -34,24 +35,24 @@ export default function LocationCard({ location }: LocationCardProps) {
             </span>
           )}
         </div>
-        
+
         <h3 className="text-xl font-bold mb-3 font-gotham text-[#f6e7d2] group-hover:text-primary-700 transition-colors line-clamp-2">
           {location.name}
         </h3>
-        
+
         {location.description && (
           <p className="text-[#f6e7d2]/90 text-sm mb-4 line-clamp-3">
             {location.description}
           </p>
         )}
-        
+
         {location.address && (
           <div className="flex items-start text-[#f6e7d2] text-sm mb-2">
             <MapPin className="w-4 h-4 mr-2 shrink-0 mt-0.5" />
             <span>{location.address}</span>
           </div>
         )}
-        
+
         {location.phone && (
           <div className="flex items-center text-[#f6e7d2] text-sm mb-2">
             <Phone className="w-4 h-4 mr-2 shrink-0" />
@@ -60,7 +61,7 @@ export default function LocationCard({ location }: LocationCardProps) {
             </a>
           </div>
         )}
-        
+
         <div className="mt-auto pt-4 flex flex-col gap-3">
           {location.website && (
             <a
@@ -73,7 +74,7 @@ export default function LocationCard({ location }: LocationCardProps) {
               {t.locations.visitWebsite}
             </a>
           )}
-          
+
           {location.googleMapsUrl && (
             <a
               href={location.googleMapsUrl}

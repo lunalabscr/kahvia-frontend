@@ -1,24 +1,31 @@
 "use client";
 
 import { useState } from "react";
-import { PointOfSale } from "@/interfaces/pos";
 import { useLanguage } from "@/context/LanguageContext";
 import LocationCard from "./LocationCard";
+import type { PointOfSale } from "@/interfaces/pos";
 
 interface LocationsListProps {
   initialLocations: PointOfSale[];
 }
 
-export default function LocationsList({ initialLocations }: LocationsListProps) {
+export default function LocationsList({
+  initialLocations,
+}: LocationsListProps) {
   const { t } = useLanguage();
   const [filter, setFilter] = useState<"all" | PointOfSale["type"]>("all");
 
-  const filteredLocations = filter === "all" 
-    ? initialLocations
-    : initialLocations.filter(loc => loc.type === filter);
+  const filteredLocations =
+    filter === "all"
+      ? initialLocations
+      : initialLocations.filter((loc) => loc.type === filter);
 
   const filterOptions: Array<"all" | PointOfSale["type"]> = [
-    "all", "coffee-shop", "supermarket", "restaurant", "online"
+    "all",
+    "coffee-shop",
+    "supermarket",
+    "restaurant",
+    "online",
   ];
 
   return (
