@@ -21,11 +21,14 @@ export default function Products() {
   const [canScrollPrev, setCanScrollPrev] = useState(false);
   const [canScrollNext, setCanScrollNext] = useState(false);
 
+  const [hasScroll, setHasScroll] = useState(false);
+
   // Update scroll buttons state
   const onSelect = useCallback((api: any) => {
     if (!api) return;
     setCanScrollPrev(api.canScrollPrev());
     setCanScrollNext(api.canScrollNext());
+    setHasScroll(api.scrollSnapList().length > 1);
   }, []);
 
   useEffect(() => {
@@ -53,7 +56,8 @@ export default function Products() {
         name,
         price,
         image,
-        slug
+        slug,
+        producer
       }`;
       try {
         const data = await client.fetch(query, { lang: language });
@@ -172,7 +176,7 @@ export default function Products() {
           </p>
         </div>
 
-        <div className="relative group">
+        <div className="relative">
           <div className="overflow-hidden" ref={emblaRef}>
             <div className="flex -ml-8">
               {products.map((product) => (
@@ -187,12 +191,12 @@ export default function Products() {
           </div>
 
           {/* Navigation Buttons for Desktop */}
-          {/* {products.length > 0 && (
+          {products.length > 0 && hasScroll && (
             <>
               <button
                 onClick={scrollPrev}
                 disabled={!canScrollPrev}
-                className="hidden lg:flex absolute -left-12 top-1/2 -translate-y-1/2 w-10 h-10 items-center justify-center rounded-full bg-[#791216] border border-gray-200 shadow-sm text-gray-600 hover:text-primary-600 hover:border-primary-600 transition-all disabled:opacity-50 disabled:cursor-not-allowed z-10"
+                className="hidden lg:flex absolute -left-12 top-1/2 -translate-y-1/2 w-10 h-10 items-center justify-center rounded-full bg-[#791216] text-[#ebdcc7] hover:bg-[#b82324] hover:text-white transition-all disabled:opacity-30 disabled:cursor-not-allowed z-10"
                 aria-label="Previous slide"
               >
                 <ChevronLeft size={20} />
@@ -200,21 +204,21 @@ export default function Products() {
               <button
                 onClick={scrollNext}
                 disabled={!canScrollNext}
-                className="hidden lg:flex absolute -right-12 top-1/2 -translate-y-1/2 w-10 h-10 items-center justify-center rounded-full bg-[#791216] border border-gray-200 shadow-sm text-gray-600 hover:text-primary-600 hover:border-primary-600 transition-all disabled:opacity-50 disabled:cursor-not-allowed z-10"
+                className="hidden lg:flex absolute -right-12 top-1/2 -translate-y-1/2 w-10 h-10 items-center justify-center rounded-full bg-[#791216] text-[#ebdcc7] hover:bg-[#b82324] hover:text-white transition-all disabled:opacity-30 disabled:cursor-not-allowed z-10"
                 aria-label="Next slide"
               >
                 <ChevronRight size={20} />
               </button>
             </>
-          )} */}
+          )}
 
           {/* Mobile Navigation Arrows (visible only on small screens) */}
-          {products.length > 0 && (
+          {products.length > 0 && hasScroll && (
             <div className="flex justify-center gap-4 mt-8 lg:hidden">
               <button
                 onClick={scrollPrev}
                 disabled={!canScrollPrev}
-                className="w-10 h-10 flex items-center justify-center rounded-full bg-[#791216] border border-gray-200 shadow-sm text-gray-600 hover:text-primary-600 hover:border-primary-600 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-10 h-10 flex items-center justify-center rounded-full bg-[#791216] text-[#ebdcc7] hover:bg-[#b82324] hover:text-white transition-all disabled:opacity-30 disabled:cursor-not-allowed"
                 aria-label="Previous slide"
               >
                 <ChevronLeft size={20} />
@@ -222,7 +226,7 @@ export default function Products() {
               <button
                 onClick={scrollNext}
                 disabled={!canScrollNext}
-                className="w-10 h-10 flex items-center justify-center rounded-full bg-[#791216] border border-gray-200 shadow-sm text-gray-600 hover:text-primary-600 hover:border-primary-600 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-10 h-10 flex items-center justify-center rounded-full bg-[#791216] text-[#ebdcc7] hover:bg-[#b82324] hover:text-white transition-all disabled:opacity-30 disabled:cursor-not-allowed"
                 aria-label="Next slide"
               >
                 <ChevronRight size={20} />

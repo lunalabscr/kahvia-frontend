@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import logoNavbar from "@/assets/images/brand/LOGO-NAVBAR.svg";
+import logoNavbarRed from "@/assets/images/brand/LOGO-15.svg";
 import { useState, useRef, useEffect } from "react";
 import {
   Menu,
@@ -13,9 +14,12 @@ import {
   Facebook,
   Info,
   Globe,
+  FileText,
+  ShoppingBag,
 } from "lucide-react";
 import { usePathname, useRouter } from "next/navigation";
 import { useLanguage } from "../context/LanguageContext";
+import { useCart } from "@/context/CartContext";
 import {
   motion,
   useScroll,
@@ -25,22 +29,20 @@ import {
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
-  const [navHidden, setNavHidden] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
 
   const pathname = usePathname();
   const router = useRouter();
   const { language, setLanguage, t } = useLanguage();
+  const { cartCount } = useCart();
 
   const { scrollY } = useScroll();
 
   useMotionValueEvent(scrollY, "change", (latest) => {
-    const previous = scrollY.getPrevious() ?? 0;
-    // Hide navbar if scrolling down past 50px
-    if (latest > previous && latest > 50) {
-      setNavHidden(true);
+    if (latest > 50) {
+      setIsScrolled(true);
     } else {
-      // Show navbar if scrolling up
-      setNavHidden(false);
+      setIsScrolled(false);
     }
   });
 
@@ -59,6 +61,7 @@ export default function Navbar() {
     { name: t.nav.home, href: "#", icon: Home },
     { name: t.nav.about, href: "#about", icon: Info },
     { name: t.nav.products, href: "#products", icon: Coffee },
+    { name: t.nav.blog, href: "#blog", icon: FileText },
     { name: t.nav.contact, href: "#contact", icon: Phone },
   ];
 
@@ -118,17 +121,26 @@ export default function Navbar() {
     }
   };
 
+  const isHome = pathname === `/${language}` || pathname === `/${language}/` || pathname === '/';
+  const isSolid = !isHome || isScrolled;
+
+  if (
+    pathname === "/socials" ||
+    pathname === `/${language}/socials` ||
+    pathname?.endsWith("/socials")
+  ) {
+    return null;
+  }
+
   return (
     <>
       {/* Top Navbar */}
-      <motion.nav
-        variants={{
-          visible: { y: 0 },
-          hidden: { y: "-100%" },
-        }}
-        animate={navHidden ? "hidden" : "visible"}
-        transition={{ duration: 0.35, ease: "easeInOut" }}
-        className="fixed top-0 w-full z-50 bg-[#b82324]/90 backdrop-blur-md border-b border-[#791216]/80"
+      <nav
+        className={`fixed top-0 w-full z-50 transition-all duration-300 ease-in-out ${
+          isSolid
+            ? "bg-[#b82324]/90 backdrop-blur-md border-b border-[#791216]/80 py-0"
+            : "bg-transparent border-b border-transparent py-2"
+        }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-24">
@@ -148,14 +160,31 @@ export default function Navbar() {
                   router.push(`/${language}/`);
                 }
               }}
-              className="flex-shrink-0 flex items-center group cursor-pointer"
+              className="shrink-0 flex items-center group cursor-pointer"
             >
+              {/* Desktop Logo */}
+              <Image
+                src={isSolid ? logoNavbar : logoNavbarRed}
+                alt="Dos Tazas Logo"
+                width={320}
+                height={120}
+                className={`hidden md:block h-30 w-auto p-2 transition-all ${
+                  isSolid
+                    ? "group-hover:opacity-80"
+                    : "group-hover:opacity-100"
+                }`}
+              />
+              {/* Mobile Logo */}
               <Image
                 src={logoNavbar}
                 alt="Dos Tazas Logo"
                 width={320}
                 height={120}
-                className="h-30 w-auto p-2 group-hover:opacity-80 transition-opacity"
+                className={`block md:hidden h-30 w-auto p-2 transition-all ${
+                  isSolid
+                    ? "group-hover:opacity-80"
+                    : "group-hover:opacity-100"
+                }`}
               />
             </a>
 
@@ -166,24 +195,46 @@ export default function Navbar() {
                   key={link.name}
                   href={getHref(link.href)}
                   onClick={(e) => handleNavClick(e, link.href)}
-                  className="text-[#f6e7d2] hover:text-primary-600 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 cursor-pointer"
+                  className={`hover:text-primary-600 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 cursor-pointer ${
+                    isSolid ? "text-[#f6e7d2]" : "text-[#b82324]"
+                  }`}
                 >
                   {link.name}
                 </a>
               ))}
               <button
                 onClick={toggleLanguage}
-                className="text-[#f6e7d2] hover:text-primary-600 transition-colors duration-200 flex items-center gap-1 font-bold text-lg"
+                className={`hover:text-primary-600 transition-colors duration-200 flex items-center gap-1 font-bold text-lg ${
+                  isSolid ? "text-[#f6e7d2]" : "text-[#b82324]"
+                }`}
                 aria-label="Toggle language"
               >
                 <Globe size={20} />
                 <span>{language === "en" ? "ES" : "EN"}</span>
               </button>
+              <button
+                onClick={() => router.push(`/${language}/checkout`)}
+                className={`relative hover:text-primary-600 transition-colors duration-200 flex items-center ${
+                  isSolid ? "text-[#f6e7d2]" : "text-[#b82324]"
+                }`}
+                aria-label="Cart"
+              >
+                <ShoppingBag size={20} />
+                {cartCount > 0 && (
+                  <span className={`absolute -top-2 -right-2 text-[10px] font-bold rounded-full w-4 h-4 flex items-center justify-center ${
+                    isSolid ? "bg-[#f6e7d2] text-[#791216]" : "bg-[#b82324] text-[#f6e7d2]"
+                  }`}>
+                    {cartCount}
+                  </span>
+                )}
+              </button>
               <a
                 href="https://www.instagram.com/dostazascafe/"
                 target="_blank"
                 rel="noreferrer"
-                className="text-[#f6e7d2] hover:text-pink-600 transition-colors duration-200"
+                className={`hover:text-pink-600 transition-colors duration-200 ${
+                  isSolid ? "text-[#f6e7d2]" : "text-[#b82324]"
+                }`}
                 aria-label="Instagram"
               >
                 <Instagram size={20} />
@@ -192,7 +243,9 @@ export default function Navbar() {
                 href="https://www.facebook.com/profile.php?id=61588219114974"
                 target="_blank"
                 rel="noreferrer"
-                className="text-[#f6e7d2] hover:text-blue-500 transition-colors duration-200"
+                className={`hover:text-blue-500 transition-colors duration-200 ${
+                  isSolid ? "text-[#f6e7d2]" : "text-[#b82324]"
+                }`}
                 aria-label="Facebook"
               >
                 <Facebook size={20} />
@@ -200,10 +253,25 @@ export default function Navbar() {
             </div>
 
             {/* Mobile Menu Button (Hamburger) */}
-            <div className="flex md:hidden items-center gap-4">
+            <div className="flex md:hidden items-center gap-2">
+              <button
+                onClick={() => {
+                  setIsOpen(false);
+                  router.push(`/${language}/checkout`);
+                }}
+                className={`relative p-2 focus:outline-none text-[#f6e7d2] hover:text-primary-600 transition-colors`}
+                aria-label="Cart"
+              >
+                <ShoppingBag size={22} />
+                {cartCount > 0 && (
+                  <span className="absolute top-1 right-1 text-[10px] font-bold rounded-full w-4 h-4 flex items-center justify-center bg-[#f6e7d2] text-[#791216]">
+                    {cartCount}
+                  </span>
+                )}
+              </button>
               <button
                 onClick={toggleLanguage}
-                className="text-[#f6e7d2] hover:text-primary-600 p-2 focus:outline-none"
+                className={`hover:text-primary-600 p-2 focus:outline-none text-[#f6e7d2] transition-colors`}
                 aria-label="Toggle language"
               >
                 <span className="font-extrabold text-xl">
@@ -212,7 +280,7 @@ export default function Navbar() {
               </button>
               <button
                 onClick={() => setIsOpen(!isOpen)}
-                className="text-[#f6e7d2] hover:text-primary-600 p-2 focus:outline-none transition-transform duration-200 active:scale-95"
+                className={`hover:text-primary-600 p-2 focus:outline-none transition-transform duration-200 active:scale-95 text-[#f6e7d2]`}
                 aria-label="Toggle menu"
               >
                 <Menu size={24} />
@@ -220,7 +288,7 @@ export default function Navbar() {
             </div>
           </div>
         </div>
-      </motion.nav>
+      </nav>
 
       {/* Mobile Drawer Overlay & Menu */}
       <AnimatePresence>
@@ -323,6 +391,14 @@ export default function Navbar() {
           >
             <Coffee size={24} />
             <span className="text-xs mt-1">{t.nav.products}</span>
+          </a>
+          <a
+            href={getHref("#blog")}
+            onClick={(e) => handleNavClick(e, "#blog")}
+            className="flex flex-col items-center justify-center w-full h-full text-[#f6e7d2] hover:text-primary-600 cursor-pointer"
+          >
+            <FileText size={24} />
+            <span className="text-xs mt-1">{t.nav.blog}</span>
           </a>
           <a
             href={getHref("#contact")}

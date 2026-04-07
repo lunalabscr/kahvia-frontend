@@ -9,12 +9,13 @@ import Image from "next/image";
 import { useLanguage } from "@/context/LanguageContext";
 import { motion } from "framer-motion";
 import pictoBlog2 from "@/assets/images/brand/PICTO.svg";
+import BlogCard from "./BlogCard";
 
 const POSTS_QUERY = `*[
   _type == "post"
   && defined(slug.current)
   && language == $lang
-]|order(publishedAt desc)[0...3]{_id, title, slug, publishedAt, image, body}`;
+]|order(publishedAt desc)[0...3]{_id, title, slug, publishedAt, image, body, excerpt}`;
 
 export const SanityBlog = () => {
   const [posts, setPosts] = useState<SanityDocument[]>([]);
@@ -102,53 +103,19 @@ export const SanityBlog = () => {
               }}
               className="h-full"
             >
-              <Link
-                href={`/${language}/post/${post.slug.current}`}
-                className="group bg-[#791216] rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300 flex flex-col h-full"
-              >
-                {post.image && (
-                  <div className="h-48 overflow-hidden relative">
-                    <Image
-                      src={urlFor(post.image).width(800).height(500).url()}
-                      alt={post.title}
-                      fill
-                      className="object-cover transition-transform duration-500 group-hover:scale-105"
-                    />
-                  </div>
-                )}
-                <div className="p-6 flex flex-col flex-grow bg-[#b82324]">
-                  <p className="text-sm text-[#f6e7d2] font-medium mb-2">
-                    {new Date(post.publishedAt).toLocaleDateString(language, {
-                      year: "numeric",
-                      month: "long",
-                      day: "numeric",
-                    })}
-                  </p>
-                  <h3 className="text-xl font-bold mb-3 font-gotham text-[#f6e7d2] group-hover:text-primary-700 transition-colors">
-                    {post.title}
-                  </h3>
-                  {/* Optional: Add excerpt here if available in the future */}
-                  <span className="text-[#f6e7d2] font-medium mt-auto inline-flex items-center">
-                    {t.home.blog.readMore}
-                    <svg
-                      className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M17 8l4 4m0 0l-4 4m4-4H3"
-                      />
-                    </svg>
-                  </span>
-                </div>
-              </Link>
+              <BlogCard post={post} />
             </motion.div>
           ))}
         </motion.div>
+        
+        <div className="mt-12 flex justify-center pb-8 border-b-2 border-[#b82324]/20">
+          <Link
+            href={`/${language}/blog`}
+            className="inline-flex items-center px-8 py-3 rounded-full shadow-lg text-lg font-gotham font-bold bg-[#b82324] text-[#f6e7d2] hover:bg-[#791216] transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#791216] focus:ring-offset-[#f6e7d2]"
+          >
+            {t.home.blog.seeAll}
+          </Link>
+        </div>
       </div>
     </motion.section>
   );

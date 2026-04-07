@@ -1,5 +1,5 @@
 import { LanguageProvider } from "@/context/LanguageContext";
-
+import { CartProvider } from "@/context/CartContext";
 import ScrollHandler from "@/components/ScrollHandler";
 import localFont from "next/font/local";
 import "./globals.css";
@@ -101,23 +101,25 @@ export default function RootLayout({
         <Analytics />
         <SpeedInsights />
         <LanguageProvider>
-          <div
-            className="bg-[#791216] min-h-screen text-neutral-900 font-sans selection:bg-primary-100 selection:text-primary-900 flex flex-col"
-            style={{
-              // backgroundImage: `url(${backgroundImg.src})`,
-              backgroundSize: "cover",
-              backgroundAttachment: "fixed",
-              backgroundPosition: "center",
-            }}
-          >
-            <Suspense fallback={null}>
-              <ScrollHandler />
-            </Suspense>
-            <Navbar />
-            <main className="flex-grow">{children}</main>
-            <FloatingWhatsApp />
-            <Footer />
-          </div>
+          <CartProvider>
+            <div
+              className="bg-[#791216] min-h-screen text-neutral-900 font-sans selection:bg-primary-100 selection:text-primary-900 flex flex-col"
+              style={{
+                // backgroundImage: `url(${backgroundImg.src})`,
+                backgroundSize: "cover",
+                backgroundAttachment: "fixed",
+                backgroundPosition: "center",
+              }}
+            >
+              <Suspense fallback={null}>
+                <ScrollHandler />
+              </Suspense>
+              <Navbar />
+              <main className="flex-grow">{children}</main>
+              <FloatingWhatsApp />
+              <Footer />
+            </div>
+          </CartProvider>
         </LanguageProvider>
       </body>
     </html>

@@ -13,6 +13,7 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import pictoProduct from "@/assets/images/brand/decoration-color/PINTOGRAMA-20.svg";
 import RelatedProducts from "@/components/RelatedProducts";
+import { useCart } from "@/context/CartContext";
 
 interface ProductViewProps {
   product: Product;
@@ -23,8 +24,13 @@ export default function ProductView({
   product,
   relatedProducts,
 }: ProductViewProps) {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
+  const { addItem } = useCart();
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
+
+  const [selectedAmount, setSelectedAmount] = useState<"250g" | "500g" | "1kg">("250g");
+  const [selectedRoast, setSelectedRoast] = useState<"medium" | "mediumDark">("medium");
+  const [selectedGrind, setSelectedGrind] = useState<"ground" | "bean">("bean");
 
   // Embla Carousel setup
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true });
@@ -62,13 +68,16 @@ export default function ProductView({
     ...(product.images || []).map((img) => img),
   ].filter(Boolean);
 
-  const formattedPrice = new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: "USD",
-  }).format(product.price);
+  const formattedPrice = new Intl.NumberFormat(
+    language === "es" ? "es-CR" : "en-US",
+    {
+      style: "currency",
+      currency: language === "es" ? "CRC" : "USD",
+    },
+  ).format(product.price);
 
   return (
-    <div className="bg-[#f6e7d2] min-h-screen pt-20 pb-20 font-gotham relative overflow-hidden">
+    <div className="bg-[#f6e7d2] min-h-screen pt-32 pb-20 font-gotham relative overflow-hidden">
       {/* Decorative element */}
       <motion.div
         initial={{ opacity: 0, rotate: 15 }}
@@ -139,7 +148,7 @@ export default function ProductView({
                   <button
                     key={idx}
                     onClick={() => scrollTo(idx)}
-                    className={`relative w-20 h-20 flex-shrink-0 rounded-md overflow-hidden border-2 transition-all ${
+                    className={`relative w-20 h-20 shrink-0 rounded-md overflow-hidden border-2 transition-all ${
                       selectedImageIndex === idx
                         ? "border-primary-600 ring-2 ring-primary-100"
                         : "border-transparent hover:border-gray-300"
@@ -162,7 +171,7 @@ export default function ProductView({
             <h1 className="text-4xl font-titan font-bold text-[#b82324] mb-2">
               {product.name}
             </h1>
-            <p className="text-2xl font-bold text-[#791216] mb-6">
+            <p className="text-2xl font-bold text-[#791216] mb-6" suppressHydrationWarning>
               {formattedPrice}
             </p>
 
@@ -208,17 +217,89 @@ export default function ProductView({
                     {t.product.altitude}
                   </span>
                   <span className="font-semibold text-[#791216]">
-                    {product.altitude}
+                    {product.altitude} {language === "es" ? "msnm" : "masl"}
                   </span>
                 </div>
               )}
             </div>
 
-            <ContactButton
-              className="w-full justify-center"
-              message={t.product.interestMessage.replace("{productName}", product.name)}
-              phoneNumber={process.env.NEXT_PUBLIC_PHONE_NUMBER}
-            />
+            {/* Product Options */}
+            <div className="space-y-6 mb-8 border-t border-[#b82324]/20 pt-6">
+              {/* Amount */}
+              <div>
+                <span className="block text-[#b82324] font-medium mb-3">{t.product.options.amount}</span>
+                <div className="flex flex-wrap gap-3">
+                  {(["250g", "500g", "1kg"] as const).map((amount) => (
+                    <button
+                      key={amount}
+                      onClick={() => setSelectedAmount(amount)}
+                      className={`px-4 py-2 rounded-full text-sm font-semibold transition-colors border-2 ${
+                        selectedAmount === amount
+                          ? "bg-[#b82324] text-[#f6e7d2] border-[#b82324]"
+                          : "bg-transparent text-[#791216] border-[#791216]/20 hover:border-[#b82324]"
+                      }`}
+                    >
+                      {t.product.values.amount[amount]}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Roast */}
+              <div>
+                <span className="block text-[#b82324] font-medium mb-3">{t.product.options.roast}</span>
+                <div className="flex flex-wrap gap-3">
+                  {(["medium", "mediumDark"] as const).map((roast) => (
+                    <button
+                      key={roast}
+                      onClick={() => setSelectedRoast(roast)}
+                      className={`px-4 py-2 rounded-full text-sm font-semibold transition-colors border-2 ${
+                        selectedRoast === roast
+                          ? "bg-[#b82324] text-[#f6e7d2] border-[#b82324]"
+                          : "bg-transparent text-[#791216] border-[#791216]/20 hover:border-[#b82324]"
+                      }`}
+                    >
+                      {t.product.values.roast[roast]}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Grind */}
+              <div>
+                <span className="block text-[#b82324] font-medium mb-3">{t.product.options.grind}</span>
+                <div className="flex flex-wrap gap-3">
+                  {(["ground", "bean"] as const).map((grind) => (
+                    <button
+                      key={grind}
+                      onClick={() => setSelectedGrind(grind)}
+                      className={`px-4 py-2 rounded-full text-sm font-semibold transition-colors border-2 ${
+                        selectedGrind === grind
+                          ? "bg-[#b82324] text-[#f6e7d2] border-[#b82324]"
+                          : "bg-transparent text-[#791216] border-[#791216]/20 hover:border-[#b82324]"
+                      }`}
+                    >
+                      {t.product.values.grind[grind]}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            <div className="flex flex-col gap-4">
+              <button
+                onClick={() => addItem(product, selectedAmount, selectedRoast, selectedGrind, 1)}
+                className="w-full justify-center py-3 px-6 rounded-full font-bold text-[#f6e7d2] bg-[#b82324] hover:bg-[#791216] transition-colors shadow-md"
+              >
+                {t.cart.addToCart}
+              </button>
+              
+              <ContactButton
+                className="w-full justify-center"
+                message={`${t.product.interestMessage.replace("{productName}", product.name)} [${t.product.options.amount}: ${t.product.values.amount[selectedAmount]}, ${t.product.options.roast}: ${t.product.values.roast[selectedRoast]}, ${t.product.options.grind}: ${t.product.values.grind[selectedGrind]}]`}
+                phoneNumber={process.env.NEXT_PUBLIC_PHONE_NUMBER}
+              />
+            </div>
           </div>
         </div>
 

@@ -1,11 +1,13 @@
 import { translations } from "@/i18n/translations";
 
 import { SanityBlog } from "@/components/sanity/SanityBlogs";
+import { InstagramFeed } from "@/components/InstagramFeed";
 
 import type { Metadata } from "next";
 import Hero from "@/components/hero";
 import About from "@/components/about";
 import Products from "@/components/products";
+import HomeProducersSection from "@/components/HomeProducersSection";
 import Contact from "@/components/contact";
 
 type Props = {
@@ -25,9 +27,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       languages: {
         en: "/en",
         es: "/es",
+        "x-default": "/es",
       },
     },
-    icons: "/logo.svg",
+    icons: "/favicon.svg",
     openGraph: {
       title: t.home.seo.title,
       description: t.home.seo.description,
@@ -36,7 +39,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       url: `/${lang}`,
       images: [
         {
-          url: "/logo-seo.svg",
+          url: "/og-logo.svg",
           width: 1200,
           height: 630,
           alt: "Café Dos Tazas",
@@ -51,9 +54,11 @@ export default async function Page({ params }: Props) {
   return (
     <>
       <Hero />
-      <About />
       <Products />
+      <About />
+      <HomeProducersSection />
       <SanityBlog />
+      {/* <InstagramFeed /> */}
       <Contact />
     </>
   );

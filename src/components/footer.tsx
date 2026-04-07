@@ -14,6 +14,10 @@ export default function Footer() {
   const router = useRouter();
   const { language, t } = useLanguage();
 
+  if (pathname === '/socials' || pathname === `/${language}/socials` || pathname?.endsWith('/socials')) {
+    return null;
+  }
+
   const handleNavClick = (
     e: React.MouseEvent<HTMLAnchorElement>,
     targetId: string,

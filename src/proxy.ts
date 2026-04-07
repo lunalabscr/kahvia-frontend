@@ -30,14 +30,8 @@ export function proxy(request: NextRequest) {
     );
 
   if (pathnameIsMissingLocale) {
-    // For bots/crawlers, rewrite instead of redirect to avoid indexing issues
-    if (isBot) {
-      return NextResponse.rewrite(
-        new URL(`/${defaultLocale}${pathname}`, request.url),
-      );
-    }
-
-    // For regular users, redirect as before
+    // For regular users and bots, redirect consistently to default locale
+    // instead of rewrite which causes canonical indexing conflicts on /
     return NextResponse.redirect(
       new URL(`/${defaultLocale}${pathname}`, request.url),
     );

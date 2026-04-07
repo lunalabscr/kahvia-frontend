@@ -15,15 +15,15 @@ async function getProduct(slug: string, lang: string) {
   return client.fetch(productQuery, { slug });
 }
 
-async function getRelatedProducts(productId: string) {
-  const relatedQuery = `*[_type == "product" && _id != $id][0...4]{
+async function getRelatedProducts(productId: string, lang: string) {
+  const relatedQuery = `*[_type == "product" && _id != $id && language == $lang][0...4]{
     _id,
     name,
     price,
     image,
     slug
 }`;
-  return client.fetch(relatedQuery, { id: productId });
+  return client.fetch(relatedQuery, { id: productId, lang });
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
@@ -79,7 +79,7 @@ export default async function ProductPage({ params }: Props) {
     );
   }
 
-  const relatedProducts = await getRelatedProducts(product._id);
+  const relatedProducts = await getRelatedProducts(product._id, lang);
 
   return <ProductView product={product} relatedProducts={relatedProducts} />;
 }

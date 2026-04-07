@@ -5,10 +5,14 @@ import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
 
 export default function FloatingWhatsApp() {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const pathname = usePathname();
   const isProductPage = pathname?.includes("/product/");
   
+  if (pathname === '/socials' || pathname === `/${language}/socials` || pathname?.endsWith('/socials')) {
+    return null;
+  }
+
   const phoneNumber = process.env.NEXT_PUBLIC_PHONE_NUMBER || "1234567890"; // Fallback if missing
   const message = isProductPage ? t.product.whatsappProductMessage : t.contact.whatsappBaseMessage;
   const encodedMessage = encodeURIComponent(message);
