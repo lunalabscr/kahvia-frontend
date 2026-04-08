@@ -1,18 +1,12 @@
 {
   "app": {
-    "[project]/src/app/[lang]/locations/page": [
-      "static/media/TitanOne_Regular-s.p.aa55994b.ttf",
-      "static/media/GothamBook-s.p.00150caa.ttf",
-      "static/media/GothamMedium-s.p.0562db1f.ttf",
-      "static/media/GothamBold-s.p.8763bc9a.ttf"
-    ],
     "[project]/src/app/[lang]/page": [
       "static/media/TitanOne_Regular-s.p.aa55994b.ttf",
       "static/media/GothamBook-s.p.00150caa.ttf",
       "static/media/GothamMedium-s.p.0562db1f.ttf",
       "static/media/GothamBold-s.p.8763bc9a.ttf"
     ],
-    "[project]/src/app/_not-found/page": [
+    "[project]/src/app/[lang]/product/[slug]/page": [
       "static/media/TitanOne_Regular-s.p.aa55994b.ttf",
       "static/media/GothamBook-s.p.00150caa.ttf",
       "static/media/GothamMedium-s.p.0562db1f.ttf",

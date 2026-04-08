@@ -1,7 +1,12 @@
 export interface Product {
   _id: string;
   name: string;
-  price: number;
+  price?: number; // Kept as optional fallback
+  presentations?: Array<{
+    weight: string;
+    price: number;
+    _key?: string;
+  }>;
   image: any;
   slug: { current: string };
   // Optional fields for detailed view

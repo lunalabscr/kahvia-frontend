@@ -55,6 +55,7 @@ export default function Products() {
         _id,
         name,
         price,
+        presentations,
         image,
         slug,
         producer

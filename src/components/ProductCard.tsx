@@ -9,13 +9,16 @@ import { useLanguage } from "@/context/LanguageContext";
 
 export default function ProductCard({ product }: ProductCardProps) {
   const { language, t } = useLanguage();
+  const hasPresentations = Array.isArray(product.presentations) && product.presentations.length > 0;
+  const currentPrice = hasPresentations ? (product.presentations?.[0]?.price || 0) : (product.price || 0);
+
   const formattedPrice = new Intl.NumberFormat(
     language === "es" ? "es-CR" : "en-US",
     {
       style: "currency",
       currency: language === "es" ? "CRC" : "USD",
     },
-  ).format(product.price);
+  ).format(currentPrice);
 
   return (
     <Link

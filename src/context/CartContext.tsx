@@ -12,12 +12,13 @@ export interface CartItem {
   amount: string;
   roast: string;
   grind: string;
+  price: number;
   quantity: number;
 }
 
 interface CartContextType {
   cartItems: CartItem[];
-  addItem: (product: Product, amount: string, roast: string, grind: string, quantity: number) => void;
+  addItem: (product: Product, amount: string, roast: string, grind: string, quantity: number, price: number) => void;
   removeItem: (id: string) => void;
   updateQuantity: (id: string, quantity: number) => void;
   clearCart: () => void;
@@ -61,7 +62,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
     }, 3000); // hide after 3 seconds
   };
 
-  const addItem = (product: Product, amount: string, roast: string, grind: string, quantity: number = 1) => {
+  const addItem = (product: Product, amount: string, roast: string, grind: string, quantity: number = 1, price: number) => {
     const compositeId = `${product._id}-${amount}-${roast}-${grind}`;
 
     setCartItems((prevItems) => {
@@ -71,19 +72,19 @@ export function CartProvider({ children }: { children: ReactNode }) {
           item.id === compositeId ? { ...item, quantity: item.quantity + quantity } : item
         );
       }
-      return [...prevItems, { id: compositeId, product, amount, roast, grind, quantity }];
+      return [...prevItems, { id: compositeId, product, amount, roast, grind, quantity, price }];
     });
 
     // Handle GA4 event if gtag is available
     if (typeof window !== "undefined" && typeof (window as any).gtag === "function") {
       (window as any).gtag("event", "add_to_cart", {
         currency: "USD", // General fallback, specific logic can be layered if needed
-        value: product.price * quantity,
+        value: price * quantity,
         items: [
           {
             item_id: product._id,
             item_name: product.name,
-            price: product.price,
+            price: price,
             quantity: quantity,
             item_variant: `${amount} | ${roast} | ${grind}`,
           },
@@ -111,7 +112,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
   };
 
   const cartCount = cartItems.reduce((acc, item) => acc + item.quantity, 0);
-  const cartTotal = cartItems.reduce((acc, item) => acc + item.product.price * item.quantity, 0);
+  const cartTotal = cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
 
   return (
     <CartContext.Provider
@@ -126,7 +127,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 50 }}
-            className="fixed bottom-6 right-6 z-[100] bg-[#f6e7d2] border-2 border-[#b82324] text-[#791216] px-4 py-3 rounded-lg shadow-lg flex items-center gap-3 font-gotham"
+            className="fixed bottom-6 right-6 z-100 bg-[#f6e7d2] border-2 border-[#b82324] text-[#791216] px-4 py-3 rounded-lg shadow-lg flex items-center gap-3 font-gotham"
             role="alert"
             aria-live="polite"
           >

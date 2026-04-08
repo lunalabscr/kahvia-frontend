@@ -21,7 +21,7 @@ export default function CheckoutPage() {
         items: cartItems.map((item) => ({
           item_id: item.product._id,
           item_name: item.product.name,
-          price: item.product.price,
+          price: item.price,
           quantity: item.quantity,
           item_variant: `${item.amount} | ${item.roast} | ${item.grind}`,
         })),
@@ -44,7 +44,7 @@ export default function CheckoutPage() {
       const formattedPrice = new Intl.NumberFormat(
         language === "es" ? "es-CR" : "en-US",
         { style: "currency", currency: language === "es" ? "CRC" : "USD" }
-      ).format(item.product.price * item.quantity);
+      ).format(item.price * item.quantity);
 
       return template
         .replace("{quantity}", item.quantity.toString())
@@ -67,7 +67,7 @@ export default function CheckoutPage() {
         items: cartItems.map((item) => ({
           item_id: item.product._id,
           item_name: item.product.name,
-          price: item.product.price,
+          price: item.price,
           quantity: item.quantity,
           item_variant: `${item.amount} | ${item.roast} | ${item.grind}`,
         })),
@@ -117,7 +117,7 @@ export default function CheckoutPage() {
               const formattedItemPrice = new Intl.NumberFormat(
                 language === "es" ? "es-CR" : "en-US",
                 { style: "currency", currency: language === "es" ? "CRC" : "USD" }
-              ).format(item.product.price);
+              ).format(item.price);
 
               return (
                 <div key={item.id} className="flex flex-col sm:flex-row items-center gap-6 py-4 border-b border-[#791216]/10 last:border-0">
@@ -132,7 +132,7 @@ export default function CheckoutPage() {
                     )}
                   </div>
 
-                  <div className="flex-grow text-center sm:text-left">
+                  <div className="grow text-center sm:text-left">
                     <h3 className="text-xl font-bold text-[#b82324] mb-1">{item.product.name}</h3>
                     <p className="text-sm text-[#791216]/80 font-medium mb-2">
                       {t.product.values.amount[item.amount as keyof typeof t.product.values.amount]} •{" "}

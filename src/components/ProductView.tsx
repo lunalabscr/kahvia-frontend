@@ -28,7 +28,9 @@ export default function ProductView({
   const { addItem } = useCart();
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
 
-  const [selectedAmount, setSelectedAmount] = useState<"250g" | "500g" | "1kg">("250g");
+  const hasPresentations = Array.isArray(product.presentations) && product.presentations.length > 0;
+  const initialAmount = hasPresentations ? (product.presentations?.[0]?.weight || "250g") : "250g";
+  const [selectedAmount, setSelectedAmount] = useState<string>(initialAmount);
   const [selectedRoast, setSelectedRoast] = useState<"medium" | "mediumDark">("medium");
   const [selectedGrind, setSelectedGrind] = useState<"ground" | "bean">("bean");
 
@@ -68,13 +70,18 @@ export default function ProductView({
     ...(product.images || []).map((img) => img),
   ].filter(Boolean);
 
+  const currentPresentation = hasPresentations
+    ? product.presentations?.find((p) => p.weight === selectedAmount)
+    : undefined;
+  const currentPrice = currentPresentation ? currentPresentation.price : (product.price || 0);
+
   const formattedPrice = new Intl.NumberFormat(
     language === "es" ? "es-CR" : "en-US",
     {
       style: "currency",
       currency: language === "es" ? "CRC" : "USD",
     },
-  ).format(product.price);
+  ).format(currentPrice);
 
   return (
     <div className="bg-[#f6e7d2] min-h-screen pt-32 pb-20 font-gotham relative overflow-hidden">
@@ -229,7 +236,7 @@ export default function ProductView({
               <div>
                 <span className="block text-[#b82324] font-medium mb-3">{t.product.options.amount}</span>
                 <div className="flex flex-wrap gap-3">
-                  {(["250g", "500g", "1kg"] as const).map((amount) => (
+                  {(hasPresentations ? product.presentations!.map(p => p.weight) : ["250g", "500g", "1kg"]).map((amount) => (
                     <button
                       key={amount}
                       onClick={() => setSelectedAmount(amount)}
@@ -239,7 +246,7 @@ export default function ProductView({
                           : "bg-transparent text-[#791216] border-[#791216]/20 hover:border-[#b82324]"
                       }`}
                     >
-                      {t.product.values.amount[amount]}
+                      {(t.product.values.amount as any)[amount] || amount}
                     </button>
                   ))}
                 </div>
@@ -288,7 +295,7 @@ export default function ProductView({
 
             <div className="flex flex-col gap-4">
               <button
-                onClick={() => addItem(product, selectedAmount, selectedRoast, selectedGrind, 1)}
+                onClick={() => addItem(product, selectedAmount, selectedRoast, selectedGrind, 1, currentPrice)}
                 className="w-full justify-center py-3 px-6 rounded-full font-bold text-[#f6e7d2] bg-[#b82324] hover:bg-[#791216] transition-colors shadow-md"
               >
                 {t.cart.addToCart}
@@ -296,7 +303,7 @@ export default function ProductView({
               
               <ContactButton
                 className="w-full justify-center"
-                message={`${t.product.interestMessage.replace("{productName}", product.name)} [${t.product.options.amount}: ${t.product.values.amount[selectedAmount]}, ${t.product.options.roast}: ${t.product.values.roast[selectedRoast]}, ${t.product.options.grind}: ${t.product.values.grind[selectedGrind]}]`}
+                message={`${t.product.interestMessage.replace("{productName}", product.name)} [${t.product.options.amount}: ${(t.product.values.amount as any)[selectedAmount] || selectedAmount}, ${t.product.options.roast}: ${t.product.values.roast[selectedRoast]}, ${t.product.options.grind}: ${t.product.values.grind[selectedGrind]}]`}
                 phoneNumber={process.env.NEXT_PUBLIC_PHONE_NUMBER}
               />
             </div>
