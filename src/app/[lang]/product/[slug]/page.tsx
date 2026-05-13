@@ -20,6 +20,8 @@ async function getRelatedProducts(productId: string, lang: string) {
     _id,
     name,
     price,
+    presentations,
+    variety,
     image,
     slug
 }`;

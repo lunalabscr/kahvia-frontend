@@ -49,7 +49,7 @@ export default function CheckoutPage() {
       return template
         .replace("{quantity}", item.quantity.toString())
         .replace("{name}", item.product.name)
-        .replace("{amount}", t.product.values.amount[item.amount as keyof typeof t.product.values.amount])
+        .replace("{amount}", (t.product.values.amount as any)[item.amount] || item.amount)
         .replace("{roast}", t.product.values.roast[item.roast as keyof typeof t.product.values.roast])
         .replace("{grind}", t.product.values.grind[item.grind as keyof typeof t.product.values.grind])
         .replace("{price}", formattedPrice);
@@ -135,7 +135,7 @@ export default function CheckoutPage() {
                   <div className="grow text-center sm:text-left">
                     <h3 className="text-xl font-bold text-[#b82324] mb-1">{item.product.name}</h3>
                     <p className="text-sm text-[#791216]/80 font-medium mb-2">
-                      {t.product.values.amount[item.amount as keyof typeof t.product.values.amount]} •{" "}
+                      {(t.product.values.amount as any)[item.amount] || item.amount} •{" "}
                       {t.product.values.roast[item.roast as keyof typeof t.product.values.roast]} •{" "}
                       {t.product.values.grind[item.grind as keyof typeof t.product.values.grind]}
                     </p>

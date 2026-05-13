@@ -56,6 +56,7 @@ export default function Products() {
         name,
         price,
         presentations,
+        variety,
         image,
         slug,
         producer

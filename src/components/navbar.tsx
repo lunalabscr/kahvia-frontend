@@ -16,6 +16,7 @@ import {
   Globe,
   FileText,
   ShoppingBag,
+  MapPin,
 } from "lucide-react";
 import { usePathname, useRouter } from "next/navigation";
 import { useLanguage } from "../context/LanguageContext";
@@ -63,6 +64,7 @@ export default function Navbar() {
     { name: t.nav.products, href: "#products", icon: Coffee },
     { name: t.nav.blog, href: "#blog", icon: FileText },
     { name: t.nav.contact, href: "#contact", icon: Phone },
+    { name: t.nav.locations, href: "locations", icon: MapPin },
   ];
 
   const toggleLanguage = () => {
@@ -90,6 +92,14 @@ export default function Navbar() {
     e: React.MouseEvent<HTMLAnchorElement>,
     linkHref: string,
   ) => {
+    // Non-anchor links (e.g. "locations") navigate directly via getHref
+    if (!linkHref.startsWith("#")) {
+      e.preventDefault();
+      setIsOpen(false);
+      router.push(getHref(linkHref));
+      return;
+    }
+
     const targetId = linkHref.replace("#", "");
 
     // If we are on home and purely scrolling, prevent default
@@ -393,12 +403,12 @@ export default function Navbar() {
             <span className="text-xs mt-1">{t.nav.products}</span>
           </a>
           <a
-            href={getHref("#blog")}
-            onClick={(e) => handleNavClick(e, "#blog")}
+            href={getHref("locations")}
+            onClick={(e) => handleNavClick(e, "locations")}
             className="flex flex-col items-center justify-center w-full h-full text-[#f6e7d2] hover:text-primary-600 cursor-pointer"
           >
-            <FileText size={24} />
-            <span className="text-xs mt-1">{t.nav.blog}</span>
+            <MapPin size={24} />
+            <span className="text-xs mt-1">{t.nav.locations}</span>
           </a>
           <a
             href={getHref("#contact")}

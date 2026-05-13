@@ -188,6 +188,16 @@ export default function ProductView({
 
             {/* Details Grid */}
             <div className="grid grid-cols-2 gap-x-4 gap-y-6 mb-8 text-sm">
+              {product.variety && (
+                <div>
+                  <span className="block text-[#b82324] font-medium mb-1">
+                    {(t.product as any).variety}
+                  </span>
+                  <span className="font-semibold text-[#791216]">
+                    {product.variety}
+                  </span>
+                </div>
+              )}
               {product.process && (
                 <div>
                   <span className="block text-[#b82324] font-medium mb-1">

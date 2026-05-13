@@ -8,6 +8,7 @@ export const translations = {
       products: "Products",
       blog: "Blog",
       contact: "Contact",
+      locations: "Locations",
     },
     home: {
       seo: {
@@ -51,6 +52,7 @@ export const translations = {
       backHome: "Go Home",
     },
     product: {
+      variety: "Variety",
       process: "Process",
       roastLevel: "Roast Level",
       producer: "Producer",
@@ -158,6 +160,7 @@ export const translations = {
       products: "Productos",
       blog: "Blog",
       contact: "Contacto",
+      locations: "Ubicaciones",
     },
     home: {
       seo: {
@@ -202,6 +205,7 @@ export const translations = {
       backHome: "Ir a Inicio",
     },
     product: {
+      variety: "Variedad",
       process: "Proceso",
       roastLevel: "Nivel de Tueste",
       producer: "Productor",

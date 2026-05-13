@@ -37,10 +37,15 @@ export default function ProductCard({ product }: ProductCardProps) {
       </div>
 
       <div className="p-6 flex flex-col grow bg-[#b82324]">
-        <div className="mb-2">
+        <div className="mb-2 flex flex-wrap gap-2 items-center">
           <span className="text-xs font-bold tracking-wider text-[#f6e7d2] uppercase line-clamp-1">
             {product.producer || t.product.singleOrigin}
           </span>
+          {product.variety && (
+            <span className="text-[10px] font-bold tracking-wider bg-[#f6e7d2] text-[#b82324] px-2 py-0.5 rounded-full uppercase">
+              {product.variety}
+            </span>
+          )}
         </div>
         <h3 className="text-lg md:text-xl font-gotham font-black text-[#f6e7d2] mb-2 leading-tight group-hover:text-white transition-colors">
           {product.name}

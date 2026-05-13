@@ -10,6 +10,7 @@ export interface Product {
   image: any;
   slug: { current: string };
   // Optional fields for detailed view
+  variety?: string;
   process?: string;
   roastLevel?: string;
   producer?: string;
