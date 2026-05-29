@@ -49,6 +49,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function ProducersPage({ params }: Props) {
   const { lang } = await params;
   const producers = await getProducers(lang);
+  console.log(producers);
   const t = translations[lang as "en" | "es"] || translations.en;
 
   return (
